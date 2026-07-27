@@ -1,7 +1,7 @@
 from pathlib import Path
 
 
-class GraphSaver:
+class GraphManager:
     """
     This class saves a created plot as a PDF file.
     """
