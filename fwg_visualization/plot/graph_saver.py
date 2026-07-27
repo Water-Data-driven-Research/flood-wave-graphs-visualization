@@ -5,5 +5,10 @@ class GraphSaver:
     """
     This class saves a created plot as a PDF file.
     """
-    def __init__(self):
+    @staticmethod
+    def save_graph():
+        pass
+
+    @staticmethod
+    def load_graph():
         pass
