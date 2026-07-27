@@ -1,6 +1,4 @@
-from src.data_preparation.interfaces.time_series_data_interface import (
-    TimeSeriesDataInterface
-)
+from flood_wave_graphs_visualization.data_preparation.interfaces.time_series_data_interface import TimeSeriesDataInterface
 
 import plotly
 
