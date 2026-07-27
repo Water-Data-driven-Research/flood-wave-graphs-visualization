@@ -5,6 +5,7 @@ from fwg_visualization.data.interfaces.graph_data_interface import (
     GraphDataInterface
 )
 
+
 class GraphPlotter:
     """
     This class creates the plot of the received flood wave graph or flood map.
