@@ -3,7 +3,7 @@ from pathlib import Path
 
 class GraphManager:
     """
-    This class saves a created plot as a PDF file.
+    This static class saves a created plot as a PDF file or loads a saved plot.
     """
     @staticmethod
     def save_graph():
