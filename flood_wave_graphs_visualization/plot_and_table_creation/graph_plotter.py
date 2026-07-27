@@ -1,4 +1,4 @@
-from flood_wave_graphs_visualization.data_preparation.interfaces.graph_data_interface import GraphDataInterface
+from flood_wave_graphs_visualization.data.interfaces.graph_data_interface import GraphDataInterface
 
 import networkx as nx
 import plotly
