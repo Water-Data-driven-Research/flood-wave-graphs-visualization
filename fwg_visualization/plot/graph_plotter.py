@@ -8,7 +8,11 @@ from fwg_visualization.data.interfaces.graph_data_interface import (
 class GraphPlotter:
     """
     This class creates the plot of the received flood wave graph or flood map.
-    :param GraphDataInterface graph_data_interface: contains data for plotting
     """
     def __init__(self, graph_data_interface: GraphDataInterface):
+        """
+        Constructor.
+        :param GraphDataInterface graph_data_interface: contains data for
+                                                        plotting
+        """
         pass

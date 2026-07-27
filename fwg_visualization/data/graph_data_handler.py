@@ -7,7 +7,10 @@ import pandas as pd
 class GraphDataHandler:
     """
     This class preprocesses a flood wave graph or flood map for visualization.
-    :param dict data: the data to be preprocessed
     """
     def __init__(self, data: dict):
+        """
+        Constructor.
+        :param dict data: the data to be preprocessed (the fwg or flood map)
+        """
         pass
