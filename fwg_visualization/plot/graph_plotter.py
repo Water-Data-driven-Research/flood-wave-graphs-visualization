@@ -1,4 +1,6 @@
-from fwg_visualization.data.interfaces.graph_data_interface import GraphDataInterface
+from fwg_visualization.data.interfaces.graph_data_interface import (
+    GraphDataInterface
+)
 
 import networkx as nx
 import plotly
