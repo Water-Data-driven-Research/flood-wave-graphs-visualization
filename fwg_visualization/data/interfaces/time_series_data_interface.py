@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+
 import pandas as pd
 
 
@@ -6,5 +7,6 @@ import pandas as pd
 class TimeSeriesDataInterface:
     """
     Class for storing data preprocessed in a TimeSeriesDataHandler class.
+    :param pd.DataFrame statistics: the statistics to be stored
     """
     statistics: pd.DataFrame = None
