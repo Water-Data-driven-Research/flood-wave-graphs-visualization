@@ -8,7 +8,3 @@ class GraphManager:
     @staticmethod
     def save_graph():
         pass
-
-    @staticmethod
-    def load_graph():
-        pass
