@@ -7,4 +7,4 @@ class TimeSeriesDataInterface:
     """
     Class for storing data preprocessed in a TimeSeriesDataHandler class.
     """
-
+    statistics: pd.DataFrame = None

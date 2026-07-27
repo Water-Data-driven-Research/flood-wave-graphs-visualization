@@ -7,4 +7,4 @@ class GraphDataInterface:
     """
     Class for storing data preprocessed in a GraphDataHandler class.
     """
-
+    data: dict = None
