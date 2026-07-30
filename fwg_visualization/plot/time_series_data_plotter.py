@@ -13,7 +13,6 @@ class TimeSeriesDataPlotter:
         """
         Constructor.
         :param TimeSeriesDataInterface time_series_data_interface: contains
-                                                                   data to be
-                                                                   plotted
+               data to be plotted
         """
         pass

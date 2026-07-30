@@ -14,6 +14,6 @@ class GraphPlotter:
         """
         Constructor.
         :param GraphDataInterface graph_data_interface: contains data for
-                                                        plotting
+               plotting
         """
         pass
