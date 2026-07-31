@@ -28,3 +28,18 @@ mock_graph.add_edges_from(
     ]
 )
 
+
+@pytest.fixture
+def graph_data_interface() -> GraphDataInterface:
+    """
+    Extracts the necessary data from the mock graph with a GraphDataHandler,
+    which stores this data in a fixed GraphDataInterface, which we will use
+    for testing.
+    :return GraphDataInterface: the fixed data interface used for testing
+    """
+    graph_data_handler = GraphDataHandler(
+        graph=mock_graph
+    )
+
+    return graph_data_handler.graph_data_interface
+
