@@ -43,3 +43,12 @@ def graph_data_interface() -> GraphDataInterface:
 
     return graph_data_handler.graph_data_interface
 
+
+@pytest.mark.parametrize('expected_min_date', [
+    datetime(year=1999, month=12, day=20)
+])
+def test_min_date(graph_data_interface: GraphDataInterface,
+                  expected_min_date: datetime
+                  ):
+    assert graph_data_interface.min_date == expected_min_date
+
