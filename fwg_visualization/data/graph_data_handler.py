@@ -51,7 +51,11 @@ class GraphDataHandler:
         Acquires and sorts a list of the stations in the flood wave graphs
         :return list: the
         """
-        pass
+        stations = sorted(
+            [float(node[0]) for node in self.graph_nodes]
+        )
+
+        return stations
 
     def get_positions(self) -> dict:
         """
