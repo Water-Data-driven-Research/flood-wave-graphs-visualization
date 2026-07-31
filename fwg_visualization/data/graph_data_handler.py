@@ -1,7 +1,7 @@
 from datetime import datetime
 
 import networkx as nx
-import pandas as pd
+
 from fwg_visualization.data.interfaces.graph_data_interface import (
     GraphDataInterface
 )
@@ -26,5 +26,32 @@ class GraphDataHandler:
         """
         Run function, extracts the data and fills the self.extracted_data
         dictionary with it, then instantiates a GraphDataInterface.
+        """
+        self.extracted_data['min_date'] = self.get_min_date()
+        self.extracted_data['stations'] = self.get_stations()
+        self.extracted_data['pos'] = self.get_positions()
+
+        self.data_interface = GraphDataInterface(data=self.extracted_data)
+
+    def get_min_date(self) -> datetime:
+        """
+        Finds the earliest date among the dates of the nodes of the flood wave
+        graph.
+        :return datetime: the earliest date
+        """
+        pass
+
+    def get_stations(self) -> list:
+        """
+        Acquires and sorts a list of the stations in the flood wave graphs
+        :return list: the
+        """
+        pass
+
+    def get_positions(self) -> dict:
+        """
+        Creates a dictionary mapping the nodes to their eventual positions on
+        the plot.
+        :return dict: the dictionary of the nodes and their positions
         """
         pass
