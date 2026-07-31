@@ -63,4 +63,20 @@ class GraphDataHandler:
         the plot.
         :return dict: the dictionary of the nodes and their positions
         """
-        pass
+        station_to_idx = {
+            station: i for i, station in enumerate(
+                self.extracted_data['stations']
+            )
+        }
+
+        positions = dict()
+
+        for node in self.graph_nodes:
+            node_date = datetime.strptime(node[1], '%Y-%m-%d')
+
+            x_coord = (node_date - self.extracted_data['min_date']).days
+            y_coord = station_to_idx[float(node[0])]
+
+            positions[node] = (x_coord, y_coord)
+
+        return positions
