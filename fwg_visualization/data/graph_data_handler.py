@@ -11,12 +11,12 @@ class GraphDataHandler:
     """
     This class preprocesses a flood wave graph or flood map for visualization.
     """
-    def __init__(self, data: dict):
+    def __init__(self, graph: nx.DiGraph):
         """
         Constructor.
-        :param dict data: the data to be preprocessed (the fwg or flood map)
+        :param nx.DiGraph graph: the fwg or flood map to be preprocessed
         """
-        self.graph_nodes = data['graph'].nodes()
+        self.graph_nodes = graph.nodes()
         self.graph_data_interface = GraphDataInterface()
         self.min_date = None
         self.stations = []
