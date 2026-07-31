@@ -61,3 +61,20 @@ def test_stations(graph_data_interface: GraphDataInterface,
                   ):
     assert graph_data_interface.stations == expected_stations
 
+
+@pytest.mark.parametrize('expected_pos', [
+    {
+        ('1.0', '2000-01-01'): (12, 0),
+        ('1.0', '2000-01-06'): (17, 0),
+        ('1.0', '2000-01-08'): (19, 0),
+        ('2.0', '1999-12-31'): (11, 1),
+        ('2.0', '2000-01-04'): (15, 1),
+        ('3.0', '2000-01-03'): (14, 2),
+        ('3.0', '1999-12-20'): (0, 2),
+        ('5.0', '1999-12-24'): (4, 3)
+    }
+])
+def test_pos(graph_data_interface: GraphDataInterface,
+             expected_pos: dict
+             ):
+    assert graph_data_interface.pos == expected_pos
