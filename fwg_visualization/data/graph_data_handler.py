@@ -26,8 +26,9 @@ class GraphDataHandler:
 
     def run(self):
         """
-        Run function, extracts the data and fills the self.extracted_data
-        dictionary with it, then instantiates a GraphDataInterface.
+        Run function, extracts the required data (min_date, stations, pos) and
+        fills the member variables with it, then instantiates a
+        GraphDataInterface to store this data.
         """
         self.min_date = self.get_min_date()
         self.stations = self.get_stations()
