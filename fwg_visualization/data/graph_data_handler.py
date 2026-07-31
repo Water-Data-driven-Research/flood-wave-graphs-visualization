@@ -42,7 +42,7 @@ class GraphDataHandler:
     def get_min_date(self) -> datetime:
         """
         Finds the earliest date among the dates of the nodes of the flood wave
-        graph.
+        graph or flood map.
         :return datetime: the earliest date
         """
         min_date_temp = min(
@@ -54,8 +54,9 @@ class GraphDataHandler:
 
     def get_stations(self) -> list:
         """
-        Acquires and sorts a list of the stations in the flood wave graphs
-        :return list: the
+        Acquires and sorts a list of the stations in the flood wave graph or
+        flood map.
+        :return list: the list of the stations in the graph
         """
         stations = sorted(
             [float(node[0]) for node in self.graph_nodes]
@@ -66,7 +67,7 @@ class GraphDataHandler:
     def get_positions(self) -> dict:
         """
         Creates a dictionary mapping the nodes to their eventual positions on
-        the plot.
+        the grid of the plot.
         :return dict: the dictionary of the nodes and their positions
         """
         station_to_idx = {
