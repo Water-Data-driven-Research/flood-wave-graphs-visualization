@@ -43,7 +43,7 @@ class GraphDataHandler:
         """
         Finds the earliest date among the dates of the nodes of the flood wave
         graph or flood map.
-        :return datetime: the earliest date
+        :return datetime: the earliest date on the fwg or flood map plot
         """
         min_date_temp = min(
             [node[1] for node in self.graph_nodes]
