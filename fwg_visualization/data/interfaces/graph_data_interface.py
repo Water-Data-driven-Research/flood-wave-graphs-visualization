@@ -6,6 +6,10 @@ from datetime import datetime
 class GraphDataInterface:
     """
     Class for storing data preprocessed in a GraphDataHandler class.
-    :param dict data: the data to be stored
+    :param datetime min_date: the earliest node date on the graph
+    :param list stations: the list of the stations on the graph
+    :param dict pos: maps the nodes to their eventual positions on the grid
     """
-    data: dict = None
+    min_date: datetime = None
+    stations: list = None
+    pos: dict = None

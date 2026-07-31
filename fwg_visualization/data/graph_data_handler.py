@@ -17,8 +17,10 @@ class GraphDataHandler:
         :param dict data: the data to be preprocessed (the fwg or flood map)
         """
         self.graph_nodes = data['graph'].nodes()
-        self.data_interface = GraphDataInterface()
-        self.extracted_data = dict()
+        self.graph_data_interface = GraphDataInterface()
+        self.min_date = None
+        self.stations = []
+        self.pos = dict()
 
         self.run()
 
@@ -27,11 +29,15 @@ class GraphDataHandler:
         Run function, extracts the data and fills the self.extracted_data
         dictionary with it, then instantiates a GraphDataInterface.
         """
-        self.extracted_data['min_date'] = self.get_min_date()
-        self.extracted_data['stations'] = self.get_stations()
-        self.extracted_data['pos'] = self.get_positions()
+        self.min_date = self.get_min_date()
+        self.stations = self.get_stations()
+        self.pos = self.get_positions()
 
-        self.data_interface = GraphDataInterface(data=self.extracted_data)
+        self.graph_data_interface = GraphDataInterface(
+            min_date=self.min_date,
+            stations=self.stations,
+            pos=self.pos
+        )
 
     def get_min_date(self) -> datetime:
         """
@@ -65,7 +71,7 @@ class GraphDataHandler:
         """
         station_to_idx = {
             station: i for i, station in enumerate(
-                self.extracted_data['stations']
+                self.stations
             )
         }
 
@@ -74,7 +80,7 @@ class GraphDataHandler:
         for node in self.graph_nodes:
             node_date = datetime.strptime(node[1], '%Y-%m-%d')
 
-            x_coord = (node_date - self.extracted_data['min_date']).days
+            x_coord = (node_date - self.min_date).days
             y_coord = station_to_idx[float(node[0])]
 
             positions[node] = (x_coord, y_coord)
