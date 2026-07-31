@@ -39,7 +39,12 @@ class GraphDataHandler:
         graph.
         :return datetime: the earliest date
         """
-        pass
+        min_date_temp = min(
+            [node[1] for node in self.graph_nodes]
+        )
+        min_date = datetime.strptime(min_date_temp, '%Y-%m-%d')
+
+        return min_date
 
     def get_stations(self) -> list:
         """
