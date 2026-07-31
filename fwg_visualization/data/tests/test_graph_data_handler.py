@@ -52,3 +52,12 @@ def test_min_date(graph_data_interface: GraphDataInterface,
                   ):
     assert graph_data_interface.min_date == expected_min_date
 
+
+@pytest.mark.parametrize('expected_stations', [
+    [1.0, 2.0, 3.0, 5.0]
+])
+def test_stations(graph_data_interface: GraphDataInterface,
+                  expected_stations: list
+                  ):
+    assert graph_data_interface.stations == expected_stations
+
