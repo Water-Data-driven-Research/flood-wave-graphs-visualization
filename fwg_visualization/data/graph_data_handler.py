@@ -58,9 +58,9 @@ class GraphDataHandler:
         flood map.
         :return list: the list of the stations in the graph
         """
-        stations = sorted(
+        stations = sorted(list(set(
             [float(node[0]) for node in self.graph_nodes]
-        )
+        )))
 
         return stations
 
