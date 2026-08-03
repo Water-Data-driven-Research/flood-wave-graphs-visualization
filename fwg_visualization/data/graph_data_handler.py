@@ -71,9 +71,7 @@ class GraphDataHandler:
         :return dict: the dictionary of the nodes and their positions
         """
         station_to_idx = {
-            station: i for i, station in enumerate(
-                self.stations
-            )
+            station: i for i, station in enumerate(self.stations)
         }
 
         positions = dict()
