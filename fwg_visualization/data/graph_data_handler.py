@@ -23,8 +23,6 @@ class GraphDataHandler:
         self.stations = []
         self.pos = dict()
 
-        self.run()
-
     def run(self):
         """
         Run function, extracts the required data (min_date, stations, pos) and
