@@ -17,6 +17,7 @@ class GraphDataHandler:
         :param nx.DiGraph graph: the fwg or flood map to be preprocessed
         """
         self.graph_nodes = graph.nodes()
+
         self.graph_data_interface = GraphDataInterface()
         self.min_date = None
         self.stations = []
