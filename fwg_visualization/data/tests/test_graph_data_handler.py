@@ -9,28 +9,33 @@ from fwg_visualization.data.interfaces.graph_data_interface import (
 )
 
 
-mock_graph = nx.DiGraph()
-
-mock_graph.add_nodes_from(
-    nodes_for_adding=[
-        ('1.0', '2000-01-01'), ('1.0', '2000-01-06'),
-        ('1.0', '2000-01-08'), ('2.0', '1999-12-31'),
-        ('2.0', '2000-01-04'), ('3.0', '2000-01-03'),
-        ('3.0', '1999-12-20'), ('5.0', '1999-12-24')
-    ]
-)
-
-mock_graph.add_edges_from(
-    ebunch_to_add=[
-        (('2.0', '1999-12-31'), ('1.0', '2000-01-01'), {'slope': 1.0}),
-        (('2.0', '2000-01-04'), ('1.0', '2000-01-06'), {'slope': 1.0}),
-        (('3.0', '2000-01-03'), ('2.0', '2000-01-04'), {'slope': 1.0})
-    ]
-)
+@pytest.fixture()
+def mock_graph() -> nx.DiGraph:
+    """
+    Creates a mock graph on which the codebase can be tested.
+    :return nx.DiGraph: the mock graph on which we can run tests
+    """
+    mock_graph = nx.DiGraph()
+    mock_graph.add_nodes_from(
+        nodes_for_adding=[
+            ('1.0', '2000-01-01'), ('1.0', '2000-01-06'),
+            ('1.0', '2000-01-08'), ('2.0', '1999-12-31'),
+            ('2.0', '2000-01-04'), ('3.0', '2000-01-03'),
+            ('3.0', '1999-12-20'), ('5.0', '1999-12-24')
+        ]
+    )
+    mock_graph.add_edges_from(
+        ebunch_to_add=[
+            (('2.0', '1999-12-31'), ('1.0', '2000-01-01'), {'slope': 1.0}),
+            (('2.0', '2000-01-04'), ('1.0', '2000-01-06'), {'slope': 1.0}),
+            (('3.0', '2000-01-03'), ('2.0', '2000-01-04'), {'slope': 1.0})
+        ]
+    )
+    return mock_graph
 
 
 @pytest.fixture
-def graph_data_interface() -> GraphDataInterface:
+def graph_data_interface(mock_graph) -> GraphDataInterface:
     """
     Extracts the necessary data from the mock graph with a GraphDataHandler,
     which stores this data in a fixed GraphDataInterface, which we will use
