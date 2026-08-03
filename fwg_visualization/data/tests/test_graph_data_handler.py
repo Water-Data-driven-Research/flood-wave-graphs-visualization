@@ -40,6 +40,7 @@ def graph_data_interface(mock_graph) -> GraphDataInterface:
     Extracts the necessary data from the mock graph with a GraphDataHandler,
     which stores this data in a fixed GraphDataInterface, which we will use
     for testing.
+    :param nx.DiGraph mock_graph: the mock graph on which we run the tests
     :return GraphDataInterface: the fixed data interface used for testing
     """
     graph_data_handler = GraphDataHandler(
