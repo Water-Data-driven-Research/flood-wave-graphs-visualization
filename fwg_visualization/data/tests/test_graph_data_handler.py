@@ -56,6 +56,13 @@ def graph_data_interface(mock_graph) -> GraphDataInterface:
 def test_min_date(graph_data_interface: GraphDataInterface,
                   expected_min_date: datetime
                   ):
+    """
+    Tests whether the minimum date is correctly calculated or not.
+    :param GraphDataInterface graph_data_interface: contains the results of the
+           minimum date calculation
+    :param datetime expected_min_date: the expected correct result for the
+           minimum date calculation
+    """
     assert graph_data_interface.min_date == expected_min_date
 
 
@@ -65,6 +72,12 @@ def test_min_date(graph_data_interface: GraphDataInterface,
 def test_stations(graph_data_interface: GraphDataInterface,
                   expected_stations: list
                   ):
+    """
+    Tests whether the list of stations is correctly acquired or not.
+    :param GraphDataInterface graph_data_interface: contains the acquired list
+           of stations
+    :param list expected_stations: the expected correct list of stations
+    """
     assert graph_data_interface.stations == expected_stations
 
 
@@ -83,4 +96,12 @@ def test_stations(graph_data_interface: GraphDataInterface,
 def test_pos(graph_data_interface: GraphDataInterface,
              expected_pos: dict
              ):
+    """
+    Tests whether the future positions on the grid are correctly calculated or
+    not.
+    :param GraphDataInterface graph_data_interface: contains the calculated
+           mapping of nodes to their eventual positions on the grid
+    :param dict expected_pos: the expected correct mapping of nodes to their
+           eventual positions on the grid
+    """
     assert graph_data_interface.pos == expected_pos
