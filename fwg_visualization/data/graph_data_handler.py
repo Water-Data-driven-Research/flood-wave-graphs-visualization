@@ -29,10 +29,9 @@ class GraphDataHandler:
         fills the member variables with it, then instantiates a
         GraphDataInterface to store this data.
         """
-        self.stations = self.get_stations()
-        self.pos = self.get_positions()
         self.get_min_date()
         self.get_stations()
+        self.get_positions()
 
         self.graph_data_interface = GraphDataInterface(
             min_date=self.min_date,
@@ -59,19 +58,14 @@ class GraphDataHandler:
             [float(node[0]) for node in self.graph_nodes]
         )))
 
-        return stations
-
-    def get_positions(self) -> dict:
+    def get_positions(self):
         """
-        Creates a dictionary mapping the nodes to their eventual positions on
-        the grid of the plot.
-        :return dict: the dictionary of the nodes and their positions
+        Fills the self.pos dictionary, which maps the nodes to their eventual
+        positions on the grid of the plot.
         """
         station_to_idx = {
             station: i for i, station in enumerate(self.stations)
         }
-
-        positions = dict()
 
         for node in self.graph_nodes:
             node_date = datetime.strptime(node[1], '%Y-%m-%d')
@@ -79,6 +73,4 @@ class GraphDataHandler:
             x_coord = (node_date - self.min_date).days
             y_coord = station_to_idx[float(node[0])]
 
-            positions[node] = (x_coord, y_coord)
-
-        return positions
+            self.pos[node] = (x_coord, y_coord)
