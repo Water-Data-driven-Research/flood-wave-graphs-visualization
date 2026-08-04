@@ -35,7 +35,7 @@ def mock_graph() -> nx.DiGraph:
 
 
 @pytest.fixture
-def graph_data_interface(mock_graph) -> GraphDataInterface:
+def graph_data_interface(mock_graph: nx.DiGraph) -> GraphDataInterface:
     """
     Extracts the necessary data from the mock graph with a GraphDataHandler,
     which stores this data in a fixed GraphDataInterface, which we will use
@@ -46,6 +46,7 @@ def graph_data_interface(mock_graph) -> GraphDataInterface:
     graph_data_handler = GraphDataHandler(
         graph=mock_graph
     )
+    graph_data_handler.run()
 
     return graph_data_handler.graph_data_interface
 
