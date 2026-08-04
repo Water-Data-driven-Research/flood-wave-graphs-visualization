@@ -29,9 +29,9 @@ class GraphDataHandler:
         fills the member variables with it, then instantiates a
         GraphDataInterface to store this data.
         """
-        self.min_date = self.get_min_date()
         self.stations = self.get_stations()
         self.pos = self.get_positions()
+        self.get_min_date()
 
         self.graph_data_interface = GraphDataInterface(
             min_date=self.min_date,
@@ -39,18 +39,15 @@ class GraphDataHandler:
             pos=self.pos
         )
 
-    def get_min_date(self) -> datetime:
+    def get_min_date(self):
         """
-        Finds the earliest date among the dates of the nodes of the flood wave
-        graph or flood map.
-        :return datetime: the earliest date on the fwg or flood map plot
+        Fills the self.min_date datetime by finding the earliest date among
+        the dates of the nodes of the flood wave graph or flood map.
         """
         min_date_temp = min(
             [node[1] for node in self.graph_nodes]
         )
-        min_date = datetime.strptime(min_date_temp, '%Y-%m-%d')
-
-        return min_date
+        self.min_date = datetime.strptime(min_date_temp, '%Y-%m-%d')
 
     def get_stations(self) -> list:
         """
