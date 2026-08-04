@@ -32,6 +32,7 @@ class GraphDataHandler:
         self.stations = self.get_stations()
         self.pos = self.get_positions()
         self.get_min_date()
+        self.get_stations()
 
         self.graph_data_interface = GraphDataInterface(
             min_date=self.min_date,
@@ -49,13 +50,12 @@ class GraphDataHandler:
         )
         self.min_date = datetime.strptime(min_date_temp, '%Y-%m-%d')
 
-    def get_stations(self) -> list:
+    def get_stations(self):
         """
-        Acquires and sorts a list of the stations in the flood wave graph or
-        flood map.
-        :return list: the list of the stations in the graph
+        Fills the self.stations list by acquiring and sorting a list of the
+        stations in the flood wave graph or flood map.
         """
-        stations = sorted(list(set(
+        self.stations = sorted(list(set(
             [float(node[0]) for node in self.graph_nodes]
         )))
 
