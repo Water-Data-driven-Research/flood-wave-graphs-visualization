@@ -19,9 +19,9 @@ class GraphDataHandler:
         self.graph_nodes = graph.nodes()
 
         self.graph_data_interface = GraphDataInterface()
-        self.min_date = None
-        self.stations = []
-        self.pos = dict()
+        self.min_date: datetime = datetime.min
+        self.stations: list = []
+        self.pos: dict = {}
 
     def run(self):
         """
