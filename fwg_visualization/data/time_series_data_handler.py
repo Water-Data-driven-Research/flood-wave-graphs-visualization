@@ -17,4 +17,7 @@ class TimeSeriesDataHandler:
                keys: station pairs, values: pandas DataFrames (data of the
                given station pairs)
         """
-        pass
+        self.data = data
+
+        self.time_series_data_interface = TimeSeriesDataInterface()
+
