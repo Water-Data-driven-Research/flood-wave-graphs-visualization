@@ -1,5 +1,9 @@
 import pandas as pd
 
+from fwg_visualization.data.interfaces.time_series_data_interface import (
+    TimeSeriesDataInterface
+)
+
 
 class TimeSeriesDataHandler:
     """
