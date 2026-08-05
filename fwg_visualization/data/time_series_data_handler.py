@@ -13,6 +13,8 @@ class TimeSeriesDataHandler:
     def __init__(self, data: dict):
         """
         Constructor.
-        :param dict data: the data to be preprocessed (the statistics)
+        :param dict data: the data to be preprocessed (the statistics),
+               keys: station pairs, values: pandas DataFrames (data of the
+               given station pairs)
         """
         pass
