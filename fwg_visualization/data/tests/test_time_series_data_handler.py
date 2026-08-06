@@ -75,17 +75,17 @@ def time_series_data_interface(mock_year_range,
     return time_series_data_handler.time_series_data_interface
 
 
-@pytest.mark.parametrize('expected_column_names', [
-    ['station_pair', 'date', 'value']
+@pytest.mark.parametrize('expected_station_pair_list', [
+    [(300, 270), (220, 150), (120, 110), (105, 40), (15, 2)]
 ])
-def test_column_names(time_series_data_interface: TimeSeriesDataInterface,
-                      expected_column_names: list
-                      ):
+def test_station_pairs(time_series_data_interface: TimeSeriesDataInterface,
+                       expected_station_pair_list: list):
     """
-    Tests whether the names of the columns in the created data frame are as
-    expected.
-    :param time_series_data_interface: interface containing the data frame
-    :param expected_column_names: the expected names of the columns
+    Tests whether the names of the station pairs in the created dictionary are
+    as expected.
+    :param time_series_data_interface: interface containing the dictionary
+    :param expected_station_pair_list: the expected list of the station pairs
     """
-    column_names = list(time_series_data_interface.statistics.columns)
-    assert expected_column_names == column_names
+    station_pair_list = list(time_series_data_interface.statistics.keys())
+    assert expected_station_pair_list == station_pair_list
+
