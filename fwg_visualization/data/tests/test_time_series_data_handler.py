@@ -212,3 +212,19 @@ def test_station_pairs_q(
     """
     station_pair_list = list(time_series_data_interface_q.statistics.keys())
     assert expected_station_pair_list == station_pair_list
+
+
+@pytest.mark.parametrize('expected_data_frame_shape', [
+    (20, 1)
+])
+def test_data_frame_shape_q(
+        time_series_data_interface_q: TimeSeriesDataInterface,
+        expected_data_frame_shape: list):
+    """
+    Tests whether the received quarterly data was filtered to the correct size
+    or not.
+    :param time_series_data_interface_q: interface containing quarterly data
+    :param expected_data_frame_shape: the expected shape of the data frames
+    """
+    for data_frame in time_series_data_interface_q.statistics.values():
+        assert data_frame.shape == expected_data_frame_shape
