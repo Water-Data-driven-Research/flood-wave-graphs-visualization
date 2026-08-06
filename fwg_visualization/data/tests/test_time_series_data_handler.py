@@ -48,3 +48,20 @@ def mock_data() -> dict:
 
     return mock_data
 
+
+@pytest.fixture
+def time_series_data_interface(mock_data) -> TimeSeriesDataInterface:
+    """
+    Preprocesses the received data using a TimeSeriesDataHandler, which then
+    stores this preprocessed data in a TimeSeriesDataInterface, which we will
+    use for testing.
+    :param dict mock_data: the mock data on which we run the tests
+    :return TimeSeriesDataInterface: the fixed data interface used for testing
+    """
+    time_series_data_handler = TimeSeriesDataHandler(
+        data=mock_data
+    )
+    time_series_data_handler.run()
+
+    return time_series_data_handler.time_series_data_interface
+
