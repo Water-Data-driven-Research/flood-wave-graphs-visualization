@@ -125,7 +125,27 @@ def time_series_data_interface_y(
 
     return time_series_data_handler_y.time_series_data_interface
 
-    return time_series_data_handler.time_series_data_interface
+
+@pytest.fixture
+def time_series_data_interface_q(
+        mock_year_range: tuple,
+        mock_quarterly_data: dict) -> TimeSeriesDataInterface:
+    """
+    Preprocesses the received quarterly data using a TimeSeriesDataHandler,
+    which then stores this preprocessed data in a TimeSeriesDataInterface,
+    which we will use for testing.
+    :param tuple mock_year_range: the year range for which we filter the data
+    :param dict mock_quarterly_data: the quarterly mock data on which we run
+           the tests
+    :return TimeSeriesDataInterface: the fixed data interface used for testing
+    """
+    time_series_data_handler_q = TimeSeriesDataHandler(
+        year_range=mock_year_range,
+        data=mock_quarterly_data
+    )
+    time_series_data_handler_q.run()
+
+    return time_series_data_handler_q.time_series_data_interface
 
 
 @pytest.mark.parametrize('expected_station_pair_list', [
