@@ -228,3 +228,21 @@ def test_data_frame_shape_q(
     """
     for data_frame in time_series_data_interface_q.statistics.values():
         assert data_frame.shape == expected_data_frame_shape
+
+
+@pytest.mark.parametrize('expected_min_date, expected_max_date', [
+    (pd.Period(value='2000Q1', freq='Q'), pd.Period(value='2004Q4', freq='Q'))
+])
+def test_data_filtering_q(
+        time_series_data_interface_q: TimeSeriesDataInterface,
+        expected_min_date: str,
+        expected_max_date: str):
+    """
+    Tests whether the received quarterly data was filtered correctly or not.
+    :param time_series_data_interface_q: interface containing quarterly data
+    :param expected_min_date: the expected earliest year
+    :param expected_max_date: the expected latest year
+    """
+    for data_frame in time_series_data_interface_q.statistics.values():
+        assert min(data_frame.index) == expected_min_date
+        assert max(data_frame.index) == expected_max_date
