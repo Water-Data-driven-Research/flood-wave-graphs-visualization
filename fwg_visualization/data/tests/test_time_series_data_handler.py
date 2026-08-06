@@ -67,7 +67,7 @@ def time_series_data_interface(mock_data) -> TimeSeriesDataInterface:
 
 
 @pytest.mark.parametrize('expected_column_names', [
-    'station_pair', 'date', 'value'
+    ['station_pair', 'date', 'value']
 ])
 def test_column_names(time_series_data_interface: TimeSeriesDataInterface,
                       expected_column_names: list
