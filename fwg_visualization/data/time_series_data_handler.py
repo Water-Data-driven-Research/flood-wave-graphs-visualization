@@ -10,7 +10,7 @@ class TimeSeriesDataHandler:
     This class preprocesses the received yearly and quarterly statistics for
     visualization.
     """
-    def __init__(self, data: dict):
+    def __init__(self, year_range: tuple, data: dict):
         """
         Constructor.
         :param dict data: the data to be preprocessed (the statistics),
@@ -18,6 +18,7 @@ class TimeSeriesDataHandler:
                given station pairs)
         """
         self.data = data
+        self.year_range = year_range
 
         self.time_series_data_interface = TimeSeriesDataInterface()
 
