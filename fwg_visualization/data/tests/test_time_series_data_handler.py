@@ -89,3 +89,17 @@ def test_station_pairs(time_series_data_interface: TimeSeriesDataInterface,
     station_pair_list = list(time_series_data_interface.statistics.keys())
     assert expected_station_pair_list == station_pair_list
 
+
+@pytest.mark.parametrize('expected_data_frame_shape', [
+    (5, 1)
+])
+def test_data_frame_shape(time_series_data_interface: TimeSeriesDataInterface,
+                          expected_data_frame_shape: list):
+    """
+    Tests whether the data was filtered to the correct size or not.
+    :param time_series_data_interface: interface containing the dictionary
+    :param expected_data_frame_shape: the expected shape of the data frames
+    """
+    for data_frame in time_series_data_interface.statistics.values():
+        assert data_frame.shape == expected_data_frame_shape
+
