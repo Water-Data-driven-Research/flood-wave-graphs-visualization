@@ -196,3 +196,19 @@ def test_data_filtering_y(
     for data_frame in time_series_data_interface_y.statistics.values():
         assert min(data_frame.index) == expected_min_date
         assert max(data_frame.index) == expected_max_date
+
+
+@pytest.mark.parametrize('expected_station_pair_list', [
+    [(300, 270), (220, 150), (120, 110), (105, 40), (15, 2)]
+])
+def test_station_pairs_q(
+        time_series_data_interface_q: TimeSeriesDataInterface,
+        expected_station_pair_list: list):
+    """
+    Tests whether the names of the station pairs in the created dictionary
+    (contains quarterly data) are as expected.
+    :param time_series_data_interface_q: interface containing quarterly data
+    :param expected_station_pair_list: the expected list of the station pairs
+    """
+    station_pair_list = list(time_series_data_interface_q.statistics.keys())
+    assert expected_station_pair_list == station_pair_list
