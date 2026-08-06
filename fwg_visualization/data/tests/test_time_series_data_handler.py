@@ -57,6 +57,54 @@ def mock_yearly_data() -> dict:
 
 
 @pytest.fixture
+def mock_quarterly_data() -> dict:
+    """
+    Creates a mock data dictionary containing quarterly data, on which we can
+    test the code base.
+    :return dict: the quarterly mock data on which the tests will be run
+    """
+    mock_quarterly_data: dict = {}
+    mock_dates = pd.Index(
+        data=['1999Q2', '1999Q3', '1999Q4',
+              '2000Q1', '2000Q2', '2000Q3', '2000Q4',
+              '2001Q1', '2001Q2', '2001Q3', '2001Q4',
+              '2002Q1', '2002Q2', '2002Q3', '2002Q4',
+              '2003Q1', '2003Q2', '2003Q3', '2003Q4',
+              '2004Q1', '2004Q2', '2004Q3', '2004Q4',
+              '2005Q1', '2005Q2'],
+        dtype='period[Q-DEC]',
+        name='date'
+    )
+
+    mock_quarterly_data[(300, 270)] = pd.DataFrame({
+        'value': [42, 0, 87, 15, None, 63, 28, 91, 7, 54, 0, 39, 76, 18, 95,
+                  None, 33, 61, 12, 84, 49, 0, 27, None, 70]
+    }).set_index(mock_dates)
+
+    mock_quarterly_data[(220, 150)] = pd.DataFrame({
+        'value': [5, 19, None, 73, 44, 0, 82, 67, 11, 90, 36, 58, None, 24, 0,
+                  99, 13, 46, 71, 8, None, 65, 32, 17, 0]
+    }).set_index(mock_dates)
+
+    mock_quarterly_data[(120, 110)] = pd.DataFrame({
+        'value': [100, 94, 81, None, 22, 0, 57, 39, 68, 14, 75, 29, 0, None,
+                  52, 86, 6, 41, 97, 18, 63, None, 34, 9, 0]
+    }).set_index(mock_dates)
+
+    mock_quarterly_data[(105, 40)] = pd.DataFrame({
+        'value': [None, 26, 51, 78, 0, 13, 64, 88, 37, 20, 95, None, 4, 56,
+                  72, 0, 31, 84, 16, 69, None, 45, 92, 8, 53]
+    }).set_index(mock_dates)
+
+    mock_quarterly_data[(15, 2)] = pd.DataFrame({
+        'value': [17, 0, 62, 35, 89, None, 48, 23, 76, 10, 0, 54, 97, 41,
+                  None, 66, 15, 83, 28, 0, 59, 94, None, 7, 38]
+    }).set_index(mock_dates)
+
+    return mock_quarterly_data
+
+
+@pytest.fixture
 def time_series_data_interface_y(
         mock_year_range: tuple,
         mock_yearly_data: dict) -> TimeSeriesDataInterface:
