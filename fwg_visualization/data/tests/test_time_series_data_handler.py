@@ -103,3 +103,19 @@ def test_data_frame_shape(time_series_data_interface: TimeSeriesDataInterface,
     for data_frame in time_series_data_interface.statistics.values():
         assert data_frame.shape == expected_data_frame_shape
 
+
+@pytest.mark.parametrize('expected_min_date, expected_max_date', [
+    (pd.Period(value='2000', freq='Y'), pd.Period(value='2004', freq='Y'))
+])
+def test_data_filtering(time_series_data_interface: TimeSeriesDataInterface,
+                        expected_min_date: str,
+                        expected_max_date: str):
+    """
+    Tests whether the data was filtered correctly.
+    :param time_series_data_interface: interface containing the dictionary
+    :param expected_min_date: the expected earliest year
+    :param expected_max_date: the expected latest year
+    """
+    for data_frame in time_series_data_interface.statistics.values():
+        assert min(data_frame.index) == expected_min_date
+        assert max(data_frame.index) == expected_max_date
