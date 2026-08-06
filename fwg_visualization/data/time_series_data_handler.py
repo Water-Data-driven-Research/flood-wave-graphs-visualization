@@ -13,6 +13,8 @@ class TimeSeriesDataHandler:
     def __init__(self, year_range: tuple, data: dict):
         """
         Constructor.
+        :param tuple year_range: the years for which to filter the data, the
+               first and last years are both included in the filtered data
         :param dict data: the data to be preprocessed (the statistics),
                keys: station pairs, values: pandas DataFrames (data of the
                given station pairs)
