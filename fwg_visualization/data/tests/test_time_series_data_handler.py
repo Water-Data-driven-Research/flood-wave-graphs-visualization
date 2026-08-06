@@ -22,8 +22,9 @@ def mock_year_range() -> tuple:
 @pytest.fixture
 def mock_yearly_data() -> dict:
     """
-    Creates a mock data dictionary on which we can test the code base.
-    :return dict: the mock data on which the tests will be run
+    Creates a mock data dictionary containing yearly data, on which we can
+    test the code base.
+    :return dict: the yearly mock data on which the tests will be run
     """
     mock_yearly_data: dict = {}
     mock_dates = pd.Index(
@@ -56,22 +57,25 @@ def mock_yearly_data() -> dict:
 
 
 @pytest.fixture
-def time_series_data_interface(mock_year_range: tuple,
-                               mock_yearly_data: dict
-                               ) -> TimeSeriesDataInterface:
+def time_series_data_interface_y(
+        mock_year_range: tuple,
+        mock_yearly_data: dict) -> TimeSeriesDataInterface:
     """
-    Preprocesses the received data using a TimeSeriesDataHandler, which then
-    stores this preprocessed data in a TimeSeriesDataInterface, which we will
-    use for testing.
+    Preprocesses the received yearly data using a TimeSeriesDataHandler, which
+    then stores this preprocessed data in a TimeSeriesDataInterface, which we
+    will use for testing.
     :param tuple mock_year_range: the year range for which we filter the data
-    :param dict mock_yearly_data: the mock data on which we run the tests
+    :param dict mock_yearly_data: the yearly mock data on which we run the
+           tests
     :return TimeSeriesDataInterface: the fixed data interface used for testing
     """
-    time_series_data_handler = TimeSeriesDataHandler(
+    time_series_data_handler_y = TimeSeriesDataHandler(
         year_range=mock_year_range,
         data=mock_yearly_data
     )
-    time_series_data_handler.run()
+    time_series_data_handler_y.run()
+
+    return time_series_data_handler_y.time_series_data_interface
 
     return time_series_data_handler.time_series_data_interface
 
@@ -79,44 +83,48 @@ def time_series_data_interface(mock_year_range: tuple,
 @pytest.mark.parametrize('expected_station_pair_list', [
     [(300, 270), (220, 150), (120, 110), (105, 40), (15, 2)]
 ])
-def test_station_pairs(time_series_data_interface: TimeSeriesDataInterface,
-                       expected_station_pair_list: list):
+def test_station_pairs_y(
+        time_series_data_interface_y: TimeSeriesDataInterface,
+        expected_station_pair_list: list):
     """
-    Tests whether the names of the station pairs in the created dictionary are
-    as expected.
-    :param time_series_data_interface: interface containing the dictionary
+    Tests whether the names of the station pairs in the created dictionary
+    (contains yearly data) are as expected.
+    :param time_series_data_interface_y: interface containing yearly data
     :param expected_station_pair_list: the expected list of the station pairs
     """
-    station_pair_list = list(time_series_data_interface.statistics.keys())
+    station_pair_list = list(time_series_data_interface_y.statistics.keys())
     assert expected_station_pair_list == station_pair_list
 
 
 @pytest.mark.parametrize('expected_data_frame_shape', [
     (5, 1)
 ])
-def test_data_frame_shape(time_series_data_interface: TimeSeriesDataInterface,
-                          expected_data_frame_shape: list):
+def test_data_frame_shape_y(
+        time_series_data_interface_y: TimeSeriesDataInterface,
+        expected_data_frame_shape: list):
     """
-    Tests whether the data was filtered to the correct size or not.
-    :param time_series_data_interface: interface containing the dictionary
+    Tests whether the received yearly data was filtered to the correct size or
+    not.
+    :param time_series_data_interface_y: interface containing yearly data
     :param expected_data_frame_shape: the expected shape of the data frames
     """
-    for data_frame in time_series_data_interface.statistics.values():
+    for data_frame in time_series_data_interface_y.statistics.values():
         assert data_frame.shape == expected_data_frame_shape
 
 
 @pytest.mark.parametrize('expected_min_date, expected_max_date', [
     (pd.Period(value='2000', freq='Y'), pd.Period(value='2004', freq='Y'))
 ])
-def test_data_filtering(time_series_data_interface: TimeSeriesDataInterface,
-                        expected_min_date: str,
-                        expected_max_date: str):
+def test_data_filtering_y(
+        time_series_data_interface_y: TimeSeriesDataInterface,
+        expected_min_date: str,
+        expected_max_date: str):
     """
-    Tests whether the data was filtered correctly.
-    :param time_series_data_interface: interface containing the dictionary
+    Tests whether the received yearly data was filtered correctly or not.
+    :param time_series_data_interface_y: interface containing yearly data
     :param expected_min_date: the expected earliest year
     :param expected_max_date: the expected latest year
     """
-    for data_frame in time_series_data_interface.statistics.values():
+    for data_frame in time_series_data_interface_y.statistics.values():
         assert min(data_frame.index) == expected_min_date
         assert max(data_frame.index) == expected_max_date
