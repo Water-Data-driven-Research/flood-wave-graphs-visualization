@@ -65,3 +65,18 @@ def time_series_data_interface(mock_data) -> TimeSeriesDataInterface:
 
     return time_series_data_handler.time_series_data_interface
 
+
+@pytest.mark.parametrize('expected_column_names', [
+    'station_pair', 'date', 'value'
+])
+def test_column_names(time_series_data_interface: TimeSeriesDataInterface,
+                      expected_column_names: list
+                      ):
+    """
+    Tests whether the names of the columns in the created data frame are as
+    expected.
+    :param time_series_data_interface: interface containing the data frame
+    :param expected_column_names: the expected names of the columns
+    """
+    column_names = list(time_series_data_interface.statistics.columns)
+    assert expected_column_names == column_names
