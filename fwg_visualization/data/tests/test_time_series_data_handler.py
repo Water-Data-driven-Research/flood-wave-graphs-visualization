@@ -10,6 +10,16 @@ from fwg_visualization.data.time_series_data_handler import (
 
 
 @pytest.fixture
+def mock_year_range() -> tuple:
+    """
+    An example year range for which we will filter the data.
+    :return tuple: the year range (first year and last year and everything
+            in between will be included)
+    """
+    return '2000', '2004'
+
+
+@pytest.fixture
 def mock_data() -> dict:
     """
     Creates a mock data dictionary on which we can test the code base.
@@ -46,15 +56,18 @@ def mock_data() -> dict:
 
 
 @pytest.fixture
-def time_series_data_interface(mock_data) -> TimeSeriesDataInterface:
+def time_series_data_interface(mock_year_range,
+                               mock_data) -> TimeSeriesDataInterface:
     """
     Preprocesses the received data using a TimeSeriesDataHandler, which then
     stores this preprocessed data in a TimeSeriesDataInterface, which we will
     use for testing.
+    :param tuple mock_year_range: the year range for which we filter the data
     :param dict mock_data: the mock data on which we run the tests
     :return TimeSeriesDataInterface: the fixed data interface used for testing
     """
     time_series_data_handler = TimeSeriesDataHandler(
+        year_range=mock_year_range,
         data=mock_data
     )
     time_series_data_handler.run()
