@@ -27,7 +27,18 @@ class TimeSeriesDataHandler:
         Run function, preprocesses the data to make it easier to plot using
         plotly express, then stores it in a TimeSeriesDataInterface.
         """
+        self.filter_data()
 
         self.time_series_data_interface = TimeSeriesDataInterface(
             statistics=self.data
         )
+
+    def filter_data(self):
+        """
+        Filters the data for the given years.
+        :return pd.DataFrame: the filtered data
+        """
+        for station_pair in self.data.keys():
+            self.data[station_pair] = self.data[station_pair].loc[
+                self.year_range[0]:self.year_range[1]
+            ]
