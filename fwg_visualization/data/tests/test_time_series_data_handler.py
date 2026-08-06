@@ -16,8 +16,6 @@ def mock_data() -> dict:
     :return dict: the mock data on which the tests will be run
     """
     mock_data: dict = {}
-    mock_station_pairs = [(300, 270), (220, 150), (120, 110), (105, 40),
-                          (15, 2)]
     mock_dates = pd.Index(
         data=['1999', '2000', '2001', '2002', '2003', '2004', '2005'],
         dtype='period[Y-DEC]',
