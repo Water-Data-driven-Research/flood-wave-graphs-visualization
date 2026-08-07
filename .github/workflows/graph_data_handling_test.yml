@@ -1,4 +1,4 @@
-name: Graph Data Handling Tests
+name: Data Handling Tests
 
 on:
   pull_request_review:
