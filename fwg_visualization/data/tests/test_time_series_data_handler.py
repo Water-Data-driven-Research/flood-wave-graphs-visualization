@@ -10,13 +10,13 @@ from fwg_visualization.data.interfaces.time_series_data_interface import (
 
 
 @pytest.fixture
-def mock_year_range() -> tuple:
+def mock_year_range() -> dict:
     """
     An example year range for which we will filter the data.
-    :return tuple: the year range (first year and last year and everything
-            in between will be included)
+    :return dict: the year range (start year and end year and everything in
+            between will be included)
     """
-    return '2000', '2004'
+    return {'start': '2000', 'end': '2004'}
 
 
 @pytest.fixture
@@ -106,44 +106,42 @@ def mock_quarterly_data() -> dict:
 
 @pytest.fixture
 def time_series_data_interface_y(
-        mock_year_range: tuple,
+        mock_year_range: dict,
         mock_yearly_data: dict) -> TimeSeriesDataInterface:
     """
     Preprocesses the received yearly data using a TimeSeriesDataHandler, which
     then stores this preprocessed data in a TimeSeriesDataInterface, which we
     will use for testing.
-    :param tuple mock_year_range: the year range for which we filter the data
+    :param dict mock_year_range: the year range for which we filter the data
     :param dict mock_yearly_data: the yearly mock data on which we run the
            tests
     :return TimeSeriesDataInterface: the fixed data interface used for testing
     """
     time_series_data_handler_y = TimeSeriesDataHandler(
-        year_range=mock_year_range,
         data=mock_yearly_data
     )
-    time_series_data_handler_y.run()
+    time_series_data_handler_y.run(year_range=mock_year_range)
 
     return time_series_data_handler_y.data_if
 
 
 @pytest.fixture
 def time_series_data_interface_q(
-        mock_year_range: tuple,
+        mock_year_range: dict,
         mock_quarterly_data: dict) -> TimeSeriesDataInterface:
     """
     Preprocesses the received quarterly data using a TimeSeriesDataHandler,
     which then stores this preprocessed data in a TimeSeriesDataInterface,
     which we will use for testing.
-    :param tuple mock_year_range: the year range for which we filter the data
+    :param dict mock_year_range: the year range for which we filter the data
     :param dict mock_quarterly_data: the quarterly mock data on which we run
            the tests
     :return TimeSeriesDataInterface: the fixed data interface used for testing
     """
     time_series_data_handler_q = TimeSeriesDataHandler(
-        year_range=mock_year_range,
         data=mock_quarterly_data
     )
-    time_series_data_handler_q.run()
+    time_series_data_handler_q.run(year_range=mock_year_range)
 
     return time_series_data_handler_q.data_if
 
