@@ -21,12 +21,12 @@ class TimeSeriesDataHandler:
 
         self.time_series_data_interface = TimeSeriesDataInterface()
 
-    def run(self, year_range: tuple):
+    def run(self, year_range: dict):
         """
         Run function, preprocesses the data to make it easier to plot using
         plotly express, then stores it in a TimeSeriesDataInterface.
-        :param tuple year_range: the years for which to filter the data, the
-               first and last years are both included in the filtered data
+        :param dict year_range: the years for which to filter the data, the
+               start and end years are both included in the filtered data
         """
         self.filter_data(year_range=year_range)
 
@@ -34,14 +34,14 @@ class TimeSeriesDataHandler:
             statistics=self.data
         )
 
-    def filter_data(self, year_range: tuple):
+    def filter_data(self, year_range: dict):
         """
         Filters the data for the given years.
-        :param tuple year_range: the years for which to filter the data, the
-               first and last years are both included in the filtered data
+        :param dict year_range: the years for which to filter the data, the
+               start and end years are both included in the filtered data
         :return pd.DataFrame: the filtered data
         """
         for station_pair in self.data.keys():
             self.data[station_pair] = self.data[station_pair].loc[
-                year_range[0]:year_range[1]
+                year_range['start']:year_range['end']
             ]
