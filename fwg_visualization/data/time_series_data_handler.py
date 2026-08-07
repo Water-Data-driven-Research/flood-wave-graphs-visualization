@@ -19,7 +19,7 @@ class TimeSeriesDataHandler:
         """
         self.data = data
 
-        self.time_series_data_interface = TimeSeriesDataInterface()
+        self.data_if = TimeSeriesDataInterface()
 
     def run(self, year_range: dict):
         """
@@ -31,7 +31,7 @@ class TimeSeriesDataHandler:
         filtered_data = self.filter_data(data=self.data,
                                          year_range=year_range)
 
-        self.time_series_data_interface = TimeSeriesDataInterface(
+        self.data_if = TimeSeriesDataInterface(
             statistics=filtered_data
         )
 

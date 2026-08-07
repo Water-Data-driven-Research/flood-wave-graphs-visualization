@@ -123,7 +123,7 @@ def time_series_data_interface_y(
     )
     time_series_data_handler_y.run()
 
-    return time_series_data_handler_y.time_series_data_interface
+    return time_series_data_handler_y.data_if
 
 
 @pytest.fixture
@@ -145,7 +145,7 @@ def time_series_data_interface_q(
     )
     time_series_data_handler_q.run()
 
-    return time_series_data_handler_q.time_series_data_interface
+    return time_series_data_handler_q.data_if
 
 
 @pytest.mark.parametrize('expected_station_pair_list', [
