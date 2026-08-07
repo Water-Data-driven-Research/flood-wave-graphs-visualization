@@ -28,20 +28,28 @@ class TimeSeriesDataHandler:
         :param dict year_range: the years for which to filter the data, the
                start and end years are both included in the filtered data
         """
-        self.filter_data(year_range=year_range)
+        filtered_data = self.filter_data(data=self.data,
+                                         year_range=year_range)
 
         self.time_series_data_interface = TimeSeriesDataInterface(
-            statistics=self.data
+            statistics=filtered_data
         )
 
-    def filter_data(self, year_range: dict):
+    @staticmethod
+    def filter_data(data: dict, year_range: dict) -> dict:
         """
         Filters the data for the given years.
+        :param dict data: the data to be filtered (keys: station pairs,
+               values: pandas DataFrames)
         :param dict year_range: the years for which to filter the data, the
                start and end years are both included in the filtered data
-        :return pd.DataFrame: the filtered data
+        :return dict: the filtered data
         """
-        for station_pair in self.data.keys():
-            self.data[station_pair] = self.data[station_pair].loc[
+        filtered_data: dict = {}
+
+        for station_pair in data.keys():
+            filtered_data[station_pair] = filtered_data[station_pair].loc[
                 year_range['start']:year_range['end']
             ]
+
+        return filtered_data
