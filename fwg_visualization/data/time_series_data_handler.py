@@ -48,7 +48,7 @@ class TimeSeriesDataHandler:
         filtered_data: dict = {}
 
         for station_pair in data.keys():
-            filtered_data[station_pair] = filtered_data[station_pair].loc[
+            filtered_data[station_pair] = data[station_pair].loc[
                 year_range['start']:year_range['end']
             ]
 
