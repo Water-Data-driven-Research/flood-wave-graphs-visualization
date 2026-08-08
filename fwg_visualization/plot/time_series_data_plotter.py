@@ -31,7 +31,19 @@ class TimeSeriesDataPlotter:
         :param dict rkm_station: the dictionary that maps station positions on
                the river to their names
         """
-        pass
+        fig = go.Figure()
+        for pair, df in self.statistics.items():
+            fig.add_trace(trace=go.Scatter(
+                x=df.index,
+                y=df[statistic],
+                mode='lines',
+                name=f'{rkm_station[pair[0]]}---{rkm_station[pair[1]]}'
+            ))
+
+        self.create_layout(fig=fig,
+                           graph_name=graph_name,
+                           unit_of_measure=unit_of_measure)
+        fig.show()
 
     @staticmethod
     def create_layout(fig: go.Figure, graph_name: str, unit_of_measure: str):
