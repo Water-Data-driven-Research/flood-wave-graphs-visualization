@@ -20,7 +20,9 @@ class TimeSeriesDataPlotter:
                      statistic: str,
                      graph_name: str,
                      unit_of_measurement: str,
-                     rkm_station: dict):
+                     rkm_station: dict,
+                     width: int = 1000,
+                     height: int = 500):
         """
         Creates the plot of the received data.
         :param str statistic: the statistic that we are plotting, one of the
@@ -31,6 +33,8 @@ class TimeSeriesDataPlotter:
                y-axis
         :param dict rkm_station: the dictionary that maps station positions on
                the river to their names
+        :param int width: the width of the image to be created (pixels)
+        :param int height: the height of the image to be created (pixels)
         """
         fig = go.Figure()
         for pair, df in self.statistics.items():
@@ -43,19 +47,25 @@ class TimeSeriesDataPlotter:
 
         self.create_layout(fig=fig,
                            graph_name=graph_name,
-                           unit_of_measurement=unit_of_measurement)
+                           unit_of_measurement=unit_of_measurement,
+                           width=width,
+                           height=height)
         fig.show()
 
     @staticmethod
     def create_layout(fig: go.Figure,
                       graph_name: str,
-                      unit_of_measurement: str):
+                      unit_of_measurement: str,
+                      width: int,
+                      height: int):
         """
         Creates the layout of the received figure.
         :param go.Figure fig: the figure to customize
         :param str graph_name: what the name of the graph should be
         :param str unit_of_measurement: the unit of measurement used on the
                y-axis
+        :param int width: the width of the image to be created (pixels)
+        :param int height: the height of the image to be created (pixels)
         """
         fig.update_layout(
             title={
@@ -65,8 +75,8 @@ class TimeSeriesDataPlotter:
                 'x': 0.5,
                 'y': 0.98
             },
-            width=800,
-            height=450,
+            width=width,
+            height=height,
             margin=dict(l=20, r=20, t=30, b=20),
             xaxis={
                 'title': dict(text='Date'),
