@@ -36,7 +36,7 @@ class TimeSeriesDataPlotter:
         for pair, df in self.statistics.items():
             fig.add_trace(trace=go.Scatter(
                 x=df.index.strftime('%Y').tolist(),
-                y=df[statistic].strftime('%Y').tolist(),
+                y=df[statistic],
                 mode='lines',
                 name=f'{rkm_station[pair[0]]}---{rkm_station[pair[1]]}'
             ))
