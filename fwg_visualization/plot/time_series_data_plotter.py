@@ -19,7 +19,7 @@ class TimeSeriesDataPlotter:
     def plot_ts_data(self,
                      statistic: str,
                      graph_name: str,
-                     unit_of_measure: str,
+                     unit_of_measurement: str,
                      rkm_station: dict):
         """
         Creates the plot of the received data.
@@ -27,7 +27,8 @@ class TimeSeriesDataPlotter:
                following: 'flood wave count', 'mean propagation time',
                'median propagation time', 'mode propagation time'
         :param str graph_name: what the name of the graph should be
-        :param str unit_of_measure: the unit of measurement used on the y-axis
+        :param str unit_of_measurement: the unit of measurement used on the
+               y-axis
         :param dict rkm_station: the dictionary that maps station positions on
                the river to their names
         """
@@ -42,16 +43,17 @@ class TimeSeriesDataPlotter:
 
         self.create_layout(fig=fig,
                            graph_name=graph_name,
-                           unit_of_measure=unit_of_measure)
+                           unit_of_measurement=unit_of_measurement)
         fig.show()
 
     @staticmethod
-    def create_layout(fig: go.Figure, graph_name: str, unit_of_measure: str):
+    def create_layout(fig: go.Figure, graph_name: str, unit_of_measurement: str):
         """
         Creates the layout of the received figure.
         :param go.Figure fig: the figure to customize
         :param str graph_name: what the name of the graph should be
-        :param str unit_of_measure: the unit of measurement used on the y-axis
+        :param str unit_of_measurement: the unit of measurement used on the
+               y-axis
         """
         fig.update_layout(
             title={
@@ -68,7 +70,7 @@ class TimeSeriesDataPlotter:
                 'title': dict(text='Date'),
                 'tickmode': 'linear'
             },
-            yaxis=dict(title=dict(text=unit_of_measure)),
+            yaxis=dict(title=dict(text=unit_of_measurement)),
             legend=dict(title=dict(text='Station pairs')),
             hovermode='x unified'
         )
