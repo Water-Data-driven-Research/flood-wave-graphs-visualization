@@ -14,4 +14,4 @@ class TimeSeriesDataPlotter:
         Constructor.
         :param TimeSeriesDataInterface ts_data_if: contains data to be plotted
         """
-        pass
+        self.statistics = ts_data_if.statistics
