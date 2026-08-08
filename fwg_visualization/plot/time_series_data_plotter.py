@@ -47,7 +47,9 @@ class TimeSeriesDataPlotter:
         fig.show()
 
     @staticmethod
-    def create_layout(fig: go.Figure, graph_name: str, unit_of_measurement: str):
+    def create_layout(fig: go.Figure,
+                      graph_name: str,
+                      unit_of_measurement: str):
         """
         Creates the layout of the received figure.
         :param go.Figure fig: the figure to customize
