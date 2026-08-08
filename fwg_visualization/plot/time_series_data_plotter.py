@@ -53,4 +53,22 @@ class TimeSeriesDataPlotter:
         :param str graph_name: what the name of the graph should be
         :param str unit_of_measure: the unit of measurement used on the y-axis
         """
-        pass
+        fig.update_layout(
+            title={
+                'text': graph_name,
+                'xanchor': 'center',
+                'yanchor': 'top',
+                'x': 0.5,
+                'y': 0.98
+            },
+            width=800,
+            height=450,
+            margin=dict(l=20, r=20, t=30, b=20),
+            xaxis={
+                'title': dict(text='Date'),
+                'tickmode': 'linear'
+            },
+            yaxis=dict(title=dict(text=unit_of_measure)),
+            legend=dict(title=dict(text='Station pairs')),
+            hovermode='x unified'
+        )
