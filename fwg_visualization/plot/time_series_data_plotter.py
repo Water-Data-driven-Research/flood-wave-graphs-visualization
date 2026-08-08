@@ -1,4 +1,4 @@
-import plotly
+import plotly.graph_objects as go
 
 from fwg_visualization.data.interfaces.time_series_data_interface import (
     TimeSeriesDataInterface
