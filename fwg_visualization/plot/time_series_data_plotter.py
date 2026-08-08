@@ -9,10 +9,9 @@ class TimeSeriesDataPlotter:
     """
     This class creates the plot of the received time series data.
     """
-    def __init__(self, time_series_data_interface: TimeSeriesDataInterface):
+    def __init__(self, ts_data_if: TimeSeriesDataInterface):
         """
         Constructor.
-        :param TimeSeriesDataInterface time_series_data_interface: contains
-               data to be plotted
+        :param TimeSeriesDataInterface ts_data_if: contains data to be plotted
         """
         pass
