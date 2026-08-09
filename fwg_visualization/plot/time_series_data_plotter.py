@@ -18,7 +18,6 @@ class TimeSeriesDataPlotter:
 
     def plot_ts_data(self,
                      statistic: str,
-                     graph_name: str,
                      unit_of_measurement: str,
                      rkm_station: dict,
                      width: int = 1000,
@@ -28,7 +27,6 @@ class TimeSeriesDataPlotter:
         :param str statistic: the statistic that we are plotting, one of the
                following: 'flood wave count', 'mean propagation time',
                'median propagation time', 'mode propagation time'
-        :param str graph_name: what the name of the graph should be
         :param str unit_of_measurement: the unit of measurement used on the
                y-axis
         :param dict rkm_station: the dictionary that maps station positions on
@@ -43,8 +41,10 @@ class TimeSeriesDataPlotter:
         df_test = list(self.statistics.values())[0]
         if df_test.index.freq == 'YE':
             format_str = '%Y'
+            graph_name = f'Yearly {statistic}'
         elif df_test.index.freq == 'QE':
             format_str = '%Q'
+            graph_name = f'Quarterly {statistic}'
         else:
             raise ValueError(
                 f'Unsupported period frequency: {df_test.index.freq}'
