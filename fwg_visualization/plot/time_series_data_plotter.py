@@ -40,10 +40,8 @@ class TimeSeriesDataPlotter:
 
         df_test = list(self.statistics.values())[0]
         if df_test.index.freq == 'YE':
-            format_str = '%Y'
             graph_name = f'Yearly {statistic}'
         elif df_test.index.freq == 'QE':
-            format_str = '%Q'
             graph_name = f'Quarterly {statistic}'
         else:
             raise ValueError(
@@ -52,7 +50,7 @@ class TimeSeriesDataPlotter:
 
         for pair, df in self.statistics.items():
             fig.add_trace(trace=go.Scatter(
-                x=df.index.strftime(format_str).tolist(),
+                x=df.index.astype(str).tolist(),
                 y=df[statistic],
                 mode='lines',
                 name=f'{rkm_station[pair[0]]}---{rkm_station[pair[1]]}'
