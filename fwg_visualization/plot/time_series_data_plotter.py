@@ -42,7 +42,7 @@ class TimeSeriesDataPlotter:
             raise ValueError(
                 f"Unsupported statitic type: {statistic}, use one of the "
                 "following: 'flood wave count', 'mean propagation time', "
-                "'median propagation time', 'mode propagation time'"
+                "'median propagation time', 'mode propagation time.'"
             )
 
         df_test = list(self.statistics.values())[0]
@@ -52,7 +52,7 @@ class TimeSeriesDataPlotter:
             graph_name = f'Quarterly {statistic}'
         else:
             raise ValueError(
-                f'Unsupported period frequency: {df_test.index.freq}'
+                f'Unsupported period frequency: {df_test.index.freq}.'
             )
 
         fig = go.Figure()
