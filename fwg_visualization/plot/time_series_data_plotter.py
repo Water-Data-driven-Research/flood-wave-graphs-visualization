@@ -40,8 +40,8 @@ class TimeSeriesDataPlotter:
             unit_of_measurement = 'Days'
         else:
             raise ValueError(
-                f"Unsupported statitic type: {statistic}, use one of the"
-                "following: 'flood wave count', 'mean propagation time',"
+                f"Unsupported statitic type: {statistic}, use one of the "
+                "following: 'flood wave count', 'mean propagation time', "
                 "'median propagation time', 'mode propagation time'"
             )
 
