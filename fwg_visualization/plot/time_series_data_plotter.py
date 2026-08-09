@@ -18,7 +18,6 @@ class TimeSeriesDataPlotter:
 
     def plot_ts_data(self,
                      statistic: str,
-                     unit_of_measurement: str,
                      rkm_station: dict,
                      width: int = 1000,
                      height: int = 500):
@@ -27,16 +26,24 @@ class TimeSeriesDataPlotter:
         :param str statistic: the statistic that we are plotting, one of the
                following: 'flood wave count', 'mean propagation time',
                'median propagation time', 'mode propagation time'
-        :param str unit_of_measurement: the unit of measurement used on the
-               y-axis
         :param dict rkm_station: the dictionary that maps station positions on
                the river to their names
         :param int width: the width of the image to be created (pixels)
         :param int height: the height of the image to be created (pixels)
+        :raise ValueError: if the statistic type given is unsupported
         :raise ValueError: if the period frequency of the pandas DataFrames
                is unsupported
         """
-        fig = go.Figure()
+        if statistic == 'flood wave count':
+            unit_of_measurement = 'Number'
+        elif 'propagation time' in statistic:
+            unit_of_measurement = 'Days'
+        else:
+            raise ValueError(
+                f"Unsupported statitic type: {statistic}, use one of the"
+                "following: 'flood wave count', 'mean propagation time',"
+                "'median propagation time', 'mode propagation time'"
+            )
 
         df_test = list(self.statistics.values())[0]
         if df_test.index.freq == 'YE':
@@ -47,6 +54,8 @@ class TimeSeriesDataPlotter:
             raise ValueError(
                 f'Unsupported period frequency: {df_test.index.freq}'
             )
+
+        fig = go.Figure()
 
         for pair, df in self.statistics.items():
             fig.add_trace(trace=go.Scatter(
