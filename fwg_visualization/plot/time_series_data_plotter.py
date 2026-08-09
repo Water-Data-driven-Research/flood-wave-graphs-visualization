@@ -25,7 +25,7 @@ class TimeSeriesDataPlotter:
         Creates the plot of the received data.
         :param str statistic: the statistic that we are plotting, one of the
                following: 'flood wave count', 'mean propagation time',
-               'median propagation time', 'mode propagation time'
+               'median propagation time'
         :param dict rkm_station: the dictionary that maps station positions on
                the river to their names
         :param int width: the width of the image to be created (pixels)
