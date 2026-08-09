@@ -91,7 +91,7 @@ class TimeSeriesDataPlotter:
             margin=dict(l=20, r=20, t=30, b=20),
             xaxis={
                 'title': dict(text='Date'),
-                'tickmode': 'linear'
+                'nticks': 60
             },
             yaxis=dict(title=dict(text=unit_of_measurement)),
             legend=dict(title=dict(text='Station pairs')),
