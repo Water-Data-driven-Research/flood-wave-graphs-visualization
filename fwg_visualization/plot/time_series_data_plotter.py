@@ -35,11 +35,24 @@ class TimeSeriesDataPlotter:
                the river to their names
         :param int width: the width of the image to be created (pixels)
         :param int height: the height of the image to be created (pixels)
+        :raise ValueError: if the period frequency of the pandas DataFrames
+               is unsupported
         """
         fig = go.Figure()
+
+        df_test = list(self.statistics.values())[0]
+        if df_test.index.freq == 'YE':
+            format_str = '%Y'
+        elif df_test.index.freq == 'QE':
+            format_str = '%Q'
+        else:
+            raise ValueError(
+                f'Unsupported period frequency: {df_test.index.freq}'
+            )
+
         for pair, df in self.statistics.items():
             fig.add_trace(trace=go.Scatter(
-                x=df.index.strftime('%Y').tolist(),
+                x=df.index.strftime(format_str).tolist(),
                 y=df[statistic],
                 mode='lines',
                 name=f'{rkm_station[pair[0]]}---{rkm_station[pair[1]]}'
