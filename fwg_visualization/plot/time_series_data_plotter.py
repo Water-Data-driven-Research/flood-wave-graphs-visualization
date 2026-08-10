@@ -39,6 +39,7 @@ class TimeSeriesDataPlotter:
         Creates the plot of the received data.
         :param int width: the width of the image to be created (pixels)
         :param int height: the height of the image to be created (pixels)
+        :return go.Figure: the created plot
         """
         unit_of_measurement = self.determine_unit_of_measurement()
         graph_name = self.determine_graph_name()
