@@ -9,9 +9,7 @@ class TimeSeriesDataPlotter:
     """
     This class creates the plot of the received time series data.
     """
-    def __init__(self,
-                 data_if: TimeSeriesDataInterface,
-                 rkm_station: str):
+    def __init__(self, data_if: TimeSeriesDataInterface, rkm_station: str):
         """
         Constructor.
         :param TimeSeriesDataInterface data_if: contains data to be plotted
@@ -33,9 +31,7 @@ class TimeSeriesDataPlotter:
         self.__statistic_type = list(self.statistics.values())[0].columns[0]
         return self.__statistic_type
 
-    def plot_ts_data(self,
-                     width: int = 1000,
-                     height: int = 500):
+    def plot_ts_data(self, width: int = 1000, height: int = 500):
         """
         Creates the plot of the received data.
         :param int width: the width of the image to be created (pixels)
