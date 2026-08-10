@@ -31,21 +31,9 @@ class TimeSeriesDataPlotter:
                the river to their names
         :param int width: the width of the image to be created (pixels)
         :param int height: the height of the image to be created (pixels)
-        :raise ValueError: if the statistic type given is unsupported
         :raise ValueError: if the period frequency of the pandas DataFrames
                is unsupported
         """
-        if statistic == 'flood wave count':
-            unit_of_measurement = 'Number'
-        elif 'propagation time' in statistic:
-            unit_of_measurement = 'Days'
-        else:
-            raise ValueError(
-                f"Unsupported statitic type: {statistic}, use one of the "
-                "following: 'flood wave count', 'mean propagation time', "
-                "'median propagation time'."
-            )
-
         df_test = list(self.statistics.values())[0]
         if df_test.index.freq == 'YE':
             graph_name = f'Yearly {statistic}'
@@ -55,6 +43,9 @@ class TimeSeriesDataPlotter:
             raise ValueError(
                 f'Unsupported period frequency: {df_test.index.freq}.'
             )
+        unit_of_measurement = self.determine_unit_of_measurement(
+            statistic=statistic
+        )
 
         fig = go.Figure()
 
@@ -107,3 +98,28 @@ class TimeSeriesDataPlotter:
             legend=dict(title=dict(text='Station pairs')),
             hovermode='x unified'
         )
+
+    @staticmethod
+    def determine_unit_of_measurement(statistic: str) -> str:
+        """
+        Finds the unit of measurement that we will be using from the type of
+        statistics that we are plotting.
+        :param str statistic: the statistic that we are plotting, one of
+               the following: 'flood wave count', 'mean propagation time',
+               'median propagation time' (uniquely determined by what the data
+               interface includes)
+        :raise ValueError: if the statistic type given is unsupported
+        :return str: the unit of measurement that we will display on the y-axis
+                of the graph
+        """
+        if statistic == 'flood wave count':
+            unit_of_measurement = 'Number'
+        elif 'propagation time' in statistic:
+            unit_of_measurement = 'Days'
+        else:
+            raise ValueError(
+                f"Unsupported statitic type: {statistic}, use one "
+                "of the following: 'flood wave count', "
+                "'mean propagation time', 'median propagation time'."
+            )
+        return unit_of_measurement
