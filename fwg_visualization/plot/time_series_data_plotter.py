@@ -11,21 +11,27 @@ class TimeSeriesDataPlotter:
     """
     def __init__(self,
                  data_if: TimeSeriesDataInterface,
-                 statistic_type: str,
                  rkm_station: str):
         """
         Constructor.
         :param TimeSeriesDataInterface data_if: contains data to be plotted
-        :param str statistic_type: the statistic that we are plotting, one of
-               the following: 'flood wave count', 'mean propagation time',
-               'median propagation time' (uniquely determined by what the data
-               interface includes)
         :param dict rkm_station: the dictionary that maps station positions on
                the river to their names
         """
         self.statistics = data_if.statistics
-        self.statistic_type = statistic_type
+        self.__statistic_type = ''
         self.rkm_station = rkm_station
+
+    @property
+    def statistic_type(self) -> str:
+        """
+        Acquires the type of statistic that we are plotting, one of the
+        following: 'flood wave count', 'mean propagation time',
+        'median propagation time'.
+        :return str: the type of statistics that we are plotting
+        """
+        self.__statistic_type = list(self.statistics.values())[0].columns[0]
+        return self.__statistic_type
 
     def plot_ts_data(self,
                      width: int = 1000,
