@@ -32,7 +32,9 @@ class TimeSeriesDataPlotter:
         self.__statistic_type = list(self.statistics.values())[0].columns[0]
         return self.__statistic_type
 
-    def plot_ts_data(self, width: int = 1000, height: int = 500):
+    def get_ts_data_plot(self,
+                         width: int = 1000,
+                         height: int = 500) -> go.Figure:
         """
         Creates the plot of the received data.
         :param int width: the width of the image to be created (pixels)
@@ -57,7 +59,7 @@ class TimeSeriesDataPlotter:
                            unit_of_measurement=unit_of_measurement,
                            width=width,
                            height=height)
-        fig.show()
+        return fig
 
     def determine_unit_of_measurement(self) -> str:
         """
