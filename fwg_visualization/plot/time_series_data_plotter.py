@@ -31,21 +31,11 @@ class TimeSeriesDataPlotter:
                the river to their names
         :param int width: the width of the image to be created (pixels)
         :param int height: the height of the image to be created (pixels)
-        :raise ValueError: if the period frequency of the pandas DataFrames
-               is unsupported
         """
-        df_test = list(self.statistics.values())[0]
-        if df_test.index.freq == 'YE':
-            graph_name = f'Yearly {statistic}'
-        elif df_test.index.freq == 'QE':
-            graph_name = f'Quarterly {statistic}'
-        else:
-            raise ValueError(
-                f'Unsupported period frequency: {df_test.index.freq}.'
-            )
         unit_of_measurement = self.determine_unit_of_measurement(
             statistic=statistic
         )
+        graph_name = self.determine_graph_name(statistic=statistic)
 
         fig = go.Figure()
 
@@ -123,3 +113,26 @@ class TimeSeriesDataPlotter:
                 "'mean propagation time', 'median propagation time'."
             )
         return unit_of_measurement
+
+    def determine_graph_name(self, statistic: str) -> str:
+        """
+        Determines the name of the graph based on the type of statistics that
+        we are plotting and on the frequency of our aggregated data.
+        :param str statistic: the statistic that we are plotting, one of
+               the following: 'flood wave count', 'mean propagation time',
+               'median propagation time' (uniquely determined by what the data
+               interface includes)
+        :raise ValueError: if the period frequency of the pandas DataFrames
+               is unsupported
+        :return str: the name of the graph
+        """
+        df_test = list(self.statistics.values())[0]
+        if df_test.index.freq == 'YE':
+            graph_name = f'Yearly {statistic}'
+        elif df_test.index.freq == 'QE':
+            graph_name = f'Quarterly {statistic}'
+        else:
+            raise ValueError(
+                f'Unsupported period frequency: {df_test.index.freq}.'
+            )
+        return graph_name
