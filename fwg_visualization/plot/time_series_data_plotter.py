@@ -17,8 +17,9 @@ class TimeSeriesDataPlotter:
                the river to their names
         """
         self.statistics = data_if.statistics
-        self.__statistic_type = ''
         self.rkm_station = rkm_station
+
+        self.__statistic_type = ''
 
     @property
     def statistic_type(self) -> str:
