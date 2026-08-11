@@ -48,6 +48,13 @@ class GraphPlotter:
     @staticmethod
     def create_layout(fig: go.Figure,
                       axis_data: dict,
+    def create_directed_edges(self) -> list:
+        """
+        Creates the arrows that are the directed edges of the graph.
+        :return list: a list of arrows (each represented as a dictionary)
+        """
+        pass
+
                       graph_name: str,
                       width: int,
                       height: int):
