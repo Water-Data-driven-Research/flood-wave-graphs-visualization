@@ -21,7 +21,7 @@ class GraphDataHandler:
         :param dict rkm_station: the dictionary that maps station positions on
                the river to their names
         :param dict level_group: the dictionary that maps station positions on
-               the river to their level groups (value above which a water
+               the river to their level groups (values above which a water
                level is considered high)
         """
         self.graph_nodes = graph.nodes()
