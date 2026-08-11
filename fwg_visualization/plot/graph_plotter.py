@@ -1,5 +1,4 @@
-import networkx as nx
-import plotly
+import plotly.graph_objects as go
 
 from fwg_visualization.data.interfaces.graph_data_interface import (
     GraphDataInterface
