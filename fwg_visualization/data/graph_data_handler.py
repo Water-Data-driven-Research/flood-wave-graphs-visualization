@@ -198,9 +198,9 @@ class GraphDataHandler:
             )
 
         edge_data = {
-            'x coords': x_coords,
-            'y coords': y_coords,
             'directed_edge_data': directed_edge_data,
+            'x_coords': x_coords,
+            'y_coords': y_coords,
             'text': text
         }
 
