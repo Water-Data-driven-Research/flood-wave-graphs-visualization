@@ -149,4 +149,58 @@ class GraphDataHandler:
                 dictionary), and 'markers' (the value is another dictionary,
                 whose keys are 'x_coords', 'y_coords' and 'text')
         """
-        pass
+        directed_edges = []
+        x_coords = []
+        y_coords = []
+        text = []
+
+        for start, end in self.graph_edges:
+            x_start = self.pos[start][0]
+            x_end = self.pos[end][0]
+            y_start = self.pos[start][1]
+            y_end = self.pos[end][1]
+
+            x_coords.append((x_start + x_end) / 2)
+            y_coords.append((y_start + y_end) / 2)
+
+            dx = x_end - x_start
+            dy = y_end - y_start
+
+            edge_dict = {
+                'x': x_end - dx / 15,
+                'y': y_end - dy / 15,
+                'xref': 'x',
+                'yref': 'y',
+                'ax': x_start + dx / 80,
+                'ay': y_start + dy / 80,
+                'axref': 'x',
+                'ayref': 'y',
+                'showarrow': True,
+                'arrowhead': 2,
+                'arrowsize': 1.5,
+                'arrowwidth': 1,
+                'arrowcolor': '#337aa3'
+            }
+
+            directed_edges.append(edge_dict)
+
+            start_name = self.rkm_station[float(start[0])]
+            start_km = start[0]
+            start_date = start[1]
+
+            end_name = self.rkm_station[float(end[0])]
+            end_km = end[0]
+            end_date = end[1]
+
+            text.append(
+                (start_name, start_km, start_date, end_name, end_km, end_date)
+            )
+
+        edge_data = {
+            'directed_edges': directed_edges,
+            'x coords': x_coords,
+            'y coords': y_coords,
+            'text': text
+        }
+
+        return edge_data
