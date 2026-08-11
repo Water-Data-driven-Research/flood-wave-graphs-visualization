@@ -39,9 +39,9 @@ class GraphPlotter:
 
     def create_edge_hover_trace(self) -> go.Scatter:
         """
-        Creates the trace that includes the invisible markers that simulate
-        the hover function for the edges.
-        :return go.Scatter: the miniscule markers in the middle of the edges
+        Creates the trace that includes the miniscule markers that enable
+        hover functionality for the edges.
+        :return go.Scatter: the trace of the edge markers
         """
         pass
 
