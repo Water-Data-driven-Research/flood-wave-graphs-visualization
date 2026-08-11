@@ -32,6 +32,8 @@ class GraphDataHandler:
         self.get_stations()
         self.get_positions()
 
+        axis_data = self.create_axis_data()
+
         self.graph_data_interface = GraphDataInterface(
             min_date=self.min_date,
             stations=self.stations,
@@ -81,7 +83,30 @@ class GraphDataHandler:
         :return dict: the data, its keys are: 'x_ticks', 'x_tick_labels',
                 'y_ticks', 'y_tick_labels'
         """
-        pass
+        min_x = min([n[0] for n in self.pos.values()])
+        max_x = max([n[0] for n in self.pos.values()])
+
+        no_of_ticks = min(max_x - min_x, 20)
+        x_ticks = list(range(
+            int(min_x),
+            int(max_x) + 1,
+            int(max_x / no_of_ticks)
+        ))
+        x_tick_labels = [
+            (self.min_date + timedelta(days=i)).strftime("%Y-%m-%d")
+            for i in x_ticks
+        ]
+
+        y_ticks = list(range(len(self.stations)))
+
+        axis_data = {
+            'x_ticks': x_ticks,
+            'x_tick_labels': x_tick_labels,
+            'y_ticks': y_ticks,
+            'y_tick_labels': y_ticks
+        }
+
+        return axis_data
 
     def create_node_data(self) -> dict:
         """
