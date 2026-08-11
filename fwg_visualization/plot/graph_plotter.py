@@ -45,9 +45,6 @@ class GraphPlotter:
         """
         pass
 
-    @staticmethod
-    def create_layout(fig: go.Figure,
-                      axis_data: dict,
     def create_directed_edges(self) -> list:
         """
         Creates the arrows that are the directed edges of the graph.
@@ -55,13 +52,14 @@ class GraphPlotter:
         """
         pass
 
+    def create_layout(self,
+                      fig: go.Figure,
                       graph_name: str,
                       width: int,
                       height: int):
         """
         Creates the layout of the received figure.
         :param go.Figure fig: updates the layout of this figure
-        :param dict axis_data: the data to display on the axes of the figure
         :param str graph_name: the name of the graph ('Flood Wave Graph' or
                'Flood Map')
         :param int width: the width of the image to be created (pixels)
