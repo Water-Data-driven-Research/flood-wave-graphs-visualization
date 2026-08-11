@@ -30,7 +30,7 @@ class GraphPlotter:
         """
         pass
 
-    def create_node_trace(self, node_data: dict) -> go.Scatter:
+    def create_node_trace(self) -> go.Scatter:
         """
         Creates the trace that includes the nodes of the graph.
         :return go.Scatter: the trace of the nodes
