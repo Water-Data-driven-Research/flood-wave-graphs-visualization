@@ -153,12 +153,13 @@ class GraphDataHandler:
 
     def create_edge_data(self) -> dict:
         """
-        Creates the arrows that are the edges of the directed graph, as well
-        as markers to create the hover functionality.
-        :return dict: contains the data, its keys are: 'directed_edges',
+        Creates the data required to make the arrows that are the edges of the
+        directed graph, as well as data required to make very small markers
+        (edge hover trace) to implement the hover functionality on edges.
+        :return dict: contains the data, its keys are: 'directed_edge_data',
                 'x_coords', 'y_coords' and 'text'
         """
-        directed_edges = []
+        directed_edge_data = []
         x_coords = []
         y_coords = []
         text = []
@@ -175,23 +176,14 @@ class GraphDataHandler:
             dx = x_end - x_start
             dy = y_end - y_start
 
-            edge_dict = {
-                'x': x_end - dx / 15,
-                'y': y_end - dy / 15,
-                'xref': 'x',
-                'yref': 'y',
-                'ax': x_start + dx / 80,
-                'ay': y_start + dy / 80,
-                'axref': 'x',
-                'ayref': 'y',
-                'showarrow': True,
-                'arrowhead': 2,
-                'arrowsize': 1.5,
-                'arrowwidth': 1,
-                'arrowcolor': '#337aa3'
+            edge_data_dict = {
+                'x_start': x_start + dx / 80,
+                'y_start': y_start + dy / 80,
+                'x_end': x_end - dx / 15,
+                'y_end': y_end - dy / 15
             }
 
-            directed_edges.append(edge_dict)
+            directed_edge_data.append(edge_data_dict)
 
             start_name = self.rkm_station[float(start[0])]
             start_km = start[0]
@@ -206,9 +198,9 @@ class GraphDataHandler:
             )
 
         edge_data = {
-            'directed_edges': directed_edges,
             'x coords': x_coords,
             'y coords': y_coords,
+            'directed_edge_data': directed_edge_data,
             'text': text
         }
 
