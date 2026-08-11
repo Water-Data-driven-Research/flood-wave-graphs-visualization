@@ -155,10 +155,8 @@ class GraphDataHandler:
         """
         Creates the arrows that are the edges of the directed graph, as well
         as markers to create the hover functionality.
-        :return dict: contains the data, its keys are: 'arrows' (the value is
-                the list containing every directed edge, each stored as a
-                dictionary), and 'markers' (the value is another dictionary,
-                whose keys are 'x_coords', 'y_coords' and 'text')
+        :return dict: contains the data, its keys are: 'directed_edges',
+                'x_coords', 'y_coords' and 'text'
         """
         directed_edges = []
         x_coords = []
