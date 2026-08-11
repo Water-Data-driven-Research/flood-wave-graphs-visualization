@@ -123,7 +123,21 @@ class GraphDataHandler:
         Creates the data required to make the node markers (node trace).
         :return dict: the data, its keys are: 'x_coords', 'y_coords', 'text'
         """
-        pass
+        x_coords, y_coords = zip(*[
+            (coord[0], coord[1]) for coord in self.pos.values()
+        ])
+
+        text = [(node[1], self.rkm_station[float(node[0])],
+                 node[0], self.level_group[node[0]])
+                for node in self.graph_nodes]
+
+        node_data = {
+            'x_coords': x_coords,
+            'y_coords': y_coords,
+            'text': text
+        }
+
+        return node_data
 
     def create_edge_data(self) -> dict:
         """
