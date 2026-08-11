@@ -44,6 +44,8 @@ class GraphDataHandler:
         self.get_positions()
 
         axis_data = self.create_axis_data()
+        node_data = self.create_node_data()
+        edge_data = self.create_edge_data()
 
         self.graph_data_interface = GraphDataInterface(
             min_date=self.min_date,
