@@ -25,6 +25,7 @@ class GraphDataHandler:
                level is considered high)
         """
         self.graph_nodes = graph.nodes()
+        self.graph_edges = graph.edges()
         self.rkm_station = rkm_station
         self.level_group = level_group
 
