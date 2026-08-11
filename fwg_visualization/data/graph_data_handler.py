@@ -128,9 +128,17 @@ class GraphDataHandler:
             (coord[0], coord[1]) for coord in self.pos.values()
         ])
 
-        text = [(node[1], self.rkm_station[float(node[0])],
-                 node[0], self.level_group[node[0]])
-                for node in self.graph_nodes]
+        text = []
+
+        for node in self.graph_nodes:
+            node_date = node[1]
+            station_name = self.rkm_station[float(node[0])]
+            station_km = node[0]
+            station_level_group = self.level_group[node[0]]
+
+            text.append(
+                (node_date, station_name, station_km, station_level_group)
+            )
 
         node_data = {
             'x_coords': x_coords,
