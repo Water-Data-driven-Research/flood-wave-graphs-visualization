@@ -26,7 +26,7 @@ class GraphPlotter:
         :param str graph_name: 'Flood Wave Graph' or 'Flood Map'
         :param int width: the width of the image to be created (pixels)
         :param int height: the height of the image to be created (pixels)
-        :return go.Figure:
+        :return go.Figure: the created plot
         """
         pass
 
