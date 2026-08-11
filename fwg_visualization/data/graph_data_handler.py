@@ -117,7 +117,7 @@ class GraphDataHandler:
             'x_ticks': x_ticks,
             'x_tick_labels': x_tick_labels,
             'y_ticks': y_ticks,
-            'y_tick_labels': y_ticks
+            'y_tick_labels': self.stations
         }
 
         return axis_data
