@@ -73,3 +73,30 @@ class GraphDataHandler:
             y_coord = station_to_idx[float(node[0])]
 
             self.pos[node] = (x_coord, y_coord)
+
+    def create_axis_data(self) -> dict:
+        """
+        Creates the data to be put on the axes that will be displayed on the
+        figure (x-axis and y-axis ticks and their labels).
+        :return dict: the data, its keys are: 'x_ticks', 'x_tick_labels',
+                'y_ticks', 'y_tick_labels'
+        """
+        pass
+
+    def create_node_data(self) -> dict:
+        """
+        Creates the data required to make the node markers (node trace).
+        :return dict: the data, its keys are: 'x_coords', 'y_coords', 'text'
+        """
+        pass
+
+    def create_edge_data(self) -> dict:
+        """
+        Creates the arrows that are the edges of the directed graph, as well
+        as markers to create the hover function.
+        :return dict: contains the data, its keys are: 'arrows' (the value is
+                the list containing every directed edge, each stored as a
+                dictionary), and 'markers' (the value is another dictionary,
+                whose keys are 'x_coords', 'y_coords' and 'text')
+        """
+        pass
