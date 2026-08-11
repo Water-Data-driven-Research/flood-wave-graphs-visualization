@@ -37,7 +37,8 @@ class GraphDataHandler:
     def run(self):
         """
         Run function, extracts the required data (min_date, stations, pos),
-        then instantiates a GraphDataInterface to store this data.
+        uses that data to prepare precise data for graph creation,
+        then instantiates a GraphDataInterface to store this precise data.
         """
         self.get_min_date()
         self.get_stations()
@@ -48,9 +49,9 @@ class GraphDataHandler:
         edge_data = self.create_edge_data()
 
         self.graph_data_interface = GraphDataInterface(
-            min_date=self.min_date,
-            stations=self.stations,
-            pos=self.pos
+            axis_data=axis_data,
+            node_data=node_data,
+            edge_data=edge_data
         )
 
     def get_min_date(self):
