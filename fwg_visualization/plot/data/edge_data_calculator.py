@@ -24,3 +24,19 @@ class EdgeDataCalculator:
         :param NodeDataInterface node_data_if: contains data about the nodes
         """
         pass
+
+    def run(self):
+        """
+        Run function, calculates the required edge data and instantiates an
+        EdgeDataInterface to store it.
+        """
+        pass
+
+    def get_edge_data(self):
+        """
+        Calculates the positions of the directed edges and the positions of
+        the small markers used to create hover functionality for the edges,
+        and the data required to make the hover text of the edges.
+        :return dict: the data we need about the edges
+        """
+        pass
