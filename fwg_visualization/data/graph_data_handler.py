@@ -24,8 +24,8 @@ class GraphDataHandler:
                the river to their level groups (values above which a water
                level is considered high)
         """
-        self.graph_nodes = graph.nodes()
-        self.graph_edges = graph.edges()
+        self.graph_nodes = list(graph.nodes())
+        self.graph_edges = list(graph.edges())
         self.rkm_station = rkm_station
         self.level_group = level_group
 
@@ -49,9 +49,10 @@ class GraphDataHandler:
         edge_data = self.create_edge_data()
 
         self.graph_data_interface = GraphDataInterface(
-            axis_data=axis_data,
-            node_data=node_data,
-            edge_data=edge_data
+            graph_nodes=self.graph_nodes,
+            graph_edges=self.graph_edges,
+            min_date=self.min_date,
+            stations=self.stations
         )
 
     def get_min_date(self):

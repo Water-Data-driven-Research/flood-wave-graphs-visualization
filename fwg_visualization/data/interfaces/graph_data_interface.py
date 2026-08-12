@@ -1,14 +1,17 @@
 from dataclasses import dataclass
+from datetime import datetime
 
 
 @dataclass
 class GraphDataInterface:
     """
     Class for storing data preprocessed in a GraphDataHandler class.
-    :param dict axis_data: data to create the axes of the plot
-    :param dict node_data: data to create the nodes of the graph
-    :param dict edge_data: data to create the edges of the graph
+    :param list graph_nodes: the nodes of the graph
+    :param list graph_edges: the edges of the graph
+    :param datetime min_date: the earliest node date on the graph
+    :param list stations: the list of the stations on the graph
     """
-    axis_data: dict = None
-    node_data: dict = None
-    edge_data: dict = None
+    graph_nodes: list = None
+    graph_edges: list = None
+    min_date: datetime = None
+    stations: list = None
