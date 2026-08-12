@@ -41,8 +41,7 @@ class NodeDataCalculator:
         node_data = self.get_node_data()
 
         self.node_data_if = NodeDataInterface(
-            x_coordinates=node_data['x_coordinates'],
-            y_coordinates=node_data['y_coordinates'],
+            positions=node_data['positions'],
             text_data=node_data['text_data']
         )
 
@@ -56,15 +55,16 @@ class NodeDataCalculator:
             station: i for i, station in enumerate(self.stations)
         }
 
-        x_coordinates = []
-        y_coordinates = []
-        text_data = []
+        positions: dict = {}
+        text_data: list = []
 
         for node in self.graph_nodes:
             node_date = datetime.strptime(node[1], '%Y-%m-%d')
 
-            x_coordinates.append((node_date - self.min_date).days)
-            y_coordinates.append(station_to_idx[float(node[0])])
+            x_coordinate = (node_date - self.min_date).days
+            y_coordinate = station_to_idx[float(node[0])]
+
+            positions[node] = (x_coordinate, y_coordinate)
 
             node_date_str = node[1]
             station_name = self.rkm_station[float(node[0])]
@@ -76,8 +76,7 @@ class NodeDataCalculator:
             )
 
         node_data = {
-            'x_coordinates': x_coordinates,
-            'y_coordinates': y_coordinates,
+            'positions': positions,
             'text_data': text_data
         }
 

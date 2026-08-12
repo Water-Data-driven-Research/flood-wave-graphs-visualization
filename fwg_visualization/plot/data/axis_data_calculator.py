@@ -26,7 +26,7 @@ class AxisDataCalculator:
         """
         self.min_date = graph_data_if.min_date
         self.stations = graph_data_if.stations
-        self.x_coordinates = node_data_if.x_coordinates
+        self.positions = node_data_if.positions
 
         self.axis_data_if = AxisDataInterface()
 
@@ -49,8 +49,10 @@ class AxisDataCalculator:
         Calculates the ticks and the tick labels of the x- and y-axes.
         :return dict: the data we need about the axes
         """
-        min_x = min(self.x_coordinates)
-        max_x = max(self.x_coordinates)
+        x_coordinates = [pos[0] for pos in self.positions]
+
+        min_x = min(x_coordinates)
+        max_x = max(x_coordinates)
 
         no_of_ticks = min(max_x - min_x, 20)
         x_ticks = list(range(
