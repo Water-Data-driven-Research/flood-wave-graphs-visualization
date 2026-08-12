@@ -142,3 +142,47 @@ def node_data_interface(mock_graph_data_if: GraphDataInterface,
 
     return node_data_calculator.node_data_if
 
+
+@pytest.mark.parametrize('expected_positions', [
+    {
+        ('1.0', '2000-01-01'): (11, 0),
+        ('1.0', '2000-01-14'): (24, 0),
+        ('2.0', '1999-12-30'): (9, 1),
+        ('2.0', '2000-01-03'): (13, 1),
+        ('2.0', '2000-01-12'): (22, 1),
+        ('3.0', '2000-01-02'): (12, 2),
+        ('3.0', '1999-12-24'): (3, 2),
+        ('5.0', '1999-12-21'): (0, 3)
+    }
+])
+def test_positions(node_data_interface: NodeDataInterface,
+                   expected_positions: dict):
+    """
+    Tests whether the positions of the graph nodes were calculated correctly
+    or not.
+    :param NodeDataInterface node_data_interface: contains the calculated
+           positions of graph nodes
+    :param dict expected_positions: the expected correct list of graph nodes
+    """
+    assert node_data_interface.positions == expected_positions
+
+
+@pytest.mark.parametrize('expected_text_data', [
+    [('2000-01-01', 'Station One', '1.0', 200),
+     ('2000-01-14', 'Station One', '1.0', 200),
+     ('1999-12-30', 'Station Two', '2.0', 178),
+     ('2000-01-03', 'Station Two', '2.0', 178),
+     ('2000-01-12', 'Station Two', '2.0', 178),
+     ('2000-01-02', 'Station Three', '3.0', 295),
+     ('1999-12-24', 'Station Three', '3.0', 295),
+     ('1999-12-21', 'Station Four', '5.0', 79)]
+])
+def test_text_data(node_data_interface: NodeDataInterface,
+                   expected_text_data: list):
+    """
+    Tests whether the created text data is correct or not.
+    :param NodeDataInterface node_data_interface: contains the calculated
+           text data
+    :param list expected_text_data: the expected correct text data
+    """
+    assert node_data_interface.text_data == expected_text_data
