@@ -34,17 +34,15 @@ class EdgeDataCalculator:
 
     def run(self):
         """
-        Run function, calculates the required edge data and instantiates an
-        EdgeDataInterface to store it.
+        Run function, calculates the required edge data and stores it in the
+        EdgeDataInterface instance.
         """
         edge_data = self.get_edge_data()
 
-        self.edge_data_if = EdgeDataInterface(
-            directed_edge_data=edge_data['directed_edge_data'],
-            x_coordinates=edge_data['directed_edge_data'],
-            y_coordinates=edge_data['directed_edge_data'],
-            text_data=edge_data['directed_edge_data']
-        )
+        self.edge_data_if.directed_edge_data = edge_data['directed_edge_data']
+        self.edge_data_if.x_coordinates = edge_data['x_coordinates']
+        self.edge_data_if.y_coordinates = edge_data['y_coordinates']
+        self.edge_data_if.text_data = edge_data['text_data']
 
     def get_edge_data(self) -> dict:
         """
