@@ -16,9 +16,11 @@ class EdgeDataCalculator:
     to implement the hover functionality on edges.
     """
     def __init__(self,
-                 graph_if: GraphDataInterface,
-                 edge_if: EdgeDataInterface):
+                 graph_data_if: GraphDataInterface,
+                 node_data_if: NodeDataInterface):
         """
         Constructor.
+        :param GraphDataInterface graph_data_if: contains data about the graph
+        :param NodeDataInterface node_data_if: contains data about the nodes
         """
         pass
