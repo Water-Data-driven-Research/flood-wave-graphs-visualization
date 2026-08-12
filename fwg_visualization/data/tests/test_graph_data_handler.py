@@ -9,7 +9,7 @@ from fwg_visualization.data.interfaces.graph_data_interface import (
 )
 
 
-@pytest.fixture()
+@pytest.fixture
 def mock_graph() -> nx.DiGraph:
     """
     Creates a mock graph on which the codebase can be tested.
