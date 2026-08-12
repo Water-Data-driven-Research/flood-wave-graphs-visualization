@@ -39,4 +39,3 @@ class AxisDataCalculator:
         :return dict: the data we need about the axes
         """
         pass
-
