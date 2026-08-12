@@ -35,15 +35,13 @@ class NodeDataCalculator:
 
     def run(self):
         """
-        Run function, calculates the required node data and instantiates a
-        NodeDataInterface to store it.
+        Run function, calculates the required node data and stores it in the
+        NodeDataInterface instance.
         """
         node_data = self.get_node_data()
 
-        self.node_data_if = NodeDataInterface(
-            positions=node_data['positions'],
-            text_data=node_data['text_data']
-        )
+        self.node_data_if.positions = node_data['positions']
+        self.node_data_if.text_data = node_data['text_data']
 
     def get_node_data(self) -> dict:
         """
