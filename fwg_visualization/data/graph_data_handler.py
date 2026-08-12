@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime
 
 import networkx as nx
 
@@ -20,40 +20,41 @@ class GraphDataHandler:
         self.graph_edges = list(graph.edges())
 
         self.graph_data_interface = GraphDataInterface()
-        self.min_date: datetime = datetime.min
-        self.stations: list = []
 
     def run(self):
         """
-        Run function, extracts the required data (min_date, stations, pos),
-        uses that data to prepare precise data for graph creation,
-        then instantiates a GraphDataInterface to store this precise data.
+        Run function, extracts the required data (min_date, stations) and
+        stores it in the GraphDataInterface instance.
         """
-        self.get_min_date()
-        self.get_stations()
+        min_date = self.get_min_date()
+        stations = self.get_stations()
 
-        self.graph_data_interface = GraphDataInterface(
-            graph_nodes=self.graph_nodes,
-            graph_edges=self.graph_edges,
-            min_date=self.min_date,
-            stations=self.stations
-        )
+        self.graph_data_interface.graph_nodes = self.graph_nodes
+        self.graph_data_interface.graph_edges = self.graph_edges
+        self.graph_data_interface.min_date = min_date
+        self.graph_data_interface.stations = stations
 
-    def get_min_date(self):
+    def get_min_date(self) -> datetime:
         """
-        Fills the self.min_date datetime by finding the earliest date among
-        the dates of the nodes of the flood wave graph or flood map.
+        Finds the earliest date among the dates of the nodes of the flood wave
+        graph or flood map.
+        :return datetime: the earliest node date on the graph
         """
         min_date_temp = min(
             [node[1] for node in self.graph_nodes]
         )
-        self.min_date = datetime.strptime(min_date_temp, '%Y-%m-%d')
+        min_date = datetime.strptime(min_date_temp, '%Y-%m-%d')
 
-    def get_stations(self):
+        return min_date
+
+    def get_stations(self) -> list:
         """
-        Fills the self.stations list by acquiring and sorting a list of the
-        stations in the flood wave graph or flood map.
+        Acquires and sorts a list of the stations in the flood wave graph or
+        flood map.
+        :return list: the list of the stations on the graph
         """
-        self.stations = sorted(list(set(
+        stations = sorted(list(set(
             [float(node[0]) for node in self.graph_nodes]
         )))
+
+        return stations
