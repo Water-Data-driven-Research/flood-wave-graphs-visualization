@@ -116,7 +116,9 @@ def mock_node_data_if(mock_graph_data_if: GraphDataInterface,
            is considered high)
     :return NodeDataInterface: the fixed NodeDataInterface used for testing
     """
-    mock_node_data_calc = NodeDataCalculator(graph_data_if=mock_graph_data_if)
+    mock_node_data_calc = NodeDataCalculator(graph_data_if=mock_graph_data_if,
+                                             rkm_station=mock_rkm_station,
+                                             level_group=mock_level_group)
     mock_node_data_calc.run()
 
     return mock_node_data_calc.node_data_if
