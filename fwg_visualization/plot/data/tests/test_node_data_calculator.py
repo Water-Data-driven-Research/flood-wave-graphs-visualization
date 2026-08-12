@@ -20,7 +20,10 @@ def mock_nodes() -> list:
     data interface.
     :return list: the list of nodes
     """
-    mock_nodes = []
+    mock_nodes = [('1.0', '2000-01-01'), ('1.0', '2000-01-14'),
+                  ('2.0', '1999-12-30'), ('2.0', '2000-01-03'),
+                  ('2.0', '2000-01-12'), ('3.0', '2000-01-02'),
+                  ('3.0', '1999-12-24'), ('5.0', '1999-12-21')]
 
     return mock_nodes
 
@@ -32,7 +35,10 @@ def mock_edges() -> list:
     data interface.
     :return list: the list of edges
     """
-    mock_edges = []
+    mock_edges = [(('2.0', '1999-12-30'), ('1.0', '2000-01-01')),
+                  (('3.0', '2000-01-02'), ('2.0', '2000-01-03')),
+                  (('2.0', '2000-01-12'), ('1.0', '2000-01-14')),
+                  (('5.0', '1999-12-21'), ('3.0', '1999-12-24'))]
 
     return mock_edges
 
@@ -44,7 +50,7 @@ def mock_min_date() -> datetime:
     graph data interface.
     :return datetime: the minimum date
     """
-    mock_min_date = datetime.min
+    mock_min_date = datetime.strptime('1999-12-21', '%Y-%m-%d')
 
     return mock_min_date
 
@@ -56,7 +62,7 @@ def mock_stations() -> list:
     graph data interface.
     :return list: the list of stations
     """
-    mock_stations = []
+    mock_stations = ['1.0', '2.0', '3.0', '5.0']
 
     return mock_stations
 
@@ -71,7 +77,10 @@ def mock_graph_data_if(mock_nodes: list,
     tested.
     :return GraphDataInterface: the mock GraphDataInterface to use for tests
     """
-    mock_graph_data_if = GraphDataInterface()
+    mock_graph_data_if = GraphDataInterface(graph_nodes=mock_nodes,
+                                            graph_edges=mock_edges,
+                                            min_date=mock_min_date,
+                                            stations=mock_stations)
 
     return mock_graph_data_if
 
@@ -82,7 +91,12 @@ def mock_rkm_station() -> dict:
     A potential mapping of station positions on the river to their names.
     :return dict: the potential mapping
     """
-    mock_rkm_station = {}
+    mock_rkm_station = {
+        1.0: 'Station One',
+        2.0: 'Station Two',
+        3.0: 'Station Three',
+        5.0: 'Station Four'
+    }
 
     return mock_rkm_station
 
@@ -94,7 +108,12 @@ def mock_level_group() -> dict:
     groups (values above which a water level is considered high).
     :return dict: the potential mapping
     """
-    mock_level_group = {}
+    mock_level_group = {
+        '1.0': 200,
+        '2.0': 178,
+        '3.0': 295,
+        '5.0': 79
+    }
 
     return mock_level_group
 
