@@ -42,7 +42,6 @@ class GraphDataHandler:
         self.get_min_date()
         self.get_stations()
 
-        axis_data = self.create_axis_data()
         edge_data = self.create_edge_data()
 
         self.graph_data_interface = GraphDataInterface(
@@ -70,38 +69,6 @@ class GraphDataHandler:
         self.stations = sorted(list(set(
             [float(node[0]) for node in self.graph_nodes]
         )))
-
-    def create_axis_data(self) -> dict:
-        """
-        Creates the data to be put on the axes that will be displayed on the
-        figure (x-axis and y-axis ticks and their labels).
-        :return dict: the data, its keys are: 'x_ticks', 'x_tick_labels',
-                'y_ticks', 'y_tick_labels'
-        """
-        min_x = min([n[0] for n in self.pos.values()])
-        max_x = max([n[0] for n in self.pos.values()])
-
-        no_of_ticks = min(max_x - min_x, 20)
-        x_ticks = list(range(
-            int(min_x),
-            int(max_x) + 1,
-            int(max_x / no_of_ticks)
-        ))
-        x_tick_labels = [
-            (self.min_date + timedelta(days=i)).strftime("%Y-%m-%d")
-            for i in x_ticks
-        ]
-
-        y_ticks = list(range(len(self.stations)))
-
-        axis_data = {
-            'x_ticks': x_ticks,
-            'x_tick_labels': x_tick_labels,
-            'y_ticks': y_ticks,
-            'y_tick_labels': self.stations
-        }
-
-        return axis_data
 
     def create_edge_data(self) -> dict:
         """
