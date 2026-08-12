@@ -32,7 +32,6 @@ class GraphDataHandler:
         self.graph_data_interface = GraphDataInterface()
         self.min_date: datetime = datetime.min
         self.stations: list = []
-        self.pos: dict = {}
 
     def run(self):
         """
@@ -42,10 +41,8 @@ class GraphDataHandler:
         """
         self.get_min_date()
         self.get_stations()
-        self.get_positions()
 
         axis_data = self.create_axis_data()
-        node_data = self.create_node_data()
         edge_data = self.create_edge_data()
 
         self.graph_data_interface = GraphDataInterface(
@@ -73,23 +70,6 @@ class GraphDataHandler:
         self.stations = sorted(list(set(
             [float(node[0]) for node in self.graph_nodes]
         )))
-
-    def get_positions(self):
-        """
-        Fills the self.pos dictionary, which maps the nodes to their eventual
-        positions on the grid of the plot.
-        """
-        station_to_idx = {
-            station: i for i, station in enumerate(self.stations)
-        }
-
-        for node in self.graph_nodes:
-            node_date = datetime.strptime(node[1], '%Y-%m-%d')
-
-            x_coord = (node_date - self.min_date).days
-            y_coord = station_to_idx[float(node[0])]
-
-            self.pos[node] = (x_coord, y_coord)
 
     def create_axis_data(self) -> dict:
         """
@@ -122,35 +102,6 @@ class GraphDataHandler:
         }
 
         return axis_data
-
-    def create_node_data(self) -> dict:
-        """
-        Creates the data required to make the node markers (node trace).
-        :return dict: the data, its keys are: 'x_coords', 'y_coords', 'text'
-        """
-        x_coords, y_coords = zip(*[
-            (coord[0], coord[1]) for coord in self.pos.values()
-        ])
-
-        text = []
-
-        for node in self.graph_nodes:
-            node_date = node[1]
-            station_name = self.rkm_station[float(node[0])]
-            station_km = node[0]
-            station_level_group = self.level_group[node[0]]
-
-            text.append(
-                (node_date, station_name, station_km, station_level_group)
-            )
-
-        node_data = {
-            'x_coords': x_coords,
-            'y_coords': y_coords,
-            'text': text
-        }
-
-        return node_data
 
     def create_edge_data(self) -> dict:
         """
