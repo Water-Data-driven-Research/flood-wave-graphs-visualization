@@ -46,7 +46,7 @@ class NodeDataCalculator:
             text_data=node_data['text_data']
         )
 
-    def get_node_data(self):
+    def get_node_data(self) -> dict:
         """
         Calculates the positions of the nodes and data required to make the
         hover text of the nodes.
