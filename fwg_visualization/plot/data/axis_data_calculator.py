@@ -32,17 +32,15 @@ class AxisDataCalculator:
 
     def run(self):
         """
-        Run function, calculates the required axis data and instantiates an
-        AxisDataInterface to store it.
+        Run function, calculates the required axis data and stores it in the
+        AxisDataInterface instance.
         """
         axis_data = self.get_axis_data()
 
-        self.axis_data_if = AxisDataInterface(
-            x_ticks=axis_data['x_ticks'],
-            x_tick_labels=axis_data['x_tick_labels'],
-            y_ticks=axis_data['y_ticks'],
-            y_tick_labels=axis_data['y_tick_labels']
-        )
+        self.axis_data_if.x_ticks = axis_data['x_ticks']
+        self.axis_data_if.x_tick_labels = axis_data['x_tick_labels']
+        self.axis_data_if.y_ticks = axis_data['y_ticks']
+        self.axis_data_if.y_tick_labels = axis_data['y_tick_labels']
 
     def get_axis_data(self) -> dict:
         """
