@@ -25,3 +25,18 @@ class AxisDataCalculator:
         :param NodeDataInterface node_data_if: contains data about the nodes
         """
         pass
+
+    def run(self):
+        """
+        Run function, calculates the required axis data and instantiates an
+        AxisDataInterface to store it.
+        """
+        pass
+
+    def get_axis_data(self):
+        """
+        Calculates the ticks and the tick labels of the x- and y-axes.
+        :return dict: the data we need about the axes
+        """
+        pass
+
