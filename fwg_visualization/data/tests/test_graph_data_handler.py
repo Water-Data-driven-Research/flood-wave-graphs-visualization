@@ -51,16 +51,49 @@ def graph_data_interface(mock_graph: nx.DiGraph) -> GraphDataInterface:
     return graph_data_handler.graph_data_interface
 
 
+@pytest.mark.parametrize('expected_graph_nodes', [
+    [('1.0', '2000-01-01'), ('1.0', '2000-01-06'), ('1.0', '2000-01-08'),
+     ('2.0', '1999-12-31'), ('2.0', '2000-01-04'), ('3.0', '2000-01-03'),
+     ('3.0', '1999-12-20'), ('5.0', '1999-12-24')]
+])
+def test_nodes(graph_data_interface: GraphDataInterface,
+               expected_graph_nodes: list):
+    """
+    Tests whether the future positions on the grid are correctly calculated or
+    not.
+    :param GraphDataInterface graph_data_interface: contains the calculated
+           list of graph nodes
+    :param list expected_graph_nodes: the expected correct list of graph nodes
+    """
+    assert graph_data_interface.graph_nodes == expected_graph_nodes
+
+
+@pytest.mark.parametrize('expected_graph_edges', [
+    [(('2.0', '1999-12-31'), ('1.0', '2000-01-01')),
+     (('2.0', '2000-01-04'), ('1.0', '2000-01-06')),
+     (('3.0', '2000-01-03'), ('2.0', '2000-01-04'))]
+])
+def test_pos(graph_data_interface: GraphDataInterface,
+             expected_graph_edges: list):
+    """
+    Tests whether the future positions on the grid are correctly calculated or
+    not.
+    :param GraphDataInterface graph_data_interface: contains the calculated
+           list of graph edges
+    :param list expected_graph_edges: the expected correct list of graph edges
+    """
+    assert graph_data_interface.graph_edges == expected_graph_edges
+
+
 @pytest.mark.parametrize('expected_min_date', [
     datetime(year=1999, month=12, day=20)
 ])
 def test_min_date(graph_data_interface: GraphDataInterface,
-                  expected_min_date: datetime
-                  ):
+                  expected_min_date: datetime):
     """
     Tests whether the minimum date is correctly calculated or not.
-    :param GraphDataInterface graph_data_interface: contains the results of the
-           minimum date calculation
+    :param GraphDataInterface graph_data_interface: contains the results of
+           the minimum date calculation
     :param datetime expected_min_date: the expected correct result for the
            minimum date calculation
     """
@@ -71,8 +104,7 @@ def test_min_date(graph_data_interface: GraphDataInterface,
     [1.0, 2.0, 3.0, 5.0]
 ])
 def test_stations(graph_data_interface: GraphDataInterface,
-                  expected_stations: list
-                  ):
+                  expected_stations: list):
     """
     Tests whether the list of stations is correctly acquired or not.
     :param GraphDataInterface graph_data_interface: contains the acquired list
@@ -80,29 +112,3 @@ def test_stations(graph_data_interface: GraphDataInterface,
     :param list expected_stations: the expected correct list of stations
     """
     assert graph_data_interface.stations == expected_stations
-
-
-@pytest.mark.parametrize('expected_pos', [
-    {
-        ('1.0', '2000-01-01'): (12, 0),
-        ('1.0', '2000-01-06'): (17, 0),
-        ('1.0', '2000-01-08'): (19, 0),
-        ('2.0', '1999-12-31'): (11, 1),
-        ('2.0', '2000-01-04'): (15, 1),
-        ('3.0', '2000-01-03'): (14, 2),
-        ('3.0', '1999-12-20'): (0, 2),
-        ('5.0', '1999-12-24'): (4, 3)
-    }
-])
-def test_pos(graph_data_interface: GraphDataInterface,
-             expected_pos: dict
-             ):
-    """
-    Tests whether the future positions on the grid are correctly calculated or
-    not.
-    :param GraphDataInterface graph_data_interface: contains the calculated
-           mapping of nodes to their eventual positions on the grid
-    :param dict expected_pos: the expected correct mapping of nodes to their
-           eventual positions on the grid
-    """
-    assert graph_data_interface.pos == expected_pos
