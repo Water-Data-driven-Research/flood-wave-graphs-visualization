@@ -62,7 +62,7 @@ def mock_stations() -> list:
     graph data interface.
     :return list: the list of stations
     """
-    mock_stations = ['1.0', '2.0', '3.0', '5.0']
+    mock_stations = [1.0, 2.0, 3.0, 5.0]
 
     return mock_stations
 
