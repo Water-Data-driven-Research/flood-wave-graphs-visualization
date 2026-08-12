@@ -119,9 +119,9 @@ def mock_level_group() -> dict:
 
 
 @pytest.fixture
-def mock_node_data_if(mock_graph_data_if: GraphDataInterface,
-                      mock_rkm_station: dict,
-                      mock_level_group: dict) -> NodeDataInterface:
+def node_data_interface(mock_graph_data_if: GraphDataInterface,
+                        mock_rkm_station: dict,
+                        mock_level_group: dict) -> NodeDataInterface:
     """
     Extracts the necessary data from the mock GraphDataInterface with a
     NodeDataCalculator, then stores this data in a fixed NodeDataInterface,
@@ -135,9 +135,10 @@ def mock_node_data_if(mock_graph_data_if: GraphDataInterface,
            is considered high)
     :return NodeDataInterface: the fixed NodeDataInterface used for testing
     """
-    mock_node_data_calc = NodeDataCalculator(graph_data_if=mock_graph_data_if,
-                                             rkm_station=mock_rkm_station,
-                                             level_group=mock_level_group)
-    mock_node_data_calc.run()
+    node_data_calculator = NodeDataCalculator(graph_data_if=mock_graph_data_if,
+                                              rkm_station=mock_rkm_station,
+                                              level_group=mock_level_group)
+    node_data_calculator.run()
 
-    return mock_node_data_calc.node_data_if
+    return node_data_calculator.node_data_if
+
