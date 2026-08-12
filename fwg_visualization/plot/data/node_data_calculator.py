@@ -32,6 +32,7 @@ class NodeDataCalculator:
         Run function, calculates the required node data and instantiates a
         NodeDataInterface to store it.
         """
+        pass
 
     def get_node_data(self):
         """
