@@ -114,7 +114,7 @@ def test_stations(graph_data_interface: GraphDataInterface,
     assert graph_data_interface.stations == expected_stations
 
 
-@pytest.mark.parametrize('expected_pos', [
+@pytest.mark.parametrize('expected_positions', [
     {
         ('1.0', '2000-01-01'): (12, 0),
         ('1.0', '2000-01-06'): (17, 0),
