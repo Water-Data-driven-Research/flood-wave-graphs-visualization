@@ -16,8 +16,8 @@ class GraphDataHandler:
         Constructor.
         :param nx.DiGraph graph: the fwg or flood map to be preprocessed
         """
-        self.graph_nodes = list(graph.nodes())
-        self.graph_edges = list(graph.edges())
+        self.graph_nodes = sorted(list(graph.nodes()))
+        self.graph_edges = sorted(list(graph.edges()))
 
         self.graph_data_interface = GraphDataInterface()
 

@@ -52,9 +52,9 @@ def graph_data_interface(mock_graph: nx.DiGraph) -> GraphDataInterface:
 
 
 @pytest.mark.parametrize('expected_graph_nodes', [
-    [('1.0', '2000-01-01'), ('1.0', '2000-01-06'), ('3.0', '2000-01-03'),
-     ('1.0', '2000-01-08'), ('2.0', '1999-12-31'), ('3.0', '1999-12-20'),
-     ('2.0', '2000-01-04'), ('5.0', '1999-12-24')]
+    [('1.0', '2000-01-01'), ('1.0', '2000-01-06'), ('1.0', '2000-01-08'),
+     ('2.0', '1999-12-31'), ('2.0', '2000-01-04'), ('3.0', '1999-12-20'),
+     ('3.0', '2000-01-03'), ('5.0', '1999-12-24')]
 ])
 def test_nodes(graph_data_interface: GraphDataInterface,
                expected_graph_nodes: list):
@@ -69,8 +69,8 @@ def test_nodes(graph_data_interface: GraphDataInterface,
 
 @pytest.mark.parametrize('expected_graph_edges', [
     [(('2.0', '1999-12-31'), ('1.0', '2000-01-01')),
-     (('3.0', '2000-01-03'), ('2.0', '2000-01-04')),
-     (('2.0', '2000-01-04'), ('1.0', '2000-01-06'))]
+     (('2.0', '2000-01-04'), ('1.0', '2000-01-06')),
+     (('3.0', '2000-01-03'), ('2.0', '2000-01-04'))]
 ])
 def test_edges(graph_data_interface: GraphDataInterface,
                expected_graph_edges: list):
