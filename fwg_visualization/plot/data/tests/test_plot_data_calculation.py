@@ -74,10 +74,31 @@ def mock_stations() -> list:
 
 
 @pytest.fixture
+def mock_positions() -> dict:
+    """
+    A potential mapping of nodes to their eventual positions on the grid.
+    :return datetime: the minimum date
+    """
+    mock_positions = {
+        ('1.0', '2000-01-01'): (11, 0),
+        ('1.0', '2000-01-14'): (24, 0),
+        ('2.0', '1999-12-30'): (9, 1),
+        ('2.0', '2000-01-03'): (13, 1),
+        ('2.0', '2000-01-12'): (21, 1),
+        ('3.0', '1999-12-24'): (3, 2),
+        ('3.0', '2000-01-02'): (12, 2),
+        ('5.0', '1999-12-21'): (0, 3)
+    }
+
+    return mock_positions
+
+
+@pytest.fixture
 def mock_graph_data_if(mock_nodes: list,
                        mock_edges: list,
                        mock_min_date: datetime,
-                       mock_stations: list) -> GraphDataInterface:
+                       mock_stations: list,
+                       mock_positions: dict) -> GraphDataInterface:
     """
     Creates a mock GraphDataInterface on which the NodeDataCalculator can be
     tested.
@@ -86,7 +107,8 @@ def mock_graph_data_if(mock_nodes: list,
     mock_graph_data_if = GraphDataInterface(graph_nodes=mock_nodes,
                                             graph_edges=mock_edges,
                                             min_date=mock_min_date,
-                                            stations=mock_stations)
+                                            stations=mock_stations,
+                                            positions=mock_positions)
 
     return mock_graph_data_if
 
