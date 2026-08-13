@@ -151,20 +151,16 @@ def node_data_interface(mock_graph_data_if: GraphDataInterface,
 
 @pytest.fixture
 def axis_data_interface(
-        mock_graph_data_if: GraphDataInterface,
-        node_data_interface: NodeDataInterface) -> AxisDataInterface:
+        mock_graph_data_if: GraphDataInterface) -> AxisDataInterface:
     """
     Extracts the necessary data from the mock GraphDataInterface and the
     NodeDataInterface with an AxisDataCalculator, then stores this data in a
     fixed AxisDataInterface, which we will use for testing.
     :param GraphDataInterface mock_graph_data_if: the mock graph data interface
            which provides the data for testing
-    :param NodeDataInterface node_data_interface: the node data interface which
-           contains data about the positions of the nodes
     :return AxisDataInterface: the fixed AxisDataInterface used for testing
     """
-    axis_data_calculator = AxisDataCalculator(graph_data_if=mock_graph_data_if,
-                                              node_data_if=node_data_interface)
+    axis_data_calculator = AxisDataCalculator(graph_data_if=mock_graph_data_if)
     axis_data_calculator.run()
 
     return axis_data_calculator.axis_data_if
@@ -172,7 +168,6 @@ def axis_data_interface(
 
 @pytest.fixture
 def edge_data_interface(mock_graph_data_if: GraphDataInterface,
-                        node_data_interface: NodeDataInterface,
                         mock_rkm_station: dict) -> EdgeDataInterface:
     """
     Extracts the necessary data from the mock GraphDataInterface and the
@@ -180,52 +175,48 @@ def edge_data_interface(mock_graph_data_if: GraphDataInterface,
     fixed EdgeDataInterface, which we will use for testing.
     :param GraphDataInterface mock_graph_data_if: the mock graph data interface
            which provides the data for testing
-    :param NodeDataInterface node_data_interface: the node data interface which
-           contains data about the positions of the nodes
     :param dict mock_rkm_station: a potential mapping of station positions on
            the river to their names
     :return EdgeDataInterface: the fixed EdgeDataInterface used for testing
     """
     edge_data_calculator = EdgeDataCalculator(graph_data_if=mock_graph_data_if,
-                                              node_data_if=node_data_interface,
                                               rkm_station=mock_rkm_station)
     edge_data_calculator.run()
 
     return edge_data_calculator.edge_data_if
 
 
-@pytest.mark.parametrize('expected_positions, expected_text_data', [
-    {
-        ('1.0', '2000-01-01'): (11, 0),
-        ('1.0', '2000-01-14'): (24, 0),
-        ('3.0', '2000-01-02'): (12, 2),
-        ('2.0', '1999-12-30'): (9, 1),
-        ('2.0', '2000-01-03'): (13, 1),
-        ('3.0', '1999-12-24'): (3, 2),
-        ('2.0', '2000-01-12'): (22, 1),
-        ('5.0', '1999-12-21'): (0, 3)
-    },
-    [
-        ('2000-01-01', 'Station One', '1.0', 200),
-        ('2000-01-14', 'Station One', '1.0', 200),
-        ('2000-01-02', 'Station Three', '3.0', 295),
-        ('1999-12-30', 'Station Two', '2.0', 178),
-        ('2000-01-03', 'Station Two', '2.0', 178),
-        ('1999-12-24', 'Station Three', '3.0', 295),
-        ('2000-01-12', 'Station Two', '2.0', 178),
-        ('1999-12-21', 'Station Four', '5.0', 79)
-    ]
-])
+@pytest.mark.parametrize('expected_x_coordinates,'
+                         'expected_y_coordinates,'
+                         'expected_text_data', [
+                             ([11, 24, 12, 9, 13, 3, 22, 0],
+                              [0, 0, 2, 1, 1, 2, 1, 1, 3],
+                              [
+                                  ('2000-01-01', 'Station One', '1.0', 200),
+                                  ('2000-01-14', 'Station One', '1.0', 200),
+                                  ('2000-01-02', 'Station Three', '3.0', 295),
+                                  ('1999-12-30', 'Station Two', '2.0', 178),
+                                  ('2000-01-03', 'Station Two', '2.0', 178),
+                                  ('1999-12-24', 'Station Three', '3.0', 295),
+                                  ('2000-01-12', 'Station Two', '2.0', 178),
+                                  ('1999-12-21', 'Station Four', '5.0', 79)
+                              ])
+                         ])
 def test_node_data(node_data_interface: NodeDataInterface,
-                   expected_positions: dict,
+                   expected_x_coordinates: list,
+                   expected_y_coordinates: list,
                    expected_text_data: list):
     """
     Tests whether the positions of the graph nodes and the text data were
     calculated correctly or not.
     :param NodeDataInterface node_data_interface: contains the calculated
            positions of graph nodes
-    :param dict expected_positions: the expected correct list of graph nodes
+    :param list expected_x_coordinates: the expected correct list of x-
+           coordinates
+    :param list expected_y_coordinates: the expected correct list of y-
+           coordinates
     :param list expected_text_data: the expected correct text data
     """
-    assert node_data_interface.positions == expected_positions
+    assert node_data_interface.x_coordinates == expected_x_coordinates
+    assert node_data_interface.y_coordinates == expected_y_coordinates
     assert node_data_interface.text_data == expected_text_data
