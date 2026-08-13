@@ -5,12 +5,18 @@ import pytest
 from fwg_visualization.data.interfaces.graph_data_interface import (
     GraphDataInterface
 )
+from fwg_visualization.plot.data.axis_data_calculator import AxisDataCalculator
+from fwg_visualization.plot.data.edge_data_calculator import EdgeDataCalculator
+from fwg_visualization.plot.data.interfaces.axis_data_interface import (
+    AxisDataInterface
+)
+from fwg_visualization.plot.data.interfaces.edge_data_interface import (
+    EdgeDataInterface
+)
 from fwg_visualization.plot.data.interfaces.node_data_interface import (
     NodeDataInterface
 )
-from fwg_visualization.plot.data.node_data_calculator import (
-    NodeDataCalculator
-)
+from fwg_visualization.plot.data.node_data_calculator import NodeDataCalculator
 
 
 @pytest.fixture
@@ -125,7 +131,7 @@ def node_data_interface(mock_graph_data_if: GraphDataInterface,
     """
     Extracts the necessary data from the mock GraphDataInterface with a
     NodeDataCalculator, then stores this data in a fixed NodeDataInterface,
-    which we will use for testing
+    which we will use for testing.
     :param GraphDataInterface mock_graph_data_if: the mock graph data interface
            which provides the data for testing
     :param dict mock_rkm_station: a potential mapping of station positions on
@@ -141,6 +147,27 @@ def node_data_interface(mock_graph_data_if: GraphDataInterface,
     node_data_calculator.run()
 
     return node_data_calculator.node_data_if
+
+
+@pytest.fixture
+def axis_data_interface(
+        mock_graph_data_if: GraphDataInterface,
+        node_data_interface: NodeDataInterface) -> AxisDataInterface:
+    """
+    Extracts the necessary data from the mock GraphDataInterface and the
+    NodeDataInterface with an AxisDataCalculator, then stores this data in a
+    fixed AxisDataInterface, which we will use for testing.
+    :param GraphDataInterface mock_graph_data_if: the mock graph data interface
+           which provides the data for testing
+    :param NodeDataInterface node_data_interface: the node data interface which
+           contains data about the positions of the nodes
+    :return AxisDataInterface: the fixed AxisDataInterface used for testing
+    """
+    axis_data_calculator = AxisDataCalculator(graph_data_if=mock_graph_data_if,
+                                              node_data_if=node_data_interface)
+    axis_data_calculator.run()
+
+    return axis_data_calculator.axis_data_if
 
 
 @pytest.mark.parametrize('expected_positions, expected_text_data', [
