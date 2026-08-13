@@ -170,6 +170,30 @@ def axis_data_interface(
     return axis_data_calculator.axis_data_if
 
 
+@pytest.fixture
+def edge_data_interface(mock_graph_data_if: GraphDataInterface,
+                        node_data_interface: NodeDataInterface,
+                        mock_rkm_station: dict) -> EdgeDataInterface:
+    """
+    Extracts the necessary data from the mock GraphDataInterface and the
+    NodeDataInterface with an EdgeDataCalculator, then stores this data in a
+    fixed EdgeDataInterface, which we will use for testing.
+    :param GraphDataInterface mock_graph_data_if: the mock graph data interface
+           which provides the data for testing
+    :param NodeDataInterface node_data_interface: the node data interface which
+           contains data about the positions of the nodes
+    :param dict mock_rkm_station: a potential mapping of station positions on
+           the river to their names
+    :return EdgeDataInterface: the fixed EdgeDataInterface used for testing
+    """
+    edge_data_calculator = EdgeDataCalculator(graph_data_if=mock_graph_data_if,
+                                              node_data_if=node_data_interface,
+                                              rkm_station=mock_rkm_station)
+    edge_data_calculator.run()
+
+    return edge_data_calculator.edge_data_if
+
+
 @pytest.mark.parametrize('expected_positions, expected_text_data', [
     {
         ('1.0', '2000-01-01'): (11, 0),
