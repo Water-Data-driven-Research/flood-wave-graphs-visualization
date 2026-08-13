@@ -28,11 +28,13 @@ class GraphDataHandler:
         """
         min_date = self.get_min_date()
         stations = self.get_stations()
+        positions = self.get_positions(min_date=min_date, stations=stations)
 
         self.graph_data_interface.graph_nodes = self.graph_nodes
         self.graph_data_interface.graph_edges = self.graph_edges
         self.graph_data_interface.min_date = min_date
         self.graph_data_interface.stations = stations
+        self.graph_data_interface.positions = positions
 
     def get_min_date(self) -> datetime:
         """
@@ -58,3 +60,26 @@ class GraphDataHandler:
         )))
 
         return stations
+
+    def get_positions(self, min_date: datetime, stations: list) -> dict:
+        """
+        :param datetime min_date: the earlies date of the nodes of the plot
+        :param list stations: the list of the stations on the graph
+        Creates the positions dictionary, which maps the nodes to their
+        eventual positions on the grid of the plot.
+        """
+        station_to_idx = {
+            station: i for i, station in enumerate(stations)
+        }
+
+        positions: dict = {}
+
+        for node in self.graph_nodes:
+            node_date = datetime.strptime(node[1], '%Y-%m-%d')
+
+            x_coord = (node_date - min_date).days
+            y_coord = station_to_idx[float(node[0])]
+
+            positions[node] = (x_coord, y_coord)
+
+        return positions

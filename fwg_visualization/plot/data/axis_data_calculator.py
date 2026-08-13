@@ -17,16 +17,14 @@ class AxisDataCalculator:
     on the figure.
     """
     def __init__(self,
-                 graph_data_if: GraphDataInterface,
-                 node_data_if: NodeDataInterface):
+                 graph_data_if: GraphDataInterface):
         """
         Constructor.
         :param GraphDataInterface graph_data_if: contains data about the graph
-        :param NodeDataInterface node_data_if: contains data about the nodes
         """
         self.min_date = graph_data_if.min_date
         self.stations = graph_data_if.stations
-        self.positions = node_data_if.positions
+        self.positions = graph_data_if.positions
 
         self.axis_data_if = AxisDataInterface()
 

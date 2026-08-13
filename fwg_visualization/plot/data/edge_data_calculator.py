@@ -17,17 +17,15 @@ class EdgeDataCalculator:
     """
     def __init__(self,
                  graph_data_if: GraphDataInterface,
-                 node_data_if: NodeDataInterface,
                  rkm_station: dict):
         """
         Constructor.
         :param GraphDataInterface graph_data_if: contains data about the graph
-        :param NodeDataInterface node_data_if: contains data about the nodes
         :param dict rkm_station: the dictionary that maps station positions on
                the river to their names
         """
         self.graph_edges = graph_data_if.graph_edges
-        self.positions = node_data_if.positions
+        self.positions = graph_data_if.positions
         self.rkm_station = rkm_station
 
         self.edge_data_if = EdgeDataInterface()

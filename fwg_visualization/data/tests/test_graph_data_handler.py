@@ -112,3 +112,28 @@ def test_stations(graph_data_interface: GraphDataInterface,
     :param list expected_stations: the expected correct list of stations
     """
     assert graph_data_interface.stations == expected_stations
+
+
+@pytest.mark.parametrize('expected_pos', [
+    {
+        ('1.0', '2000-01-01'): (12, 0),
+        ('1.0', '2000-01-06'): (17, 0),
+        ('1.0', '2000-01-08'): (19, 0),
+        ('2.0', '1999-12-31'): (11, 1),
+        ('2.0', '2000-01-04'): (15, 1),
+        ('3.0', '2000-01-03'): (14, 2),
+        ('3.0', '1999-12-20'): (0, 2),
+        ('5.0', '1999-12-24'): (4, 3)
+    }
+])
+def test_positions(graph_data_interface: GraphDataInterface,
+                   expected_positions: dict):
+    """
+    Tests whether the future positions on the grid are correctly calculated or
+    not.
+    :param GraphDataInterface graph_data_interface: contains the calculated
+           mapping of nodes to their eventual positions on the grid
+    :param dict expected_positions: the expected correct mapping of nodes to
+           their eventual positions on the grid
+    """
+    assert graph_data_interface.positions == expected_positions
