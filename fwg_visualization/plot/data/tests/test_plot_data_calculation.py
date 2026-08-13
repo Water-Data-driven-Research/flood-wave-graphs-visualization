@@ -22,8 +22,7 @@ from fwg_visualization.plot.data.node_data_calculator import NodeDataCalculator
 @pytest.fixture
 def mock_nodes() -> list:
     """
-    A list of potential nodes of a graph with which we can fill the mock graph
-    data interface.
+    A potential list of nodes of a graph.
     :return list: the list of nodes
     """
     mock_nodes = [('1.0', '2000-01-01'), ('1.0', '2000-01-14'),
@@ -37,8 +36,7 @@ def mock_nodes() -> list:
 @pytest.fixture
 def mock_edges() -> list:
     """
-    A list of potential edges of a graph with which we can fill the mock graph
-    data interface.
+    A potential list of edges of a graph.
     :return list: the list of edges
     """
     mock_edges = [(('2.0', '1999-12-30'), ('1.0', '2000-01-01')),
@@ -52,8 +50,7 @@ def mock_edges() -> list:
 @pytest.fixture
 def mock_min_date() -> datetime:
     """
-    A potential minimum node date of a graph with which we can fill the mock
-    graph data interface.
+    A potential minimum node date of a graph.
     :return datetime: the minimum date
     """
     mock_min_date = datetime.strptime('1999-12-21', '%Y-%m-%d')
@@ -64,8 +61,7 @@ def mock_min_date() -> datetime:
 @pytest.fixture
 def mock_stations() -> list:
     """
-    A list of potential stations in a graph with which we can fill the mock
-    graph data interface.
+    A potential list of stations in a graph.
     :return list: the list of stations
     """
     mock_stations = [1.0, 2.0, 3.0, 5.0]
@@ -102,6 +98,12 @@ def mock_graph_data_if(mock_nodes: list,
     """
     Creates a mock GraphDataInterface on which the NodeDataCalculator can be
     tested.
+    :param list mock_nodes: a potential list of nodes of a graph
+    :param list mock_edges: a potential list of edges of a graph
+    :param list mock_min_date: a potential minimum node date of a graph.
+    :param list mock_stations: a potential list of stations in a graph.
+    :param list mock_positions: a potential mapping of nodes to their eventual
+            positions on the  grid
     :return GraphDataInterface: the mock GraphDataInterface to use for tests
     """
     mock_graph_data_if = GraphDataInterface(graph_nodes=mock_nodes,
