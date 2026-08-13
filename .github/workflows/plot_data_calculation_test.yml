@@ -1,4 +1,4 @@
-name: Axis Data Calculation Test
+name: Node Data Calculation Test
 
 on:
   pull_request_review:
@@ -20,7 +20,7 @@ jobs:
           lfs: true
 
       - name: Build Docker image
-        run: docker build -t my-app -f fwg_visualization/plot/data/tests/Dockerfile_axis_data_calculator_test .
+        run: docker build -t my-app -f fwg_visualization/plot/data/tests/Dockerfile_plot_data_calculation_test .
 
       - name: Run tests inside Docker
         run: docker run --rm my-app
