@@ -39,7 +39,8 @@ class NodeDataCalculator:
         """
         node_data = self.get_node_data()
 
-        self.node_data_if.positions = node_data['positions']
+        self.node_data_if.x_coordinates = node_data['x_coordinates']
+        self.node_data_if.y_coordinates = node_data['y_coordinates']
         self.node_data_if.text_data = node_data['text_data']
 
     def get_node_data(self) -> dict:
