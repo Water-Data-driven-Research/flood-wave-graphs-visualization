@@ -59,8 +59,7 @@ def graph_data_interface(mock_graph: nx.DiGraph) -> GraphDataInterface:
 def test_nodes(graph_data_interface: GraphDataInterface,
                expected_graph_nodes: list):
     """
-    Tests whether the future positions on the grid are correctly calculated or
-    not.
+    Tests whether the nodes of the graph are acquired as intended.
     :param GraphDataInterface graph_data_interface: contains the calculated
            list of graph nodes
     :param list expected_graph_nodes: the expected correct list of graph nodes
@@ -73,11 +72,10 @@ def test_nodes(graph_data_interface: GraphDataInterface,
      (('3.0', '2000-01-03'), ('2.0', '2000-01-04')),
      (('2.0', '2000-01-04'), ('1.0', '2000-01-06'))]
 ])
-def test_pos(graph_data_interface: GraphDataInterface,
-             expected_graph_edges: list):
+def test_edges(graph_data_interface: GraphDataInterface,
+               expected_graph_edges: list):
     """
-    Tests whether the future positions on the grid are correctly calculated or
-    not.
+    Tests whether the nodes of the graph are acquired as intended.
     :param GraphDataInterface graph_data_interface: contains the calculated
            list of graph edges
     :param list expected_graph_edges: the expected correct list of graph edges
