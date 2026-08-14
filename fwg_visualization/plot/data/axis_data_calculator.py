@@ -6,10 +6,6 @@ from fwg_visualization.data.interfaces.graph_data_interface import (
 from fwg_visualization.plot.data.interfaces.axis_data_interface import (
     AxisDataInterface
 )
-from fwg_visualization.plot.data.interfaces.node_data_interface import (
-    NodeDataInterface
-)
-
 
 class AxisDataCalculator:
     """

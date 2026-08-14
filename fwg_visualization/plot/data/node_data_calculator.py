@@ -1,5 +1,3 @@
-from datetime import datetime
-
 from fwg_visualization.data.interfaces.graph_data_interface import (
     GraphDataInterface
 )

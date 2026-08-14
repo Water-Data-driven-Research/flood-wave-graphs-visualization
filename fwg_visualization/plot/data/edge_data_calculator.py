@@ -4,9 +4,6 @@ from fwg_visualization.data.interfaces.graph_data_interface import (
 from fwg_visualization.plot.data.interfaces.edge_data_interface import (
     EdgeDataInterface
 )
-from fwg_visualization.plot.data.interfaces.node_data_interface import (
-    NodeDataInterface
-)
 
 
 class EdgeDataCalculator:
