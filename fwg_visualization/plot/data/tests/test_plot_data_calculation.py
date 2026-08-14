@@ -244,3 +244,85 @@ def test_node_data(node_data_interface: NodeDataInterface,
     assert node_data_interface.x_coordinates == expected_x_coordinates
     assert node_data_interface.y_coordinates == expected_y_coordinates
     assert node_data_interface.text_data == expected_text_data
+
+
+@pytest.mark.parametrize('expected_x_ticks,'
+                         'expected_x_tick_labels,'
+                         'expected_y_ticks,'
+                         'expected_y_tick_labels',
+                         [
+                             ([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13,
+                               14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24],
+                              ['1999-12-21', '1999-12-22', '1999-12-23',
+                               '1999-12-24', '1999-12-25', '1999-12-26',
+                               '1999-12-27', '1999-12-28', '1999-12-29',
+                               '1999-12-30', '1999-12-31', '2000-01-01',
+                               '2000-01-02', '2000-01-03', '2000-01-04',
+                               '2000-01-05', '2000-01-06', '2000-01-07',
+                               '2000-01-08', '2000-01-09', '2000-01-10',
+                               '2000-01-11', '2000-01-12', '2000-01-13',
+                               '2000-01-14'],
+                              [0, 1, 2, 3],
+                              [1.0, 2.0, 3.0, 5.0])
+                         ])
+def test_axis_data(axis_data_interface: AxisDataInterface,
+                   expected_x_ticks: list,
+                   expected_x_tick_labels: list,
+                   expected_y_ticks: list,
+                   expected_y_tick_labels: list):
+    """
+    Tests whether the axis data was calculated correctly or not.
+    :param AxisDataInterface axis_data_interface: contains the calculated
+           axis data
+    :param list expected_x_ticks: the expected correct list of x-axis ticks
+    :param list expected_x_tick_labels: the expected correct list of x-tick
+           labels
+    :param list expected_y_ticks: the expected correct list of y-axis ticks
+    :param list expected_y_tick_labels: the expected correct list of y-tick
+           labels
+    """
+    assert axis_data_interface.x_ticks == expected_x_ticks
+    assert axis_data_interface.x_tick_labels == expected_x_tick_labels
+    assert axis_data_interface.y_ticks == expected_y_ticks
+    assert axis_data_interface.y_tick_labels == expected_y_tick_labels
+
+
+@pytest.mark.parametrize('expected_edge_data,', [
+    [
+        {
+            'x_start': 9.025,
+            'y_start': 0.9875,
+            'x_end': 10.866667,
+            'y_end': 0.066667
+        },
+        {
+            'x_start': 22.025,
+            'y_start': 0.9875,
+            'x_end': 23.866667,
+            'y_end': 0.066667
+        },
+        {
+            'x_start': 12.0125,
+            'y_start': 1.9875,
+            'x_end': 12.933333,
+            'y_end': 1.066667
+        },
+        {
+            'x_start': 0.0375,
+            'y_start': 2.9875,
+            'x_end': 2.8,
+            'y_end': 2.066667
+        }
+    ]
+])
+def test_edge_data(edge_data_interface: EdgeDataInterface,
+                   expected_edge_data: list):
+    """
+    Tests whether the positions of the graph nodes and the text data were
+    calculated correctly or not.
+    :param EdgeDataInterface edge_data_interface: contains the calculated
+           positions of graph directed edges
+    :param list expected_edge_data: the expected correct list of directed edge
+           positions
+    """
+    assert edge_data_interface.directed_edge_data == expected_edge_data
