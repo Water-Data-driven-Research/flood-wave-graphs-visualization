@@ -59,10 +59,10 @@ class EdgeDataCalculator:
             dy = y_end - y_start
 
             edge_data_dict = {
-                'x_start': x_start + dx / 80,
-                'y_start': y_start + dy / 80,
-                'x_end': x_end - dx / 15,
-                'y_end': y_end - dy / 15
+                'x_start': round(x_start + dx / 80, 6),
+                'y_start': round(y_start + dy / 80, 6),
+                'x_end': round(x_end - dx / 15, 6),
+                'y_end': round(y_end - dy / 15, 6)
             }
 
             directed_edge_data.append(edge_data_dict)
