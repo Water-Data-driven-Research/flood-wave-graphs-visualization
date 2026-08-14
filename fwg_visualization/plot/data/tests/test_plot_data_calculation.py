@@ -318,8 +318,8 @@ def test_axis_data(axis_data_interface: AxisDataInterface,
 def test_edge_data(edge_data_interface: EdgeDataInterface,
                    expected_edge_data: list):
     """
-    Tests whether the positions of the graph nodes and the text data were
-    calculated correctly or not.
+    Tests whether the positions of the graph edges were calculated correctly or
+    not.
     :param EdgeDataInterface edge_data_interface: contains the calculated
            positions of graph directed edges
     :param list expected_edge_data: the expected correct list of directed edge
