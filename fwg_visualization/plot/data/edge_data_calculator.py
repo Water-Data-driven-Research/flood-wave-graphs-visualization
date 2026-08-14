@@ -35,24 +35,16 @@ class EdgeDataCalculator:
         Run function, calculates the required edge data and stores it in the
         EdgeDataInterface instance.
         """
-        edge_data = self.get_edge_data()
+        directed_edge_data = self.get_directed_edge_data()
 
-        self.edge_data_if.directed_edge_data = edge_data['directed_edge_data']
-        self.edge_data_if.x_coordinates = edge_data['x_coordinates']
-        self.edge_data_if.y_coordinates = edge_data['y_coordinates']
-        self.edge_data_if.text_data = edge_data['text_data']
+        self.edge_data_if.directed_edge_data = directed_edge_data
 
-    def get_edge_data(self) -> dict:
+    def get_directed_edge_data(self) -> list:
         """
-        Calculates the positions of the directed edges and the positions of
-        the small markers used to create hover functionality for the edges,
-        and the data required to make the hover text of the edges.
-        :return dict: the data we need about the edges
+        Calculates the positions of the directed edges.
+        :return list: the positions of the directed edges
         """
         directed_edge_data: list = []
-        x_coordinates: list = []
-        y_coordinates: list = []
-        text_data: list = []
 
         for start, end in self.graph_edges:
             start_node_pos = self.positions[start]
@@ -62,9 +54,6 @@ class EdgeDataCalculator:
             x_end = end_node_pos[0]
             y_start = start_node_pos[1]
             y_end = end_node_pos[1]
-
-            x_coordinates.append((x_start + x_end) / 2)
-            y_coordinates.append((y_start + y_end) / 2)
 
             dx = x_end - x_start
             dy = y_end - y_start
@@ -78,23 +67,4 @@ class EdgeDataCalculator:
 
             directed_edge_data.append(edge_data_dict)
 
-            start_name = self.rkm_station[float(start[0])]
-            start_km = start[0]
-            start_date = start[1]
-
-            end_name = self.rkm_station[float(end[0])]
-            end_km = end[0]
-            end_date = end[1]
-
-            text_data.append(
-                (start_name, start_km, start_date, end_name, end_km, end_date)
-            )
-
-        edge_data = {
-            'directed_edge_data': directed_edge_data,
-            'x_coordinates': x_coordinates,
-            'y_coordinates': y_coordinates,
-            'text_data': text_data
-        }
-
-        return edge_data
+        return directed_edge_data
