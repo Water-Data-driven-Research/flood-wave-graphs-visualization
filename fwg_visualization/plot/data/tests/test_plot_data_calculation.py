@@ -234,7 +234,7 @@ def test_node_data(node_data_interface: NodeDataInterface,
     Tests whether the positions of the graph nodes and the text data were
     calculated correctly or not.
     :param NodeDataInterface node_data_interface: contains the calculated
-           positions of graph nodes
+           positions of graph nodes and text data
     :param list expected_x_coordinates: the expected correct list of x-
            coordinates
     :param list expected_y_coordinates: the expected correct list of y-
