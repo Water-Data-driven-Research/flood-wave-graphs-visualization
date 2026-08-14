@@ -41,7 +41,7 @@ class AxisDataCalculator:
         Calculates the ticks and the tick labels of the x- and y-axes.
         :return dict: the data we need about the axes
         """
-        x_coordinates = [pos[0] for pos in self.positions]
+        x_coordinates = [pos[0] for pos in self.positions.values()]
 
         min_x = min(x_coordinates)
         max_x = max(x_coordinates)
