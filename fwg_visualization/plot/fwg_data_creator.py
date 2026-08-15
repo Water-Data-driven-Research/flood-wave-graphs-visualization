@@ -14,6 +14,7 @@ from fwg_visualization.plot.data.interfaces.node_data_interface import (
 )
 from fwg_visualization.plot.data.node_data_calculator import NodeDataCalculator
 
+
 class FWGDataCreator:
     """
     This class creates the data necessary to plot a flood wave graph, and
