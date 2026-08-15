@@ -5,9 +5,9 @@ from fwg_visualization.data.interfaces.graph_data_interface import (
 )
 
 
-class GraphPlotter:
+class FWGPlotter:
     """
-    This class creates the plot of the received flood wave graph or flood map.
+    This class creates the plot of the received flood wave graph.
     """
     def __init__(self, graph_data_interface: GraphDataInterface):
         """
@@ -18,14 +18,14 @@ class GraphPlotter:
         pass
 
     def get_graph_plot(self,
-                       graph_name: str = 'Flood Wave Graph',
                        width: int = 1000,
-                       height: int = 500) -> go.Figure:
+                       height: int = 500,
+                       graph_name: str = 'Flood Wave Graph') -> go.Figure:
         """
         Creates the plot of the graph.
-        :param str graph_name: 'Flood Wave Graph' or 'Flood Map'
         :param int width: the width of the image to be created (pixels)
         :param int height: the height of the image to be created (pixels)
+        :param str graph_name: 'Flood Wave Graph' by default
         :return go.Figure: the created plot
         """
         pass
@@ -60,8 +60,8 @@ class GraphPlotter:
         """
         Creates the layout of the received figure.
         :param go.Figure fig: updates the layout of this figure
-        :param str graph_name: the name of the graph ('Flood Wave Graph' or
-               'Flood Map')
+        :param str graph_name: the name of the graph ('Flood Wave Graph' by
+               default)
         :param int width: the width of the image to be created (pixels)
         :param int height: the height of the image to be created (pixels)
         """
