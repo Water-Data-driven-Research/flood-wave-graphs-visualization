@@ -144,10 +144,12 @@ class FWGPlotter:
             hovermode='closest',
             margin=dict(b=20, l=20, r=20, t=30),
             xaxis={
+                'title': dict(text='Date'),
                 'tickvals': self.axis_data_if.x_ticks,
                 'ticktext': self.axis_data_if.x_tick_labels
             },
             yaxis={
+                'title': dict(text='River kilometer'),
                 'tickvals': self.axis_data_if.y_ticks,
                 'ticktext': self.axis_data_if.y_tick_labels
             },
