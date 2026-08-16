@@ -66,11 +66,10 @@ class FWGPlotter:
             y=self.node_data_if.y_coordinates,
             mode='markers',
             customdata=self.node_data_if.text_data,
-            hovertemplate=
-            '<b>%{customdata[0]}</b><br>'
-            '%{customdata[1]} (%{customdata[2]})<br>'
-            'Water level: %{customdata[3]}<br>'
-            'Level group: %{customdata[4]}<extra></extra>',
+            hovertemplate='<b>%{customdata[0]}</b><br>'
+                          '%{customdata[1]} (%{customdata[2]} km)<br>'
+                          'Water level: %{customdata[3]} cm<br>'
+                          'Level group: %{customdata[4]} cm<extra></extra>',
             marker=dict(
                 size=15,
                 line_width=1,
