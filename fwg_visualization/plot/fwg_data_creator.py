@@ -70,7 +70,7 @@ class FWGDataCreator:
             level_group=self.level_group
         )
         node_data_calculator.run()
-        self.node_data_if = node_data_calculator.node_data_if
+        self.node_data_if = node_data_calculator.data_if
 
     def calculate_axis_data(self):
         """
@@ -80,7 +80,7 @@ class FWGDataCreator:
             graph_data_if=self.graph_data_if
         )
         axis_data_calculator.run()
-        self.axis_data_if = axis_data_calculator.axis_data_if
+        self.axis_data_if = axis_data_calculator.data_if
 
     def calculate_edge_data(self):
         """
@@ -91,4 +91,4 @@ class FWGDataCreator:
             rkm_station=self.rkm_station
         )
         edge_data_calculator.run()
-        self.edge_data_if = edge_data_calculator.edge_data_if
+        self.edge_data_if = edge_data_calculator.data_if
