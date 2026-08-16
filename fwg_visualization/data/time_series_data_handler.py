@@ -29,9 +29,7 @@ class TimeSeriesDataHandler:
         filtered_data = self.filter_data(data=self.data,
                                          year_range=year_range)
 
-        self.data_if = TimeSeriesDataInterface(
-            statistics=filtered_data
-        )
+        self.data_if.statistics = filtered_data
 
     @staticmethod
     def filter_data(data: dict, year_range: dict) -> dict:
