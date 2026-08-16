@@ -24,7 +24,7 @@ class FWGDataCreator:
                  graph_data_if: GraphDataInterface,
                  rkm_station: dict,
                  vertex_data: dict,
-                 level_group: dict):
+                 level_groups: dict):
         """
         Constructor.
         :param GraphDataInterface graph_data_if: contains data about the graph
@@ -38,14 +38,14 @@ class FWGDataCreator:
                            date2: {'value': value2, 'color': color2},
                            ...},
                 ...}
-        :param dict level_group: the dictionary that maps station positions on
+        :param dict level_groups: the dictionary that maps station positions on
                the river to their level groups (values above which a water
                level is considered high)
         """
         self.graph_data_if = graph_data_if
         self.rkm_station = rkm_station
         self.vertex_data = vertex_data
-        self.level_group = level_group
+        self.level_groups = level_groups
 
         self.node_data_if = NodeDataInterface()
         self.axis_data_if = AxisDataInterface()
@@ -67,7 +67,7 @@ class FWGDataCreator:
             graph_data_if=self.graph_data_if,
             rkm_station=self.rkm_station,
             vertex_data=self.vertex_data,
-            level_group=self.level_group
+            level_group=self.level_groups
         )
         node_data_calculator.run()
         self.node_data_if = node_data_calculator.data_if

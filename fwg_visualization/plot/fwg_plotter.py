@@ -48,6 +48,13 @@ class FWGPlotter:
         Creates the trace that includes the nodes of the graph.
         :return go.Scatter: the trace of the nodes
         """
+        colorscale = [
+            [0.0, "rgb(0, 105, 120)"],
+            [0.49, "rgb(190, 230, 235)"],
+            [0.5, "rgb(255, 160, 160)"],
+            [1.0, "rgb(200, 0, 0)"]
+        ]
+
         node_trace = go.Scatter(
             x=self.node_data_if.x_coordinates,
             y=self.node_data_if.y_coordinates,
@@ -59,17 +66,18 @@ class FWGPlotter:
             'Water level: %{customdata[3]}<br>'
             'Level group: %{customdata[4]}<extra></extra>',
             marker=dict(
-                size=10,
-                line_width=2,
-                colorscale='YlOrRd',
+                size=15,
+                line_width=1,
+                colorscale=colorscale,
+                cmid=0,
                 color=self.node_data_if.level_differences,
                 colorbar=dict(
                     thickness=15,
                     title=dict(
                         text='Difference from level group',
-                        side='right'
+                        side='left'
                     ),
-                    xanchor='left',
+                    xanchor='left'
                 )
             )
         )
