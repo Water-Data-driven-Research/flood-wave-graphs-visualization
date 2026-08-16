@@ -25,7 +25,7 @@ class EdgeDataCalculator:
         self.positions = graph_data_if.positions
         self.rkm_station = rkm_station
 
-        self.edge_data_if = EdgeDataInterface()
+        self.data_if = EdgeDataInterface()
 
     def run(self):
         """
@@ -34,7 +34,7 @@ class EdgeDataCalculator:
         """
         directed_edge_data = self.get_directed_edge_data()
 
-        self.edge_data_if.directed_edge_data = directed_edge_data
+        self.data_if.directed_edge_data = directed_edge_data
 
     def get_directed_edge_data(self) -> list:
         """

@@ -200,7 +200,7 @@ def node_data_interface(mock_graph_data_if: GraphDataInterface,
                                               level_group=mock_level_group)
     node_data_calculator.run()
 
-    return node_data_calculator.node_data_if
+    return node_data_calculator.data_if
 
 
 @pytest.fixture
@@ -217,7 +217,7 @@ def axis_data_interface(
     axis_data_calculator = AxisDataCalculator(graph_data_if=mock_graph_data_if)
     axis_data_calculator.run()
 
-    return axis_data_calculator.axis_data_if
+    return axis_data_calculator.data_if
 
 
 @pytest.fixture
@@ -237,7 +237,7 @@ def edge_data_interface(mock_graph_data_if: GraphDataInterface,
                                               rkm_station=mock_rkm_station)
     edge_data_calculator.run()
 
-    return edge_data_calculator.edge_data_if
+    return edge_data_calculator.data_if
 
 
 @pytest.mark.parametrize('expected_x_coordinates,'
