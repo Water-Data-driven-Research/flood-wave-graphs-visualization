@@ -132,6 +132,26 @@ def mock_rkm_station() -> dict:
 
 
 @pytest.fixture
+def mock_vertex_data() -> dict:
+    """
+    Creates mock vertex data on which the codebase can be tested.
+    :return dict: the mock vertex data on which we can run tests
+    """
+    mock_vertex_data = {
+        '1.0': {'1998-06-24': {'value': 196, 'color': 'yellow'},
+                '2000-01-01': {'value': 235, 'color': 'red'},
+                '2000-01-14': {'value': 185, 'color': 'yellow'}},
+        '2.0': {'1999-12-30': {'value': 188, 'color': 'red'},
+                '2000-01-03': {'value': 178, 'color': 'red'},
+                '2000-01-12': {'value': 151, 'color': 'yellow'}},
+        '3.0': {'1999-12-24': {'value': 270, 'color': 'yellow'},
+                '2000-01-02': {'value': 301, 'color': 'red'}},
+        '5.0': {'1999-12-21': {'value': 75, 'color': 'yellow'}}
+    }
+    return mock_vertex_data
+
+
+@pytest.fixture
 def mock_level_group() -> dict:
     """
     A potential mapping of station positions on the river to their level
@@ -151,6 +171,7 @@ def mock_level_group() -> dict:
 @pytest.fixture
 def node_data_interface(mock_graph_data_if: GraphDataInterface,
                         mock_rkm_station: dict,
+                        mock_vertex_data: dict,
                         mock_level_group: dict) -> NodeDataInterface:
     """
     Extracts the necessary data from the mock GraphDataInterface with a
@@ -160,6 +181,14 @@ def node_data_interface(mock_graph_data_if: GraphDataInterface,
            which provides the data for testing
     :param dict mock_rkm_station: a potential mapping of station positions on
            the river to their names
+    :param dict mock_vertex_data: potential data about the delta peaks,
+           structure: {station1: {date1: {'value': value1, 'color': color1},
+                                  date2: {'value': value2, 'color': color2},
+                                  ...},
+                       station2: {date1: {'value': value1, 'color': color1},
+                                  date2: {'value': value2, 'color': color2},
+                                  ...},
+                       ...}
     :param dict mock_level_group: a potential mapping of station positions on
            the river to their level groups (values above which a water level
            is considered high)
@@ -167,6 +196,7 @@ def node_data_interface(mock_graph_data_if: GraphDataInterface,
     """
     node_data_calculator = NodeDataCalculator(graph_data_if=mock_graph_data_if,
                                               rkm_station=mock_rkm_station,
+                                              vertex_data=mock_vertex_data,
                                               level_group=mock_level_group)
     node_data_calculator.run()
 
@@ -212,37 +242,43 @@ def edge_data_interface(mock_graph_data_if: GraphDataInterface,
 
 @pytest.mark.parametrize('expected_x_coordinates,'
                          'expected_y_coordinates,'
+                         'expected_level_differences,'
                          'expected_text_data', [
                              ((11, 24, 9, 13, 22, 3, 12, 0),
                               (0, 0, 1, 1, 1, 2, 2, 3),
-                              [
-                                  ('2000-01-01', 'Station One', '1.0', 200),
-                                  ('2000-01-14', 'Station One', '1.0', 200),
-                                  ('1999-12-30', 'Station Two', '2.0', 178),
-                                  ('2000-01-03', 'Station Two', '2.0', 178),
-                                  ('2000-01-12', 'Station Two', '2.0', 178),
-                                  ('1999-12-24', 'Station Three', '3.0', 295),
-                                  ('2000-01-02', 'Station Three', '3.0', 295),
-                                  ('1999-12-21', 'Station Four', '5.0', 79)
-                              ])
+                              [35, -15, 10, 0, -27, -25, 6, -4],
+                              [('2000-01-01', 'Station One', '1.0', 235, 200),
+                               ('2000-01-14', 'Station One', '1.0', 185, 200),
+                               ('1999-12-30', 'Station Two', '2.0', 188, 178),
+                               ('2000-01-03', 'Station Two', '2.0', 178, 178),
+                               ('2000-01-12', 'Station Two', '2.0', 151, 178),
+                               ('1999-12-24', 'Station Three', '3.0', 270,
+                                295),
+                               ('2000-01-02', 'Station Three', '3.0', 301,
+                                295),
+                               ('1999-12-21', 'Station Four', '5.0', 75, 79)])
                          ])
 def test_node_data(node_data_interface: NodeDataInterface,
-                   expected_x_coordinates: list,
-                   expected_y_coordinates: list,
+                   expected_x_coordinates: tuple,
+                   expected_y_coordinates: tuple,
+                   expected_level_differences: list,
                    expected_text_data: list):
     """
     Tests whether the positions of the graph nodes and the text data were
     calculated correctly or not.
     :param NodeDataInterface node_data_interface: contains the calculated
            positions of graph nodes and text data
-    :param list expected_x_coordinates: the expected correct list of x-
+    :param tuple expected_x_coordinates: the expected correct tuple of x-
            coordinates
-    :param list expected_y_coordinates: the expected correct list of y-
+    :param tuple expected_y_coordinates: the expected correct tuple of y-
            coordinates
+    :param list expected_level_differences: the expect correct list of water
+           level differences from the level group
     :param list expected_text_data: the expected correct text data
     """
     assert node_data_interface.x_coordinates == expected_x_coordinates
     assert node_data_interface.y_coordinates == expected_y_coordinates
+    assert node_data_interface.level_differences == expected_level_differences
     assert node_data_interface.text_data == expected_text_data
 
 
