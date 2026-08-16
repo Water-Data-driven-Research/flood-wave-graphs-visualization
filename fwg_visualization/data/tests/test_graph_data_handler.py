@@ -48,7 +48,7 @@ def graph_data_interface(mock_graph: nx.DiGraph) -> GraphDataInterface:
     )
     graph_data_handler.run()
 
-    return graph_data_handler.graph_data_interface
+    return graph_data_handler.data_if
 
 
 @pytest.mark.parametrize('expected_graph_nodes', [
