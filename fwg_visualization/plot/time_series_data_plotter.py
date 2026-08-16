@@ -78,9 +78,9 @@ class TimeSeriesDataPlotter:
             unit_of_measurement = 'Centimeter/kilometer'
         else:
             raise ValueError(
-                f"Unsupported statistic type: {self.statistic_type}, use one "
-                "of the following: 'flood wave count', "
-                "'mean propagation time', 'median propagation time'."
+                f"Unsupported statistic type: {self.statistic_type}, supported"
+                " types: 'flood wave count', 'mean propagation time', "
+                "'median propagation time', 'mean slope', 'median slope'."
             )
         return unit_of_measurement
 
