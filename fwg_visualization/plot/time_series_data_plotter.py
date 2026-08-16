@@ -74,6 +74,8 @@ class TimeSeriesDataPlotter:
             unit_of_measurement = 'Number'
         elif 'propagation time' in self.statistic_type:
             unit_of_measurement = 'Days'
+        elif 'slope' in self.statistic_type:
+            unit_of_measurement = 'Centimeter/kilometer'
         else:
             raise ValueError(
                 f"Unsupported statistic type: {self.statistic_type}, use one "
