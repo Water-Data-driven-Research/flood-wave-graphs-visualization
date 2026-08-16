@@ -56,11 +56,21 @@ class FWGPlotter:
             hovertemplate=
             '<b>%{customdata[0]}</b><br>'
             '%{customdata[1]} (%{customdata[2]})<br>'
-            '(level group: %{customdata[3]})<extra></extra>',
+            'Water level: %{customdata[3]}<br>'
+            'Level group: %{customdata[4]}<extra></extra>',
             marker=dict(
                 size=10,
                 line_width=2,
-                color='#2476a6'
+                colorscale='YlOrRd',
+                color=self.node_data_if.level_differences,
+                colorbar=dict(
+                    thickness=15,
+                    title=dict(
+                        text='Difference from level group',
+                        side='right'
+                    ),
+                    xanchor='left',
+                )
             )
         )
 

@@ -19,7 +19,7 @@ class GraphDataHandler:
         self.graph_nodes = sorted(list(graph.nodes()))
         self.graph_edges = sorted(list(graph.edges()))
 
-        self.graph_data_interface = GraphDataInterface()
+        self.data_if = GraphDataInterface()
 
     def run(self):
         """
@@ -30,11 +30,11 @@ class GraphDataHandler:
         stations = self.get_stations()
         positions = self.get_positions(min_date=min_date, stations=stations)
 
-        self.graph_data_interface.graph_nodes = self.graph_nodes
-        self.graph_data_interface.graph_edges = self.graph_edges
-        self.graph_data_interface.min_date = min_date
-        self.graph_data_interface.stations = stations
-        self.graph_data_interface.positions = positions
+        self.data_if.graph_nodes = self.graph_nodes
+        self.data_if.graph_edges = self.graph_edges
+        self.data_if.min_date = min_date
+        self.data_if.stations = stations
+        self.data_if.positions = positions
 
     def get_min_date(self) -> datetime:
         """
