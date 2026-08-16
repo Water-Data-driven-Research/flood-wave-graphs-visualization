@@ -26,7 +26,7 @@ class TimeSeriesDataPlotter:
         """
         Acquires the type of statistic that we are plotting, one of the
         following: 'flood wave count', 'mean propagation time',
-        'median propagation time'.
+        'median propagation time', 'mean slope', 'median slope'.
         :return str: the type of statistics that we are plotting
         """
         self.__statistic_type = list(self.statistics.values())[0].columns[0]
