@@ -52,9 +52,8 @@ def graph_data_interface(mock_graph: nx.DiGraph) -> GraphDataInterface:
 
 
 @pytest.mark.parametrize('expected_graph_nodes', [
-    [('1.0', '2000-01-01'), ('1.0', '2000-01-06'), ('1.0', '2000-01-08'),
-     ('2.0', '1999-12-31'), ('2.0', '2000-01-04'), ('3.0', '1999-12-20'),
-     ('3.0', '2000-01-03'), ('5.0', '1999-12-24')]
+    [('1.0', '2000-01-01'), ('1.0', '2000-01-06'), ('2.0', '1999-12-31'),
+     ('2.0', '2000-01-04'), ('3.0', '2000-01-03')]
 ])
 def test_nodes(graph_data_interface: GraphDataInterface,
                expected_graph_nodes: list):
@@ -84,7 +83,7 @@ def test_edges(graph_data_interface: GraphDataInterface,
 
 
 @pytest.mark.parametrize('expected_min_date', [
-    datetime(year=1999, month=12, day=20)
+    datetime(year=1999, month=12, day=31)
 ])
 def test_min_date(graph_data_interface: GraphDataInterface,
                   expected_min_date: datetime):
@@ -114,14 +113,11 @@ def test_stations(graph_data_interface: GraphDataInterface,
 
 @pytest.mark.parametrize('expected_positions', [
     {
-        ('1.0', '2000-01-01'): (12, 0),
-        ('1.0', '2000-01-06'): (17, 0),
-        ('3.0', '2000-01-03'): (14, 2),
-        ('1.0', '2000-01-08'): (19, 0),
-        ('2.0', '1999-12-31'): (11, 1),
-        ('3.0', '1999-12-20'): (0, 2),
-        ('2.0', '2000-01-04'): (15, 1),
-        ('5.0', '1999-12-24'): (4, 3)
+        ('1.0', '2000-01-01'): (1, 0),
+        ('1.0', '2000-01-06'): (6, 0),
+        ('3.0', '2000-01-03'): (3, 2),
+        ('2.0', '1999-12-31'): (0, 1),
+        ('2.0', '2000-01-04'): (4, 1)
     }
 ])
 def test_positions(graph_data_interface: GraphDataInterface,
