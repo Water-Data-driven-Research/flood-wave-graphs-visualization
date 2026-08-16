@@ -7,6 +7,7 @@ from fwg_visualization.plot.data.interfaces.axis_data_interface import (
     AxisDataInterface
 )
 
+
 class AxisDataCalculator:
     """
     Calculates the data to be put on the x- and y-axes that will be displayed
@@ -22,7 +23,7 @@ class AxisDataCalculator:
         self.stations = graph_data_if.stations
         self.positions = graph_data_if.positions
 
-        self.axis_data_if = AxisDataInterface()
+        self.data_if = AxisDataInterface()
 
     def run(self):
         """
@@ -31,10 +32,10 @@ class AxisDataCalculator:
         """
         axis_data = self.get_axis_data()
 
-        self.axis_data_if.x_ticks = axis_data['x_ticks']
-        self.axis_data_if.x_tick_labels = axis_data['x_tick_labels']
-        self.axis_data_if.y_ticks = axis_data['y_ticks']
-        self.axis_data_if.y_tick_labels = axis_data['y_tick_labels']
+        self.data_if.x_ticks = axis_data['x_ticks']
+        self.data_if.x_tick_labels = axis_data['x_tick_labels']
+        self.data_if.y_ticks = axis_data['y_ticks']
+        self.data_if.y_tick_labels = axis_data['y_tick_labels']
 
     def get_axis_data(self) -> dict:
         """
