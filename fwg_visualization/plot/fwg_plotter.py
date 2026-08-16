@@ -75,7 +75,7 @@ class FWGPlotter:
                     thickness=15,
                     title=dict(
                         text='Difference from level group',
-                        side='left'
+                        side='right'
                     ),
                     xanchor='left'
                 )
