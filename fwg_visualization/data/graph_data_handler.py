@@ -16,7 +16,10 @@ class GraphDataHandler:
         Constructor.
         :param nx.DiGraph graph: the fwg or flood map to be preprocessed
         """
-        self.graph_nodes = sorted(list(graph.nodes()))
+        self.all_graph_nodes = sorted(list(graph.nodes()))
+        self.graph_nodes = sorted(
+            [node for node in set(graph.nodes()) - set(nx.isolates(graph))]
+        )
         self.graph_edges = sorted(list(graph.edges()))
 
         self.data_if = GraphDataInterface()
@@ -56,7 +59,7 @@ class GraphDataHandler:
         :return list: the list of the stations on the graph
         """
         stations = sorted(list(set(
-            [float(node[0]) for node in self.graph_nodes]
+            [float(node[0]) for node in self.all_graph_nodes]
         )))
 
         return stations
