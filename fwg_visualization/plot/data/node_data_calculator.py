@@ -38,7 +38,7 @@ class NodeDataCalculator:
         self.vertex_data = vertex_data
         self.level_group = level_group
 
-        self.node_data_if = NodeDataInterface()
+        self.data_if = NodeDataInterface()
 
     def run(self):
         """
@@ -47,10 +47,10 @@ class NodeDataCalculator:
         """
         node_data = self.get_node_data()
 
-        self.node_data_if.x_coordinates = node_data['x_coordinates']
-        self.node_data_if.y_coordinates = node_data['y_coordinates']
-        self.node_data_if.level_differences = node_data['level_differences']
-        self.node_data_if.text_data = node_data['text_data']
+        self.data_if.x_coordinates = node_data['x_coordinates']
+        self.data_if.y_coordinates = node_data['y_coordinates']
+        self.data_if.level_differences = node_data['level_differences']
+        self.data_if.text_data = node_data['text_data']
 
     def get_node_data(self) -> dict:
         """
