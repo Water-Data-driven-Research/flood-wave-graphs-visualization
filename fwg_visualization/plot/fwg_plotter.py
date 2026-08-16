@@ -7,14 +7,20 @@ class FWGPlotter:
     """
     This class creates the plot of the received flood wave graph.
     """
-    def __init__(self, fwg_data_creator: FWGDataCreator):
+    def __init__(self, fwg_data_creator: FWGDataCreator, color_radius: int):
         """
-        Constructor.
+        Constructor. The color radius is ideally the highest recorded
+        difference from the level group across the whole flood wave graph, not
+        just the filtered part that is being plotted. This is to ensure
+        consistency of colors across different fwg plots, which include
+        different water levels.
         :param FWGDataCreator fwg_data_creator: contains data for plotting
+        :param int color_radius: used to determine the range of the color scale
         """
         self.node_data_if = fwg_data_creator.node_data_if
         self.axis_data_if = fwg_data_creator.axis_data_if
         self.edge_data_if = fwg_data_creator.edge_data_if
+        self.color_radius = color_radius
 
     def get_graph_plot(self,
                        graph_name: str = 'Flood Wave Graph',
@@ -70,6 +76,8 @@ class FWGPlotter:
                 line_width=1,
                 colorscale=colorscale,
                 cmid=0,
+                cmax=self.color_radius,
+                cmin=-self.color_radius,
                 color=self.node_data_if.level_differences,
                 colorbar=dict(
                     thickness=15,
