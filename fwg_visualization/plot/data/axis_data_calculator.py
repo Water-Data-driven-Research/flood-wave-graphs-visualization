@@ -7,6 +7,7 @@ from fwg_visualization.plot.data.interfaces.axis_data_interface import (
     AxisDataInterface
 )
 
+
 class AxisDataCalculator:
     """
     Calculates the data to be put on the x- and y-axes that will be displayed
