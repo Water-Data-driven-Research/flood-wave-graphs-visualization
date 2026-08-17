@@ -58,17 +58,17 @@ class GraphDataHandler:
 
     def get_stations(self) -> list:
         """
-        Acquires and sorts a list of the stations in the flood wave graph or
-        flood map, then combines it with the manually given list of stations.
+        Acquires and sorts a list of the stations to be displayed, including
+        both those in the flood wave graph or flood map, and those manually
+        given.
         :return list: the list of the stations on the graph
         """
-        stations = list(set(
-            [float(node[0]) for node in self.graph_nodes]
-        ))
+        stations = sorted(list(set(
+            self.manual_stations
+            + [float(node[0]) for node in self.graph_nodes]
+        )))
 
-        full_list = sorted(self.manual_stations + stations)
-
-        return full_list
+        return stations
 
     def get_positions(self, min_date: datetime, stations: list) -> dict:
         """
