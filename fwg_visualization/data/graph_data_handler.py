@@ -11,16 +11,20 @@ class GraphDataHandler:
     """
     This class preprocesses a flood wave graph or flood map for visualization.
     """
-    def __init__(self, graph: nx.DiGraph):
+    def __init__(self, graph: nx.DiGraph, manual_stations: list):
         """
-        Constructor.
+        Constructor. If there are stations among the non-isolated graph nodes
+        that are not given to the constructor as part of the manual_stations
+        list, they will also appear on the y-axis.
         :param nx.DiGraph graph: the fwg or flood map to be preprocessed
+        :param list manual_stations: the list of stations that should be
+               displayed on the y-axis
         """
-        self.all_graph_nodes = sorted(list(graph.nodes()))
         self.graph_nodes = sorted(
             [node for node in set(graph.nodes()) - set(nx.isolates(graph))]
         )
         self.graph_edges = sorted(list(graph.edges()))
+        self.manual_stations = manual_stations
 
         self.data_if = GraphDataInterface()
 
@@ -55,14 +59,16 @@ class GraphDataHandler:
     def get_stations(self) -> list:
         """
         Acquires and sorts a list of the stations in the flood wave graph or
-        flood map.
+        flood map, then combines it with the manually given list of stations.
         :return list: the list of the stations on the graph
         """
-        stations = sorted(list(set(
-            [float(node[0]) for node in self.all_graph_nodes]
-        )))
+        stations = list(set(
+            [float(node[0]) for node in self.graph_nodes]
+        ))
 
-        return stations
+        full_list = sorted(self.manual_stations + stations)
+
+        return full_list
 
     def get_positions(self, min_date: datetime, stations: list) -> dict:
         """
