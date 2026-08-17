@@ -13,8 +13,7 @@ class AxisDataCalculator:
     Calculates the data to be put on the x- and y-axes that will be displayed
     on the figure.
     """
-    def __init__(self,
-                 graph_data_if: GraphDataInterface):
+    def __init__(self, graph_data_if: GraphDataInterface):
         """
         Constructor.
         :param GraphDataInterface graph_data_if: contains data about the graph
