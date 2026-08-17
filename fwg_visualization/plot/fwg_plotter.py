@@ -131,6 +131,13 @@ class FWGPlotter:
         :param int width: the width of the image to be created (pixels)
         :param int height: the height of the image to be created (pixels)
         """
+        y_ticks = self.axis_data_if.y_ticks
+        y_tick_labels = self.axis_data_if.y_tick_labels
+
+        y_length = max(y_ticks) - min(y_ticks)
+        y_range = [min(y_ticks) - 0.1 * y_length,
+                   max(y_ticks) + 0.1 * y_length]
+
         fig.update_layout(
             title={
                 'text': graph_name,
@@ -149,8 +156,9 @@ class FWGPlotter:
             },
             yaxis={
                 'title': dict(text='River kilometer'),
-                'tickvals': self.axis_data_if.y_ticks,
-                'ticktext': self.axis_data_if.y_tick_labels
+                'tickvals': y_ticks,
+                'ticktext': y_tick_labels,
+                'range': y_range
             },
             width=width,
             height=height
