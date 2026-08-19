@@ -1,8 +1,10 @@
 import plotly.graph_objects as go
 
+from fwg_visualization.plot.flood_map_plotter import flood_map_plotter
 from fwg_visualization.plot.fwg_data_creator import FWGDataCreator
 
 
+@flood_map_plotter
 class FWGPlotter:
     """
     This class creates the plot of the received flood wave graph.
@@ -22,12 +24,12 @@ class FWGPlotter:
         self.edge_data_if = fwg_data_creator.edge_data_if
         self.color_radius = color_radius
 
-    def get_graph_plot(self,
-                       graph_name: str = 'Flood Wave Graph',
-                       width: int = 1000,
-                       height: int = 500) -> go.Figure:
+    def get_fwg_plot(self,
+                     graph_name: str = 'Flood Wave Graph',
+                     width: int = 1000,
+                     height: int = 500) -> go.Figure:
         """
-        Creates the plot of the graph.
+        Creates the plot of the flood wave graph.
         :param str graph_name: 'Flood Wave Graph' by default
         :param int width: the width of the image to be created (pixels)
         :param int height: the height of the image to be created (pixels)
