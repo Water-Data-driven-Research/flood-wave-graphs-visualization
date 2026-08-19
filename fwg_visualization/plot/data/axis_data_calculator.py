@@ -49,7 +49,7 @@ class AxisDataCalculator:
         no_of_ticks = min(max_x - min_x, 20)
         x_ticks = list(range(
             int(min_x),
-            int(max_x) + 1,
+            int(max_x) + int(max_x / no_of_ticks),
             int(max_x / no_of_ticks)
         ))
         x_tick_labels = [
