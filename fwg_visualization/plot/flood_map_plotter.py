@@ -2,14 +2,12 @@ from typing import Type
 
 import plotly.graph_objects as go
 
-from fwg_visualization.plot.fwg_plotter import FWGPlotter
 
-
-def flood_map_plotter(cls: Type[FWGPlotter]) -> Type[FWGPlotter]:
+def flood_map_plotter(cls: Type) -> Type:
     """
     Acts as a decorator to add flood map plotting functionality.
-    :param Type[FWGPlotter] cls: the FWGPlotter to which we add a new method
-    :return Type[FWGPlotter]: the updated FWGPlotter
+    :param Type cls: the FWGPlotter to which we add a new method
+    :return Type: the updated FWGPlotter
     """
     class FloodMapPlotter(cls):
         """
