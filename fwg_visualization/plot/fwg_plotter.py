@@ -143,8 +143,9 @@ class FWGPlotter:
         y_tick_labels = self.axis_data_if.y_tick_labels
 
         y_length = max(y_ticks) - min(y_ticks)
-        y_range = [min(y_ticks) - 0.1 * y_length,
-                   max(y_ticks) + 0.1 * y_length]
+        y_range_end = min(4.0, 0.1 * y_length)
+        y_range = [min(y_ticks) - y_range_end,
+                   max(y_ticks) + y_range_end]
 
         fig.update_layout(
             title={
