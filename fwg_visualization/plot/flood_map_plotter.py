@@ -29,8 +29,26 @@ def flood_map_plotter(cls: Type) -> Type:
                                     height=height)
 
             boundary_stations = list(set(self.node_data_if.y_coordinates))
+            x_range: tuple = fig.layout.xaxis.range
             for station in boundary_stations:
-                fig.add_hline(y=station, line_color='red', layer='below')
+                line = go.Scatter(
+                    x=[x_range[0], x_range[1]],
+                    y=[station, station],
+                    mode='lines',
+                    line={
+                        'color': 'black',
+                        'width': 1
+                    },
+                    hoverinfo='skip'
+                )
+                fig.add_trace(line)
+
+            traces = list(fig.data)
+            line_number = len(boundary_stations)
+            other_traces = traces[:-line_number]
+            line_traces = traces[-line_number:]
+
+            fig.data = tuple(other_traces + line_traces)
 
             return fig
 
