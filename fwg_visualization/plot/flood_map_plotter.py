@@ -16,19 +16,24 @@ def flood_map_plotter(cls: Type) -> Type:
         def get_flood_map_plot(self,
                                graph_name: str = 'Flood Map',
                                width: int = 1000,
-                               height: int = 500) -> go.Figure:
+                               height: int = 500,
+                               boundary_stations: list = None) -> go.Figure:
             """
             Creates the plot of the flood map.
             :param str graph_name: 'Flood Map' by default
             :param int width: the width of the image to be created (pixels)
             :param int height: the height of the image to be created (pixels)
+            :param list boundary_stations: the stations on the boundaries of
+                   river sections
             :return go.Figure: the created plot
             """
+            if boundary_stations is None:
+                boundary_stations = []
+
             fig = self.get_fwg_plot(graph_name=graph_name,
                                     width=width,
                                     height=height)
 
-            boundary_stations = list(set(self.node_data_if.y_coordinates))
             x_range: tuple = fig.layout.xaxis.range
             for station in boundary_stations:
                 line = go.Scatter(
