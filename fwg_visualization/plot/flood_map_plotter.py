@@ -34,11 +34,16 @@ def flood_map_plotter(cls: Type) -> Type:
                                     width=width,
                                     height=height)
 
+            yaxis = fig.layout.yaxis
+            station_y_mapping: dict = {s: c for s, c in
+                                       zip(yaxis.ticktext, yaxis.tickvals)}
+
             x_range: tuple = fig.layout.xaxis.range
-            for station in boundary_stations:
+            for station in list(range(len(boundary_stations))):
+                y_coord = station_y_mapping[station]
                 line = go.Scatter(
                     x=[x_range[0], x_range[1]],
-                    y=[station, station],
+                    y=[y_coord, y_coord],
                     mode='lines',
                     line={
                         'color': 'black',
