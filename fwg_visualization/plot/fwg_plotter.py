@@ -133,12 +133,21 @@ class FWGPlotter:
         :param int width: the width of the image to be created (pixels)
         :param int height: the height of the image to be created (pixels)
         """
+        x_ticks = self.axis_data_if.x_ticks
+        x_tick_labels = self.axis_data_if.x_tick_labels
+
+        x_length = max(x_ticks) - min(x_ticks)
+        x_range_end = min(4.0, 0.1 * x_length)
+        x_range = [min(x_ticks) - x_range_end,
+                   max(x_ticks) + x_range_end]
+
         y_ticks = self.axis_data_if.y_ticks
         y_tick_labels = self.axis_data_if.y_tick_labels
 
         y_length = max(y_ticks) - min(y_ticks)
-        y_range = [min(y_ticks) - 0.1 * y_length,
-                   max(y_ticks) + 0.1 * y_length]
+        y_range_end = min(4.0, 0.1 * y_length)
+        y_range = [min(y_ticks) - y_range_end,
+                   max(y_ticks) + y_range_end]
 
         fig.update_layout(
             title={
@@ -153,8 +162,9 @@ class FWGPlotter:
             margin=dict(b=20, l=20, r=20, t=30),
             xaxis={
                 'title': dict(text='Date'),
-                'tickvals': self.axis_data_if.x_ticks,
-                'ticktext': self.axis_data_if.x_tick_labels
+                'tickvals': x_ticks,
+                'ticktext': x_tick_labels,
+                'range': x_range
             },
             yaxis={
                 'title': dict(text='River kilometer'),
