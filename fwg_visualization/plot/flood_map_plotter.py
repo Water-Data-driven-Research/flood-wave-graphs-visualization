@@ -48,7 +48,7 @@ def flood_map_plotter(cls: Type) -> Type:
             other_traces = traces[:-line_number]
             line_traces = traces[-line_number:]
 
-            fig.data = tuple(other_traces + line_traces)
+            fig.data = tuple(line_traces + other_traces)
 
             return fig
 
