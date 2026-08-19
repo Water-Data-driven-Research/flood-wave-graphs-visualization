@@ -30,7 +30,7 @@ def flood_map_plotter(cls: Type) -> Type:
 
             boundary_stations = list(set(self.node_data_if.y_coordinates))
             for station in boundary_stations:
-                fig.add_hline(y=station, line_color='red', layer='above')
+                fig.add_hline(y=station, line_color='red', layer='below')
 
             return fig
 
