@@ -26,20 +26,9 @@ class AxisDataCalculator:
 
     def run(self):
         """
-        Run function, calculates the required axis data and stores it in the
-        AxisDataInterface instance.
-        """
-        axis_data = self.get_axis_data()
-
-        self.data_if.x_ticks = axis_data['x_ticks']
-        self.data_if.x_tick_labels = axis_data['x_tick_labels']
-        self.data_if.y_ticks = axis_data['y_ticks']
-        self.data_if.y_tick_labels = axis_data['y_tick_labels']
-
-    def get_axis_data(self) -> dict:
-        """
-        Calculates the ticks and the tick labels of the x- and y-axes.
-        :return dict: the data we need about the axes
+        Run function, calculates the required axis data (the ticks and the tick
+        labels of the x- and y-axes) and stores it in the AxisDataInterface
+        instance.
         """
         x_coordinates = [pos[0] for pos in self.positions.values()]
 
@@ -47,23 +36,15 @@ class AxisDataCalculator:
         max_x = max(x_coordinates)
 
         no_of_ticks = min(max_x - min_x, 20)
-        x_ticks = list(range(
+        self.data_if.x_ticks = list(range(
             int(min_x),
             int(max_x) + int(max_x / no_of_ticks),
             int(max_x / no_of_ticks)
         ))
-        x_tick_labels = [
+        self.data_if.x_tick_labels = [
             (self.min_date + timedelta(days=i)).strftime("%Y-%m-%d")
-            for i in x_ticks
+            for i in self.data_if.x_ticks
         ]
 
-        y_ticks = list(range(len(self.stations)))
-
-        axis_data = {
-            'x_ticks': x_ticks,
-            'x_tick_labels': x_tick_labels,
-            'y_ticks': y_ticks,
-            'y_tick_labels': self.stations
-        }
-
-        return axis_data
+        self.data_if.y_ticks = list(range(len(self.stations)))
+        self.data_if.y_tick_labels = self.stations
