@@ -8,4 +8,3 @@ class EdgeDataInterface:
     :param list directed_edge_data: the positions of the directed edges
     """
     directed_edge_data: list = None
-
