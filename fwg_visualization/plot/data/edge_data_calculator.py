@@ -8,9 +8,7 @@ from fwg_visualization.plot.data.interfaces.edge_data_interface import (
 
 class EdgeDataCalculator:
     """
-    Calculates the data required to make the edges of the directed graph,
-    as well as data required to make very small markers (edge hover trace)
-    to implement the hover functionality on edges.
+    Calculates the data required to make the edges of the directed graph.
     """
     def __init__(self, graph_data_if: GraphDataInterface):
         """
