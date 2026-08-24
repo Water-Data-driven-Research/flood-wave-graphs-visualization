@@ -12,18 +12,13 @@ class EdgeDataCalculator:
     as well as data required to make very small markers (edge hover trace)
     to implement the hover functionality on edges.
     """
-    def __init__(self,
-                 graph_data_if: GraphDataInterface,
-                 rkm_station: dict):
+    def __init__(self, graph_data_if: GraphDataInterface):
         """
         Constructor.
         :param GraphDataInterface graph_data_if: contains data about the graph
-        :param dict rkm_station: the dictionary that maps station positions on
-               the river to their names
         """
         self.graph_edges = graph_data_if.graph_edges
         self.positions = graph_data_if.positions
-        self.rkm_station = rkm_station
 
         self.data_if = EdgeDataInterface()
 
