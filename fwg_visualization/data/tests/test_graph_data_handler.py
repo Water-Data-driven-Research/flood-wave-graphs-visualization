@@ -35,16 +35,31 @@ def mock_graph() -> nx.DiGraph:
 
 
 @pytest.fixture
-def graph_data_interface(mock_graph: nx.DiGraph) -> GraphDataInterface:
+def mock_manual_stations() -> list:
+    """
+    Creates a mock graph on which the codebase can be tested.
+    :return list: a mock list of stations that need to be stored in the data
+            interface
+    """
+    mock_manual_stations = [2.0, 3.0, 1.0, 5.0, 6.0]
+    return mock_manual_stations
+
+
+@pytest.fixture
+def graph_data_interface(mock_graph: nx.DiGraph,
+                         mock_manual_stations: list) -> GraphDataInterface:
     """
     Extracts the necessary data from the mock graph with a GraphDataHandler,
     which stores this data in a fixed GraphDataInterface, which we will use
     for testing.
     :param nx.DiGraph mock_graph: the mock graph on which we run the tests
+    :param list mock_manual_stations: a mock list of stations that need to be
+           stored in the data interface
     :return GraphDataInterface: the fixed data interface used for testing
     """
     graph_data_handler = GraphDataHandler(
-        graph=mock_graph
+        graph=mock_graph,
+        manual_stations=mock_manual_stations
     )
     graph_data_handler.run()
 
@@ -98,7 +113,7 @@ def test_min_date(graph_data_interface: GraphDataInterface,
 
 
 @pytest.mark.parametrize('expected_stations', [
-    [1.0, 2.0, 3.0, 5.0]
+    [1.0, 2.0, 3.0, 5.0, 6.0]
 ])
 def test_stations(graph_data_interface: GraphDataInterface,
                   expected_stations: list):
