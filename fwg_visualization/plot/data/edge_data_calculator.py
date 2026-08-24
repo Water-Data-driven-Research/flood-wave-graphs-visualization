@@ -22,10 +22,10 @@ class EdgeDataCalculator:
 
     def run(self):
         """
-        Run function, calculates a list of the positions of the directed edges
-        and stores it in the EdgeDataInterface instance.
+        Run function, calculates the positions of the directed edges and stores
+        them in the EdgeDataInterface instance.
         """
-        directed_edge_data: list = []
+        self.data_if.directed_edge_data = []
 
         for start, end in self.graph_edges:
             start_node_pos = self.positions[start]
@@ -46,6 +46,4 @@ class EdgeDataCalculator:
                 'y_end': round(y_end - dy / 15, 6)
             }
 
-            directed_edge_data.append(edge_data_dict)
-
-        self.data_if.directed_edge_data = directed_edge_data
+            self.data_if.directed_edge_data.append(edge_data_dict)
