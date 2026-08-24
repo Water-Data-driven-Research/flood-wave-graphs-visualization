@@ -22,17 +22,8 @@ class EdgeDataCalculator:
 
     def run(self):
         """
-        Run function, calculates the required edge data and stores it in the
-        EdgeDataInterface instance.
-        """
-        directed_edge_data = self.get_directed_edge_data()
-
-        self.data_if.directed_edge_data = directed_edge_data
-
-    def get_directed_edge_data(self) -> list:
-        """
-        Calculates the positions of the directed edges.
-        :return list: the positions of the directed edges
+        Run function, calculates a list of the positions of the directed edges
+        and stores it in the EdgeDataInterface instance.
         """
         directed_edge_data: list = []
 
@@ -57,4 +48,4 @@ class EdgeDataCalculator:
 
             directed_edge_data.append(edge_data_dict)
 
-        return directed_edge_data
+        self.data_if.directed_edge_data = directed_edge_data
