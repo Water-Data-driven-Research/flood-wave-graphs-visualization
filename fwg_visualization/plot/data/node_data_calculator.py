@@ -42,28 +42,16 @@ class NodeDataCalculator:
 
     def run(self):
         """
-        Run function, calculates the required node data and stores it in the
-        NodeDataInterface instance.
+        Run function, calculates the required node data (the positions of the
+        nodes and data required to make the hover text of the nodes) and
+        stores it in the NodeDataInterface instance.
         """
-        node_data = self.get_node_data()
-
-        self.data_if.x_coordinates = node_data['x_coordinates']
-        self.data_if.y_coordinates = node_data['y_coordinates']
-        self.data_if.level_differences = node_data['level_differences']
-        self.data_if.text_data = node_data['text_data']
-
-    def get_node_data(self) -> dict:
-        """
-        Calculates the positions of the nodes and data required to make the
-        hover text of the nodes.
-        :return dict: the data we need about the nodes
-        """
-        x_coordinates, y_coordinates = zip(*[
+        self.data_if.x_coordinates, self.data_if.y_coordinates = zip(*[
             (coord[0], coord[1]) for coord in self.positions.values()
         ])
 
-        level_differences: list = []
-        text_data: list = []
+        self.data_if.level_differences = []
+        self.data_if.text_data = []
 
         for node in self.graph_nodes:
             node_date_str = node[1]
@@ -71,18 +59,10 @@ class NodeDataCalculator:
             station_km = node[0]
             water_level = self.vertex_data[station_km][node_date_str]['value']
             station_level_group = self.level_group[node[0]]
-            level_differences.append(water_level - station_level_group)
+            self.data_if.level_differences.append(water_level
+                                                  - station_level_group)
 
-            text_data.append(
+            self.data_if.text_data.append(
                 (node_date_str, station_name, station_km, water_level,
                  station_level_group)
             )
-
-        node_data = {
-            'x_coordinates': x_coordinates,
-            'y_coordinates': y_coordinates,
-            'level_differences': level_differences,
-            'text_data': text_data
-        }
-
-        return node_data
