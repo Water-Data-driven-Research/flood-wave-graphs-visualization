@@ -21,27 +21,16 @@ class TimeSeriesDataHandler:
 
     def run(self, year_range: dict):
         """
-        Run function, preprocesses the data to make it easier to plot using
-        plotly express, then stores it in a TimeSeriesDataInterface.
+        Run function, filters the data for the given years, then stores it in
+        the TimeSeriesDataInterface instance.
         :param dict year_range: the years for which to filter the data, the
                start and end years are both included in the filtered data
         """
-        filtered_data = self.filter_data(year_range=year_range)
-
-        self.data_if.statistics = filtered_data
-
-    def filter_data(self, year_range: dict) -> dict:
-        """
-        Filters the data for the given years.
-        :param dict year_range: the years for which to filter the data, the
-               start and end years are both included in the filtered data
-        :return dict: the filtered data
-        """
-        filtered_data: dict = {}
+        self.data_if.statistics = {}
 
         for station_pair in self.data.keys():
-            filtered_data[station_pair] = self.data[station_pair].loc[
-                year_range['start']:year_range['end']
-            ]
-
-        return filtered_data
+            self.data_if.statistics[station_pair] = (
+                self.data[station_pair].loc[
+                    year_range['start']:year_range['end']
+                ]
+            )
