@@ -68,7 +68,7 @@ class GraphDataHandler:
             station: i for i, station in enumerate(self.data_if.stations)
         }
 
-        positions: dict = {}
+        self.data_if.positions = {}
 
         for node in self.data_if.graph_nodes:
             node_date = datetime.strptime(node[1], '%Y-%m-%d')
@@ -76,6 +76,4 @@ class GraphDataHandler:
             x_coord = (node_date - self.data_if.min_date).days
             y_coord = station_to_idx[float(node[0])]
 
-            positions[node] = (x_coord, y_coord)
-
-        self.data_if.positions = positions
+            self.data_if.positions[node] = (x_coord, y_coord)
