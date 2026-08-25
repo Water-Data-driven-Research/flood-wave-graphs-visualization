@@ -21,4 +21,4 @@ COPY . .
 ENV PYTHONPATH=/app/
 
 # Run test when the container launches.
-ENTRYPOINT ["pytest", "fwg_visualization/plot/data/tests/test_plot_data_calculation"]
+ENTRYPOINT ["pytest", "fwg_visualization/plot/data/tests/test_plot_data_calculation.py"]
