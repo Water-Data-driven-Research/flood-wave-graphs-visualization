@@ -152,27 +152,27 @@ def mock_vertex_data() -> dict:
 
 
 @pytest.fixture
-def mock_level_group() -> dict:
+def mock_level_groups() -> dict:
     """
     A potential mapping of station positions on the river to their level
     groups (values above which a water level is considered high).
     :return dict: the potential mapping
     """
-    mock_level_group = {
+    mock_level_groups = {
         '1.0': 200,
         '2.0': 178,
         '3.0': 295,
         '5.0': 79
     }
 
-    return mock_level_group
+    return mock_level_groups
 
 
 @pytest.fixture
 def node_data_interface(mock_graph_data_if: GraphDataInterface,
                         mock_rkm_station: dict,
                         mock_vertex_data: dict,
-                        mock_level_group: dict) -> NodeDataInterface:
+                        mock_level_groups: dict) -> NodeDataInterface:
     """
     Extracts the necessary data from the mock GraphDataInterface with a
     NodeDataCalculator, then stores this data in a fixed NodeDataInterface,
@@ -189,7 +189,7 @@ def node_data_interface(mock_graph_data_if: GraphDataInterface,
                                   date2: {'value': value2, 'color': color2},
                                   ...},
                        ...}
-    :param dict mock_level_group: a potential mapping of station positions on
+    :param dict mock_level_groups: a potential mapping of station positions on
            the river to their level groups (values above which a water level
            is considered high)
     :return NodeDataInterface: the fixed NodeDataInterface used for testing
@@ -197,7 +197,7 @@ def node_data_interface(mock_graph_data_if: GraphDataInterface,
     node_data_calculator = NodeDataCalculator(graph_data_if=mock_graph_data_if,
                                               rkm_station=mock_rkm_station,
                                               vertex_data=mock_vertex_data,
-                                              level_group=mock_level_group)
+                                              level_groups=mock_level_groups)
     node_data_calculator.run()
 
     return node_data_calculator.data_if
