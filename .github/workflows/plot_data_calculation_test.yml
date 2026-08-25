@@ -1,4 +1,4 @@
-name: Node Data Calculation Test
+name: Plot Data Calculation Test
 
 on:
   pull_request_review:
