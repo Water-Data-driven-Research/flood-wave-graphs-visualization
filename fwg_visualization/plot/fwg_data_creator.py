@@ -67,7 +67,7 @@ class FWGDataCreator:
             graph_data_if=self.graph_data_if,
             rkm_station=self.rkm_station,
             vertex_data=self.vertex_data,
-            level_group=self.level_groups
+            level_groups=self.level_groups
         )
         node_data_calculator.run()
         self.node_data_if = node_data_calculator.data_if
@@ -87,8 +87,7 @@ class FWGDataCreator:
         Instantiates an EdgeDataCalculator to calculate the required edge data.
         """
         edge_data_calculator = EdgeDataCalculator(
-            graph_data_if=self.graph_data_if,
-            rkm_station=self.rkm_station
+            graph_data_if=self.graph_data_if
         )
         edge_data_calculator.run()
         self.edge_data_if = edge_data_calculator.data_if
