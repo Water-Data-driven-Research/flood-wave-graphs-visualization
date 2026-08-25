@@ -26,7 +26,7 @@ class TimeSeriesDataPlotter:
         """
         Acquires the type of statistic that we are plotting, one of the
         following: 'flood wave count', 'mean propagation time',
-        'median propagation time'.
+        'median propagation time', 'mean slope', 'median slope'.
         :return str: the type of statistics that we are plotting
         """
         self.__statistic_type = list(self.statistics.values())[0].columns[0]
@@ -74,11 +74,13 @@ class TimeSeriesDataPlotter:
             unit_of_measurement = 'Number'
         elif 'propagation time' in self.statistic_type:
             unit_of_measurement = 'Days'
+        elif 'slope' in self.statistic_type:
+            unit_of_measurement = 'Centimeter/kilometer'
         else:
             raise ValueError(
-                f"Unsupported statistic type: {self.statistic_type}, use one "
-                "of the following: 'flood wave count', "
-                "'mean propagation time', 'median propagation time'."
+                f"Unsupported statistic type: {self.statistic_type}, supported"
+                " types: 'flood wave count', 'mean propagation time', "
+                "'median propagation time', 'mean slope', 'median slope'."
             )
         return unit_of_measurement
 
