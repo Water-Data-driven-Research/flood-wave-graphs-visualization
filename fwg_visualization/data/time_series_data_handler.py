@@ -1,5 +1,3 @@
-import pandas as pd
-
 from fwg_visualization.data.interfaces.time_series_data_interface import (
     TimeSeriesDataInterface
 )
@@ -23,33 +21,16 @@ class TimeSeriesDataHandler:
 
     def run(self, year_range: dict):
         """
-        Run function, preprocesses the data to make it easier to plot using
-        plotly express, then stores it in a TimeSeriesDataInterface.
+        Run function, filters the data for the given years, then stores it in
+        the TimeSeriesDataInterface instance.
         :param dict year_range: the years for which to filter the data, the
                start and end years are both included in the filtered data
         """
-        filtered_data = self.filter_data(data=self.data,
-                                         year_range=year_range)
+        self.data_if.statistics = {}
 
-        self.data_if = TimeSeriesDataInterface(
-            statistics=filtered_data
-        )
-
-    @staticmethod
-    def filter_data(data: dict, year_range: dict) -> dict:
-        """
-        Filters the data for the given years.
-        :param dict data: the data to be filtered (keys: station pairs,
-               values: pandas DataFrames)
-        :param dict year_range: the years for which to filter the data, the
-               start and end years are both included in the filtered data
-        :return dict: the filtered data
-        """
-        filtered_data: dict = {}
-
-        for station_pair in data.keys():
-            filtered_data[station_pair] = data[station_pair].loc[
-                year_range['start']:year_range['end']
-            ]
-
-        return filtered_data
+        for station_pair in self.data.keys():
+            self.data_if.statistics[station_pair] = (
+                self.data[station_pair].loc[
+                    year_range['start']:year_range['end']
+                ]
+            )
