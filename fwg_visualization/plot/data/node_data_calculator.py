@@ -14,7 +14,7 @@ class NodeDataCalculator:
                  graph_data_if: GraphDataInterface,
                  rkm_station: dict,
                  vertex_data: dict,
-                 level_group: dict):
+                 level_groups: dict):
         """
         Constructor.
         :param GraphDataInterface graph_data_if: contains data about the graph
@@ -28,7 +28,7 @@ class NodeDataCalculator:
                            date2: {'value': value2, 'color': color2},
                            ...},
                 ...}
-        :param dict level_group: the dictionary that maps station positions on
+        :param dict level_groups: the dictionary that maps station positions on
                the river to their level groups (values above which a water
                level is considered high)
         """
@@ -36,7 +36,7 @@ class NodeDataCalculator:
         self.positions = graph_data_if.positions
         self.rkm_station = rkm_station
         self.vertex_data = vertex_data
-        self.level_group = level_group
+        self.level_groups = level_groups
 
         self.data_if = NodeDataInterface()
 
@@ -58,7 +58,7 @@ class NodeDataCalculator:
             station_name = self.rkm_station[float(node[0])]
             station_km = node[0]
             water_level = self.vertex_data[station_km][node_date_str]['value']
-            station_level_group = self.level_group[node[0]]
+            station_level_group = self.level_groups[node[0]]
             self.data_if.level_differences.append(water_level
                                                   - station_level_group)
 

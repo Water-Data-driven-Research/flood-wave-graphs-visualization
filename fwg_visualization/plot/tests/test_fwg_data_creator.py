@@ -5,18 +5,7 @@ import pytest
 from fwg_visualization.data.interfaces.graph_data_interface import (
     GraphDataInterface
 )
-from fwg_visualization.plot.data.axis_data_calculator import AxisDataCalculator
-from fwg_visualization.plot.data.edge_data_calculator import EdgeDataCalculator
-from fwg_visualization.plot.data.interfaces.axis_data_interface import (
-    AxisDataInterface
-)
-from fwg_visualization.plot.data.interfaces.edge_data_interface import (
-    EdgeDataInterface
-)
-from fwg_visualization.plot.data.interfaces.node_data_interface import (
-    NodeDataInterface
-)
-from fwg_visualization.plot.data.node_data_calculator import NodeDataCalculator
+from fwg_visualization.plot.fwg_data_creator import FWGDataCreator
 
 
 @pytest.fixture
@@ -169,14 +158,12 @@ def mock_level_groups() -> dict:
 
 
 @pytest.fixture
-def node_data_interface(mock_graph_data_if: GraphDataInterface,
-                        mock_rkm_station: dict,
-                        mock_vertex_data: dict,
-                        mock_level_groups: dict) -> NodeDataInterface:
+def fwg_data_creator(mock_graph_data_if: GraphDataInterface,
+                     mock_rkm_station: dict,
+                     mock_vertex_data: dict,
+                     mock_level_groups: dict) -> FWGDataCreator:
     """
-    Extracts the necessary data from the mock GraphDataInterface with a
-    NodeDataCalculator, then stores this data in a fixed NodeDataInterface,
-    which we will use for testing.
+    Creates the data necessary to plot the graph, which we will run tests on.
     :param GraphDataInterface mock_graph_data_if: the mock graph data interface
            which provides the data for testing
     :param dict mock_rkm_station: a potential mapping of station positions on
@@ -192,49 +179,15 @@ def node_data_interface(mock_graph_data_if: GraphDataInterface,
     :param dict mock_level_groups: a potential mapping of station positions on
            the river to their level groups (values above which a water level
            is considered high)
-    :return NodeDataInterface: the fixed NodeDataInterface used for testing
+    :return FWGDataCreator: the fixed FWGDataCreator used for testing
     """
-    node_data_calculator = NodeDataCalculator(graph_data_if=mock_graph_data_if,
-                                              rkm_station=mock_rkm_station,
-                                              vertex_data=mock_vertex_data,
-                                              level_groups=mock_level_groups)
-    node_data_calculator.run()
+    fwg_data_creator = FWGDataCreator(graph_data_if=mock_graph_data_if,
+                                      rkm_station=mock_rkm_station,
+                                      vertex_data=mock_vertex_data,
+                                      level_groups=mock_level_groups)
+    fwg_data_creator.run()
 
-    return node_data_calculator.data_if
-
-
-@pytest.fixture
-def axis_data_interface(
-        mock_graph_data_if: GraphDataInterface) -> AxisDataInterface:
-    """
-    Extracts the necessary data from the mock GraphDataInterface and the
-    NodeDataInterface with an AxisDataCalculator, then stores this data in a
-    fixed AxisDataInterface, which we will use for testing.
-    :param GraphDataInterface mock_graph_data_if: the mock graph data interface
-           which provides the data for testing
-    :return AxisDataInterface: the fixed AxisDataInterface used for testing
-    """
-    axis_data_calculator = AxisDataCalculator(graph_data_if=mock_graph_data_if)
-    axis_data_calculator.run()
-
-    return axis_data_calculator.data_if
-
-
-@pytest.fixture
-def edge_data_interface(mock_graph_data_if: GraphDataInterface
-                        ) -> EdgeDataInterface:
-    """
-    Extracts the necessary data from the mock GraphDataInterface and the
-    NodeDataInterface with an EdgeDataCalculator, then stores this data in a
-    fixed EdgeDataInterface, which we will use for testing.
-    :param GraphDataInterface mock_graph_data_if: the mock graph data interface
-           which provides the data for testing
-    :return EdgeDataInterface: the fixed EdgeDataInterface used for testing
-    """
-    edge_data_calculator = EdgeDataCalculator(graph_data_if=mock_graph_data_if)
-    edge_data_calculator.run()
-
-    return edge_data_calculator.data_if
+    return fwg_data_creator
 
 
 @pytest.mark.parametrize('expected_x_coordinates,'
@@ -255,7 +208,7 @@ def edge_data_interface(mock_graph_data_if: GraphDataInterface
                                 295),
                                ('1999-12-21', 'Station Four', '5.0', 75, 79)])
                          ])
-def test_node_data(node_data_interface: NodeDataInterface,
+def test_node_data(fwg_data_creator: FWGDataCreator,
                    expected_x_coordinates: tuple,
                    expected_y_coordinates: tuple,
                    expected_level_differences: list,
@@ -263,8 +216,8 @@ def test_node_data(node_data_interface: NodeDataInterface,
     """
     Tests whether the positions of the graph nodes and the text data were
     calculated correctly or not.
-    :param NodeDataInterface node_data_interface: contains the calculated
-           positions of graph nodes and text data
+    :param FWGDataCreator fwg_data_creator: contains the calculated positions
+           of graph nodes and text data
     :param tuple expected_x_coordinates: the expected correct tuple of x-
            coordinates
     :param tuple expected_y_coordinates: the expected correct tuple of y-
@@ -273,10 +226,12 @@ def test_node_data(node_data_interface: NodeDataInterface,
            level differences from the level group
     :param list expected_text_data: the expected correct text data
     """
-    assert node_data_interface.x_coordinates == expected_x_coordinates
-    assert node_data_interface.y_coordinates == expected_y_coordinates
-    assert node_data_interface.level_differences == expected_level_differences
-    assert node_data_interface.text_data == expected_text_data
+    node_data_if = fwg_data_creator.node_data_if
+
+    assert node_data_if.x_coordinates == expected_x_coordinates
+    assert node_data_if.y_coordinates == expected_y_coordinates
+    assert node_data_if.level_differences == expected_level_differences
+    assert node_data_if.text_data == expected_text_data
 
 
 @pytest.mark.parametrize('expected_x_ticks,'
@@ -298,15 +253,14 @@ def test_node_data(node_data_interface: NodeDataInterface,
                               [0, 1, 2, 3],
                               [1.0, 2.0, 3.0, 5.0])
                          ])
-def test_axis_data(axis_data_interface: AxisDataInterface,
+def test_axis_data(fwg_data_creator: FWGDataCreator,
                    expected_x_ticks: list,
                    expected_x_tick_labels: list,
                    expected_y_ticks: list,
                    expected_y_tick_labels: list):
     """
     Tests whether the axis data was calculated correctly or not.
-    :param AxisDataInterface axis_data_interface: contains the calculated
-           axis data
+    :param FWGDataCreator fwg_data_creator: contains the calculated axis data
     :param list expected_x_ticks: the expected correct list of x-axis ticks
     :param list expected_x_tick_labels: the expected correct list of x-tick
            labels
@@ -314,10 +268,12 @@ def test_axis_data(axis_data_interface: AxisDataInterface,
     :param list expected_y_tick_labels: the expected correct list of y-tick
            labels
     """
-    assert axis_data_interface.x_ticks == expected_x_ticks
-    assert axis_data_interface.x_tick_labels == expected_x_tick_labels
-    assert axis_data_interface.y_ticks == expected_y_ticks
-    assert axis_data_interface.y_tick_labels == expected_y_tick_labels
+    axis_data_if = fwg_data_creator.axis_data_if
+
+    assert axis_data_if.x_ticks == expected_x_ticks
+    assert axis_data_if.x_tick_labels == expected_x_tick_labels
+    assert axis_data_if.y_ticks == expected_y_ticks
+    assert axis_data_if.y_tick_labels == expected_y_tick_labels
 
 
 @pytest.mark.parametrize('expected_edge_data,', [
@@ -348,14 +304,16 @@ def test_axis_data(axis_data_interface: AxisDataInterface,
         }
     ]
 ])
-def test_edge_data(edge_data_interface: EdgeDataInterface,
+def test_edge_data(fwg_data_creator: FWGDataCreator,
                    expected_edge_data: list):
     """
     Tests whether the positions of the graph edges were calculated correctly or
     not.
-    :param EdgeDataInterface edge_data_interface: contains the calculated
-           positions of graph directed edges
+    :param FWGDataCreator fwg_data_creator: contains the calculated positions
+           of graph directed edges
     :param list expected_edge_data: the expected correct list of directed edge
            positions
     """
-    assert edge_data_interface.directed_edge_data == expected_edge_data
+    edge_data_if = fwg_data_creator.edge_data_if
+
+    assert edge_data_if.directed_edge_data == expected_edge_data
