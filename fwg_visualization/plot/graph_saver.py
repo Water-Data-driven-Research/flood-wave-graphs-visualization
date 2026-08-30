@@ -1,10 +1,10 @@
 from pathlib import Path
 
 
-class GraphSaver:
+class PlotSaver:
     """
-    This static class saves a created plot as a static image.
+    This static class saves a created plot as a static vector image (PDF).
     """
     @staticmethod
-    def save_graph():
+    def save_plot():
         pass
