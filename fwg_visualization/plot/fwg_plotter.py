@@ -9,7 +9,10 @@ class FWGPlotter:
     """
     This class creates the plot of the received flood wave graph.
     """
-    def __init__(self, fwg_data_creator: FWGDataCreator, color_radius: int):
+    def __init__(self,
+                 fwg_data_creator: FWGDataCreator,
+                 use_colorscale: bool,
+                 color_radius: int):
         """
         Constructor. The color radius is ideally the highest recorded
         difference from the level group across the whole flood wave graph, not
@@ -17,11 +20,15 @@ class FWGPlotter:
         consistency of colors across different fwg plots, which include
         different water levels.
         :param FWGDataCreator fwg_data_creator: contains data for plotting
+        :param bool use_colorscale: whether there should be a colorscale
+               according to the deviation from the level group (True), or a
+               static color (False)
         :param int color_radius: used to determine the range of the color scale
         """
         self.node_data_if = fwg_data_creator.node_data_if
         self.axis_data_if = fwg_data_creator.axis_data_if
         self.edge_data_if = fwg_data_creator.edge_data_if
+        self.use_colorscale = use_colorscale
         self.color_radius = color_radius
 
     def get_fwg_plot(self,
@@ -56,40 +63,57 @@ class FWGPlotter:
         Creates the trace that includes the nodes of the graph.
         :return go.Scatter: the trace of the nodes
         """
-        colorscale = [
-            [0.0, "rgb(0, 105, 120)"],
-            [0.49, "rgb(190, 230, 235)"],
-            [0.5, "rgb(255, 160, 160)"],
-            [1.0, "rgb(200, 0, 0)"]
-        ]
+        if self.use_colorscale:
+            colorscale = [
+                [0.0, "rgb(0, 105, 120)"],
+                [0.49, "rgb(190, 230, 235)"],
+                [0.5, "rgb(255, 160, 160)"],
+                [1.0, "rgb(200, 0, 0)"]
+            ]
 
-        node_trace = go.Scatter(
-            x=self.node_data_if.x_coordinates,
-            y=self.node_data_if.y_coordinates,
-            mode='markers',
-            customdata=self.node_data_if.text_data,
-            hovertemplate='<b>%{customdata[0]}</b><br>'
-                          '%{customdata[1]} (%{customdata[2]} km)<br>'
-                          'Water level: %{customdata[3]} cm<br>'
-                          'Level group: %{customdata[4]} cm<extra></extra>',
-            marker=dict(
-                size=15,
-                line_width=1,
-                colorscale=colorscale,
-                cmid=0,
-                cmax=self.color_radius,
-                cmin=-self.color_radius,
-                color=self.node_data_if.level_differences,
-                colorbar=dict(
-                    thickness=15,
-                    title=dict(
-                        text='Difference from level group',
-                        side='right'
-                    ),
-                    xanchor='left'
+            node_trace = go.Scatter(
+                x=self.node_data_if.x_coordinates,
+                y=self.node_data_if.y_coordinates,
+                mode='markers',
+                customdata=self.node_data_if.text_data,
+                hovertemplate='<b>%{customdata[0]}</b><br>'
+                              '%{customdata[1]} (%{customdata[2]} km)<br>'
+                              'Water level: %{customdata[3]} cm<br>'
+                              'Level group: %{customdata[4]} cm<extra></extra>',
+                marker=dict(
+                    size=15,
+                    line_width=1,
+                    colorscale=colorscale,
+                    cmid=0,
+                    cmax=self.color_radius,
+                    cmin=-self.color_radius,
+                    color=self.node_data_if.level_differences,
+                    colorbar=dict(
+                        thickness=15,
+                        title=dict(
+                            text='Difference from level group',
+                            side='right'
+                        ),
+                        xanchor='left'
+                    )
                 )
             )
-        )
+        else:
+            node_trace = go.Scatter(
+                x=self.node_data_if.x_coordinates,
+                y=self.node_data_if.y_coordinates,
+                mode='markers',
+                customdata=self.node_data_if.text_data,
+                hovertemplate='<b>%{customdata[0]}</b><br>'
+                              '%{customdata[1]} (%{customdata[2]} km)<br>'
+                              'Water level: %{customdata[3]} cm<br>'
+                              'Level group: %{customdata[4]} cm<extra></extra>',
+                marker=dict(
+                    size=15,
+                    line_width=1,
+                    color='blue'
+                )
+            )
 
         return node_trace
 
