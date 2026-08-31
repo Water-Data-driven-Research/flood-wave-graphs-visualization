@@ -5,7 +5,7 @@ import plotly.graph_objects as go
 
 class PlotSaver:
     """
-    This static class saves a created plot as a static vector image (PDF).
+    This static class saves a created plot as a static image (by default PDF).
     """
     @staticmethod
     def save_plot(fig: go.Figure,
