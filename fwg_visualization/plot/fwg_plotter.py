@@ -38,12 +38,12 @@ class FWGPlotter:
         :param str graph_name: 'Flood Wave Graph' by default
         :param int width: the width of the image to be created (pixels)
         :param int height: the height of the image to be created (pixels)
-        :return go.Figure: the created plot
         :param bool use_colorscale: whether there should be a colorscale
                according to the deviation from the level group (True), or a
                static color (False)
         :param str static_color: the color for the static graph
         :param int color_radius: used to determine the range of the color scale
+        :return go.Figure: the created plot
         """
         fig = go.Figure()
 
