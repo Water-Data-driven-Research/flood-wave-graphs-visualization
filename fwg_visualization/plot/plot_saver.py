@@ -18,5 +18,4 @@ class PlotSaver:
         :param str file_name: the name of the saved file
         """
         folder_path.mkdir(parents=True, exist_ok=True)
-
         fig.write_image(folder_path / file_name)
