@@ -9,35 +9,47 @@ class FWGPlotter:
     """
     This class creates the plot of the received flood wave graph.
     """
-    def __init__(self, fwg_data_creator: FWGDataCreator, color_radius: int):
+    def __init__(self, fwg_data_creator: FWGDataCreator):
         """
-        Constructor. The color radius is ideally the highest recorded
-        difference from the level group across the whole flood wave graph, not
-        just the filtered part that is being plotted. This is to ensure
-        consistency of colors across different fwg plots, which include
-        different water levels.
+        Constructor.
         :param FWGDataCreator fwg_data_creator: contains data for plotting
-        :param int color_radius: used to determine the range of the color scale
         """
         self.node_data_if = fwg_data_creator.node_data_if
         self.axis_data_if = fwg_data_creator.axis_data_if
         self.edge_data_if = fwg_data_creator.edge_data_if
-        self.color_radius = color_radius
 
     def get_fwg_plot(self,
                      graph_name: str = 'Flood Wave Graph',
                      width: int = 1000,
-                     height: int = 500) -> go.Figure:
+                     height: int = 500,
+                     use_colorscale: bool = False,
+                     static_color: str = 'lightblue',
+                     color_radius: int = 1000) -> go.Figure:
         """
         Creates the plot of the flood wave graph.
+        The color radius is ideally the highest recorded difference from the
+        level group across the whole flood wave graph, not just the filtered
+        part that is being plotted. This is to ensure consistency of colors
+        across different fwg plots, which include different water levels.
+        If we plot with a static color, then 'static_color' is used and
+        'color_radius' is not used.
+        If we plot with a color scale, then 'static_color' is not used and
+        'color_radius' is used.
         :param str graph_name: 'Flood Wave Graph' by default
         :param int width: the width of the image to be created (pixels)
         :param int height: the height of the image to be created (pixels)
+        :param bool use_colorscale: whether there should be a colorscale
+               according to the deviation from the level group (True), or a
+               static color (False)
+        :param str static_color: the color for the static graph
+        :param int color_radius: used to determine the range of the color scale
         :return go.Figure: the created plot
         """
         fig = go.Figure()
 
-        node_trace = self.create_node_trace()
+        node_trace = self.create_node_trace(use_colorscale=use_colorscale,
+                                            static_color=static_color,
+                                            color_radius=color_radius)
         fig.add_trace(trace=node_trace)
 
         edges = self.create_directed_edges()
@@ -51,45 +63,72 @@ class FWGPlotter:
 
         return fig
 
-    def create_node_trace(self) -> go.Scatter:
+    def create_node_trace(self,
+                          use_colorscale: bool = False,
+                          static_color: str = 'lightblue',
+                          color_radius: int = 1000) -> go.Scatter:
         """
         Creates the trace that includes the nodes of the graph.
+        :param bool use_colorscale: whether there should be a colorscale
+               according to the deviation from the level group (True), or a
+               static color (False)
+        :param str static_color: the color for the static graph
+        :param int color_radius: used to determine the range of the color scale
         :return go.Scatter: the trace of the nodes
         """
-        colorscale = [
-            [0.0, "rgb(0, 105, 120)"],
-            [0.49, "rgb(190, 230, 235)"],
-            [0.5, "rgb(255, 160, 160)"],
-            [1.0, "rgb(200, 0, 0)"]
-        ]
+        if use_colorscale:
+            colorscale = [
+                [0.0, "rgb(0, 105, 120)"],
+                [0.49, "rgb(190, 230, 235)"],
+                [0.5, "rgb(255, 160, 160)"],
+                [1.0, "rgb(200, 0, 0)"]
+            ]
 
-        node_trace = go.Scatter(
-            x=self.node_data_if.x_coordinates,
-            y=self.node_data_if.y_coordinates,
-            mode='markers',
-            customdata=self.node_data_if.text_data,
-            hovertemplate='<b>%{customdata[0]}</b><br>'
-                          '%{customdata[1]} (%{customdata[2]} km)<br>'
-                          'Water level: %{customdata[3]} cm<br>'
-                          'Level group: %{customdata[4]} cm<extra></extra>',
-            marker=dict(
-                size=15,
-                line_width=1,
-                colorscale=colorscale,
-                cmid=0,
-                cmax=self.color_radius,
-                cmin=-self.color_radius,
-                color=self.node_data_if.level_differences,
-                colorbar=dict(
-                    thickness=15,
-                    title=dict(
-                        text='Difference from level group',
-                        side='right'
-                    ),
-                    xanchor='left'
+            node_trace = go.Scatter(
+                x=self.node_data_if.x_coordinates,
+                y=self.node_data_if.y_coordinates,
+                mode='markers',
+                customdata=self.node_data_if.text_data,
+                hovertemplate=
+                '<b>%{customdata[0]}</b><br>'
+                '%{customdata[1]} (%{customdata[2]} km)<br>'
+                'Water level: %{customdata[3]} cm<br>'
+                'Level group: %{customdata[4]} cm<extra></extra>',
+                marker=dict(
+                    size=15,
+                    line_width=1,
+                    colorscale=colorscale,
+                    cmid=0,
+                    cmax=color_radius,
+                    cmin=-color_radius,
+                    color=self.node_data_if.level_differences,
+                    colorbar=dict(
+                        thickness=15,
+                        title=dict(
+                            text='Difference from level group',
+                            side='right'
+                        ),
+                        xanchor='left'
+                    )
                 )
             )
-        )
+        else:
+            node_trace = go.Scatter(
+                x=self.node_data_if.x_coordinates,
+                y=self.node_data_if.y_coordinates,
+                mode='markers',
+                customdata=self.node_data_if.text_data,
+                hovertemplate=
+                '<b>%{customdata[0]}</b><br>'
+                '%{customdata[1]} (%{customdata[2]} km)<br>'
+                'Water level: %{customdata[3]} cm<br>'
+                'Level group: %{customdata[4]} cm<extra></extra>',
+                marker=dict(
+                    size=15,
+                    line_width=1,
+                    color=static_color
+                )
+            )
 
         return node_trace
 
