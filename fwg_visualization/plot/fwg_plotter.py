@@ -23,7 +23,7 @@ class FWGPlotter:
                      width: int = 1000,
                      height: int = 500,
                      use_colorscale: bool = False,
-                     static_color: str = 'blue',
+                     static_color: str = 'lightblue',
                      color_radius: int = 1000) -> go.Figure:
         """
         Creates the plot of the flood wave graph.
@@ -65,7 +65,7 @@ class FWGPlotter:
 
     def create_node_trace(self,
                           use_colorscale: bool = False,
-                          static_color: str = 'blue',
+                          static_color: str = 'lightblue',
                           color_radius: int = 1000) -> go.Scatter:
         """
         Creates the trace that includes the nodes of the graph.
