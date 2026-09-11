@@ -1,6 +1,5 @@
 from datetime import timedelta
 
-import numpy as np
 import pandas as pd
 
 from fwg_visualization.plot.delta_peak_plotter.interfaces. \
@@ -42,11 +41,9 @@ class DeltaPeakDataHandler:
             new_date_range['start']:new_date_range['end']
         ]
 
-        self.data_if.data_points = desired_points.replace(
-            to_replace=desired_points.array,
-            value=np.round(a=(desired_points.array / 100 + self.null_point),
-                           decimals=4)
-        )
+        self.data_if.data_points = (
+                desired_points / 100 + self.null_point
+        ).round(decimals=2)
 
         self.data_if.delta_peaks = self.data_if.data_points[
             self.data_if.data_points.index.isin(self.peak_dates.astype('str'))
