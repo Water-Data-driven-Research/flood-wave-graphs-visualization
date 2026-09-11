@@ -38,6 +38,7 @@ class DeltaPeakPlotter:
         self.create_data_trace(fig=fig)
         self.create_delta_trace(fig=fig)
 
+        self.create_lines(fig=fig)
         self.create_layout(fig=fig,
                            graph_name=graph_name,
                            width=width,
@@ -85,8 +86,37 @@ class DeltaPeakPlotter:
 
         fig.add_trace(trace=delta_trace)
 
-    def create_layout(self,
-                      fig: go.Figure,
+    def create_lines(self, fig: go.Figure):
+        """
+        Adds the vertical lines to indicate how far the delta range applies
+        around a delta peak.
+        :param go.Figure fig: the figure to add lines to
+        """
+        dates = self.delta_peaks.index
+
+        for i in range(len(dates)):
+            current_date = datetime.strptime(dates[i], '%Y-%m-%d')
+            fig.add_vline(x=current_date - timedelta(days=self.delta),
+                          layer='above',
+                          line_color=(
+                              fig.data[1].marker.color[i]
+                              if i < len(fig.data[1].marker.color)
+                              else 'black'
+                          ),
+                          line_dash='dash',
+                          line_width=2.5)
+            fig.add_vline(x=current_date + timedelta(days=self.delta),
+                          layer='above',
+                          line_color=(
+                              fig.data[1].marker.color[i]
+                              if i < len(fig.data[1].marker.color)
+                              else 'black'
+                          ),
+                          line_dash='dash',
+                          line_width=2.5)
+
+    @staticmethod
+    def create_layout(fig: go.Figure,
                       graph_name: str,
                       width: int = 1400,
                       height: int = 600):
@@ -119,26 +149,3 @@ class DeltaPeakPlotter:
             width=width,
             height=height
         )
-
-        dates = self.delta_peaks.index
-
-        for i in range(len(dates)):
-            current_date = datetime.strptime(dates[i], '%Y-%m-%d')
-            fig.add_vline(x=current_date - timedelta(days=self.delta),
-                          layer='above',
-                          line_color=(
-                              fig.data[1].marker.color[i]
-                              if i < len(fig.data[1].marker.color)
-                              else 'black'
-                          ),
-                          line_dash='dash',
-                          line_width=2.5)
-            fig.add_vline(x=current_date + timedelta(days=self.delta),
-                          layer='above',
-                          line_color=(
-                              fig.data[1].marker.color[i]
-                              if i < len(fig.data[1].marker.color)
-                              else 'black'
-                          ),
-                          line_dash='dash',
-                          line_width=2.5)
