@@ -51,10 +51,6 @@ analytical framework.
 This repository does **not** perform the primary flood-wave detection and graph
 construction.
 
-Those steps are implemented in:
-
-https://github.com/Water-Data-driven-Research/flood-wave-graphs
-
 A typical workflow is:
 
 1. load and preprocess multi-station water-level data;
@@ -202,9 +198,7 @@ pytest
 ## Data availability
 
 The Tisza River water-level data used in the accompanying study are publicly
-available and can be downloaded from:
-
-https://drive.google.com/drive/folders/12pkrhybv52KpmeNYsHZRSkL9nfF3May2?usp=sharing
+available.
 
 
 ## License
