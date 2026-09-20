@@ -37,13 +37,9 @@ class DeltaPeakDataHandler:
         """
         new_date_range = self.calculate_new_date_range(date_range=date_range)
 
-        desired_points = self.time_series.loc[
+        self.data_if.data_points = self.time_series.loc[
             new_date_range['start']:new_date_range['end']
         ]
-
-        self.data_if.data_points = (
-                desired_points / 100 + self.null_point
-        ).round(decimals=2)
 
         self.data_if.delta_peaks = self.data_if.data_points[
             self.data_if.data_points.index.isin(self.peak_dates.astype('str'))
