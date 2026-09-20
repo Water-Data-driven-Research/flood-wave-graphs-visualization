@@ -13,19 +13,16 @@ class DeltaPeakDataHandler:
     def __init__(self,
                  time_series: pd.DataFrame,
                  peak_dates: pd.DatetimeIndex,
-                 null_point: int,
                  delta: int):
         """
         Constructor.
         :param pd.DataFrame time_series: the received time series data
         :param pd.DatetimeIndex peak_dates: list of the dates of the delta
                peaks
-        :param int null_point: the null point of the station
         :param int delta: the delta value
         """
         self.time_series = time_series
         self.peak_dates = peak_dates
-        self.null_point = null_point
 
         self.data_if = DeltaPeakDataInterface(delta=delta)
 
